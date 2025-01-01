@@ -1,5 +1,4 @@
 from time import time
-
 import pygame
 
 
@@ -8,6 +7,7 @@ class HEVCharger(pygame.sprite.Sprite):
         super().__init__()
         self.add(all_sprites)
         self.image = pygame.image.load('images/hev_charger/charger.png')
+        self.image = pygame.transform.scale(self.image, (117, 245))
         self.rect = self.image.get_rect()
 
 
@@ -16,9 +16,11 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
         super().__init__()
         self.add(all_sprites)
         self.go = False
+        self.j = 0
         self.image = pygame.image.load('images/hev_charger/for_animation.png')
+        self.image = pygame.transform.scale(self.image, (13, 14))
         self.rect = self.image.get_rect()
-        self.rect = self.rect.move(92, 296)
+        self.rect = self.rect.move(32, 94)
         self.move_direction = 'down'
         self.stop = False
 
@@ -28,14 +30,15 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
                 self.stop = True
         except NameError:
             pass
-        if self.go:
+        self.j += 1
+        if self.go and self.j % 2 == 0:
             if self.move_direction == 'down':
                 self.rect = self.rect.move(0, 2)
-                if self.rect.y == 366:
+                if self.rect.y == 122:
                     self.move_direction = 'up'
             else:
                 self.rect = self.rect.move(0, -2)
-                if self.rect.y == 296:
+                if self.rect.y == 94:
                     if self.stop:
                         self.go = False
                     self.move_direction = 'down'
