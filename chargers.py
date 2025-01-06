@@ -34,10 +34,12 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect = self.rect.move(chargerx + 30, chargery + 86)
         self.move_direction = 'down'
+        self.object = None
 
     def update(self, *args, **kwargs):
-        if time() - self.time_start_hev_charger_sound > 8:
+        if time() - self.time_start_hev_charger_sound > 8 or self.object.suit_health == 100:
             self.go = False
+            self.sound.stop()
 
         self.for_slover += 1
         if self.go and self.for_slover % 2 == 0:
@@ -49,12 +51,15 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
                 self.rect = self.rect.move(0, -2)
                 if self.rect.y <= self.chargery + 90:
                     self.move_direction = 'down'
+            if self.for_slover % 4 == 0:
+                self.object.suit_health += 1
 
-    def start_animation(self) -> None:
+    def start_animation(self, obj) -> None:
         if not self.go:
             self.sound.play()
             self.go = True
             self.time_start_hev_charger_sound = time()
+            self.object = obj
 
 
 class HealthChargerBox(pygame.sprite.Sprite):
@@ -80,6 +85,7 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
         self.chargerx = chargerx
         self.chargery = chargery
         self.go = False
+        self.object = None
         self.animation_i = 0
         self.for_slover = 0
         self.images = [
@@ -96,8 +102,9 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
         self.rect = self.image.get_rect().move(self.chargerx + 60, self.chargery + 75)
 
     def update(self, *args, **kwargs):
-        if time() - self.time_start_health_charger_sound > 14:
+        if time() - self.time_start_health_charger_sound > 14 or self.object.player_health == 100:
             self.go = False
+            self.sound.stop()
 
         self.for_slover += 1
         if self.go and self.for_slover % 2 == 0:
@@ -105,12 +112,15 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
             self.image = pygame.image.load(self.images[self.animation_i])
             self.image = pygame.transform.scale(self.image, (40, 40))
             self.rect = self.image.get_rect().move(self.chargerx + 60, self.chargery + 75)
+            if self.for_slover % 4 == 0:
+                self.object.player_health += 1
 
-    def start_animation(self) -> None:
+    def start_animation(self, obj) -> None:
         if not self.go:
             self.sound.play()
             self.go = True
             self.time_start_health_charger_sound = time()
+            self.object = obj
 
 
 class HEVCharger:
@@ -120,8 +130,8 @@ class HEVCharger:
                                                                    pygame.mixer.Sound('sounds/hev_charger.mp3'),
                                                                    *groups)
 
-    def start_animation(self):
-        self.hev_charger_animaton_block.start_animation()
+    def start_animation(self, obj):
+        self.hev_charger_animaton_block.start_animation(obj)
 
 
 class HealthCharger:
@@ -133,8 +143,8 @@ class HealthCharger:
                                                                              'sounds/health_charger.mp3'),
                                                                          *groups)
 
-    def start_animation(self):
-        self.health_charger_animaton_block.start_animation()
+    def start_animation(self, obj):
+        self.health_charger_animaton_block.start_animation(obj)
 
 
 if __name__ == '__main__':
@@ -176,9 +186,9 @@ if __name__ == '__main__':
 
                 if event.key == pygame.K_e:
                     if isinstance(pygame.sprite.spritecollideany(player, all_sprites), HEVChargerBox):
-                        HEV_charger.start_animation()
+                        HEV_charger.start_animation(player)
                     if isinstance(pygame.sprite.spritecollideany(player, all_sprites), HealthChargerBox):
-                        health_charger.start_animation()
+                        health_charger.start_animation(player)
 
         screen.fill((0, 0, 0))
         all_sprites.update()

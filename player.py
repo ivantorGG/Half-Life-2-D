@@ -13,5 +13,8 @@ class Player(pygame.sprite.Sprite):
         self.rect = (pygame.Rect(300, 300, 30, 50))
         self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)
 
+        self.player_health = 10
+        self.suit_health = 10
+
     def move_player(self, plus_x, plus_y):
         self.rect = self.rect.move(plus_x, plus_y)
