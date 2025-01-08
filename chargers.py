@@ -7,37 +7,39 @@ import pygame
 
 class HEVChargerBox(pygame.sprite.Sprite):
     def __init__(self, x, y, *groups):
-        super().__init__()
-
-        for group in groups:
-            self.add(group)
+        """При инициализации указывать координаты и группы спрайтов"""
+        super().__init__(*groups)
 
         self.image = pygame.image.load('images/hev_charger/charger.png')
         self.image = pygame.transform.scale(self.image, (117, 245))
         self.rect = self.image.get_rect()
-        self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)
+
+        self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)  # двигаю тело зарядника по x и y
 
 
 class HEVChargerAnimationBlock(pygame.sprite.Sprite):
-    def __init__(self, chargerx, chargery, sound, *groups):
-        super().__init__()
+    def __init__(self, chargerx, chargery, *groups):
+        """При инициализации указывать координаты тела зарядника и группы спрайтов"""
+        super().__init__(*groups)
 
-        for group in groups:
-            self.add(group)
+        self.chargerx = chargerx  # х тела
+        self.chargery = chargery  # у тела
 
-        self.chargerx = chargerx
-        self.chargery = chargery
-        self.charge_points = 100
-        self.sound = sound
-        self.time_start_hev_charger_sound = None
-        self.go = False
-        self.for_slover = 0
+        self.sound = pygame.mixer.Sound('sounds/hev_charger.mp3')  # звук
+        self.time_start_hev_charger_sound = None  # время начала проигрывания звука
+
         self.image = pygame.image.load('images/hev_charger/for_animation.png')
         self.image = pygame.transform.scale(self.image, (13, 14))
+
+        self.go = False  # проигрывать анимацию?
+        self.for_slover = 0  # это чтобы она была медленнее
+        self.move_direction = 'down'  # двигается вниз
+
         self.rect = self.image.get_rect()
-        self.rect = self.rect.move(chargerx + 30, chargery + 86)
-        self.move_direction = 'down'
-        self.object = None
+        self.rect = self.rect.move(chargerx + 30, chargery + 86)  # перемещаю относительно тела
+
+        self.charge_points = 100  # столько в заряднике припасов
+        self.object = None  # объект, которому давать припасы
 
     def update(self, *args, **kwargs):
         if self.time_start_hev_charger_sound is not None and (
@@ -63,6 +65,7 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
                 self.object.suit_health += 1
 
     def start_animation(self, obj) -> None:
+        """Начать анимацию зарядника костюма"""
         if not self.go:
             self.sound.play()
             self.go = True
@@ -72,10 +75,7 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
 
 class HealthChargerBox(pygame.sprite.Sprite):
     def __init__(self, x, y, *groups):
-        super().__init__()
-
-        for group in groups:
-            self.add(group)
+        super().__init__(*groups)
 
         self.image = pygame.image.load('images/health_charger/charger.png')
         self.image = pygame.transform.scale(self.image, (416 // 3, 687 // 3))
@@ -85,10 +85,7 @@ class HealthChargerBox(pygame.sprite.Sprite):
 
 class HealthChargerAnimationBlock(pygame.sprite.Sprite):
     def __init__(self, chargerx, chargery, sound, *groups):
-        super().__init__()
-
-        for group in groups:
-            self.add(group)
+        super().__init__(*groups)
 
         self.charge_points = 100
         self.time_start_health_charger_sound = None
@@ -132,6 +129,7 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
                 self.object.player_health += 1
 
     def start_animation(self, obj) -> None:
+        """Начать анимацию зарядника здоровья"""
         if not self.go:
             self.sound.play()
             self.go = True
@@ -143,7 +141,6 @@ class HEVCharger:
     def __init__(self, x, y, *groups):
         self.hev_charger = HEVChargerBox(x, y, *groups)
         self.hev_charger_animaton_block = HEVChargerAnimationBlock(self.hev_charger.rect.x, self.hev_charger.rect.y,
-                                                                   pygame.mixer.Sound('sounds/hev_charger.mp3'),
                                                                    *groups)
 
     def start_animation(self, obj):
