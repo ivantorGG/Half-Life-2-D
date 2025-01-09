@@ -4,7 +4,18 @@ import sys
 from chargers import HEVChargerBox, HealthChargerBox
 
 
-def check_events(player, all_sprites, HEV_charger, health_charger):
+def pre_screen_check_events():
+    """Проверка событий pygame"""
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+
+        if event.type == pygame.MOUSEBUTTONDOWN and event.pos[0] in range(57, 528) and \
+                event.pos[1] in range(408, 441):
+            return False
+
+
+def main_game_check_events(player, all_sprites, HEV_charger, health_charger):
     """Проверка событий pygame"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

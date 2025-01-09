@@ -1,9 +1,8 @@
 from player import Player
 from chargers import HEVCharger, HealthCharger
-from stats import print_stats
+import stats
 import controls
 import pygame
-
 
 pygame.init()
 pygame.mixer.init()
@@ -12,14 +11,21 @@ pygame.display.set_caption("HALF-LIFE: 2D")
 
 FPS = 60
 cloak = pygame.time.Clock()
+screen.fill((255, 255, 255))
 
 
-def main_screen():
-    ...
+def pre_screen():
+    running = True
+    while running:
+        stats.print_pre_screen(screen)
+        running = controls.pre_screen_check_events()
+        pygame.display.flip()
+        cloak.tick(FPS)
+        if running is None:
+            running = True
 
 
 def main_game():
-
     all_sprites = pygame.sprite.Group()
 
     HEV_charger = HEVCharger(50, 300, all_sprites)
@@ -27,16 +33,16 @@ def main_game():
     player = Player(150, 300, all_sprites)
 
     while True:
-        controls.check_events(player, all_sprites, HEV_charger, health_charger)
+        controls.main_game_check_events(player, all_sprites, HEV_charger, health_charger)
 
         screen.fill((0, 0, 0))
         all_sprites.update()
         all_sprites.draw(screen)
-        print_stats(screen, player)
+        stats.print_stats(screen, player)
 
         pygame.display.flip()
         cloak.tick(FPS)
 
 
-main_screen()
+pre_screen()
 main_game()
