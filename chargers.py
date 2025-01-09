@@ -26,6 +26,7 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
         self.chargery = chargery  # у тела
 
         self.sound = pygame.mixer.Sound('sounds/hev_charger.mp3')  # звук
+        self.err_sound = pygame.mixer.Sound('sounds/hev_charger-error.mp3')
         self.time_start_hev_charger_sound = None  # время начала проигрывания звука
 
         self.image = pygame.image.load('images/hev_charger/for_animation.png')
@@ -67,10 +68,13 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
     def start_animation(self, obj) -> None:
         """Начать анимацию зарядника костюма"""
         if not self.go:
-            self.sound.play()
-            self.go = True
-            self.time_start_hev_charger_sound = time()
-            self.object = obj
+            if self.charge_points == 0 or obj.suit_health == 100:
+                self.err_sound.play()
+            else:
+                self.sound.play()
+                self.go = True
+                self.time_start_hev_charger_sound = time()
+                self.object = obj
 
 
 class HealthChargerBox(pygame.sprite.Sprite):
@@ -84,12 +88,13 @@ class HealthChargerBox(pygame.sprite.Sprite):
 
 
 class HealthChargerAnimationBlock(pygame.sprite.Sprite):
-    def __init__(self, chargerx, chargery, sound, *groups):
+    def __init__(self, chargerx, chargery, *groups):
         super().__init__(*groups)
 
         self.charge_points = 100
         self.time_start_health_charger_sound = None
-        self.sound = sound
+        self.sound = pygame.mixer.Sound('sounds/health_charger.mp3')
+        self.err_sound = pygame.mixer.Sound('sounds/health_charger-error.mp3')
         self.chargerx = chargerx
         self.chargery = chargery
         self.go = False
@@ -131,10 +136,14 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
     def start_animation(self, obj) -> None:
         """Начать анимацию зарядника здоровья"""
         if not self.go:
-            self.sound.play()
-            self.go = True
-            self.time_start_health_charger_sound = time()
-            self.object = obj
+            if self.charge_points == 0 or obj.player_health == 100:
+                self.err_sound.play()
+                print(1)
+            else:
+                self.sound.play()
+                self.go = True
+                self.time_start_health_charger_sound = time()
+                self.object = obj
 
 
 class HEVCharger:
@@ -152,8 +161,6 @@ class HealthCharger:
         self.health_charger = HealthChargerBox(x, y, *groups)
         self.health_charger_animaton_block = HealthChargerAnimationBlock(self.health_charger.rect.x,
                                                                          self.health_charger.rect.y,
-                                                                         pygame.mixer.Sound(
-                                                                             'sounds/health_charger.mp3'),
                                                                          *groups)
 
     def start_animation(self, obj):
