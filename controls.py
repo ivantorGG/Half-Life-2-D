@@ -17,6 +17,7 @@ def pre_screen_check_events():
 
 def main_game_check_events(player, all_sprites, HEV_charger, health_charger):
     """Проверка событий pygame"""
+    E_sound = pygame.mixer.Sound('sounds/E_button-pressed.mp3')
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -38,6 +39,7 @@ def main_game_check_events(player, all_sprites, HEV_charger, health_charger):
                 player.move_player(0, 25)
 
             if event.key == pygame.K_e:
+                E_sound.play()
                 if isinstance(pygame.sprite.spritecollideany(player, all_sprites), HEVChargerBox):
                     HEV_charger.start_animation(player)
                 if isinstance(pygame.sprite.spritecollideany(player, all_sprites), HealthChargerBox):

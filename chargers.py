@@ -83,7 +83,7 @@ class HealthChargerBox(pygame.sprite.Sprite):
 
         self.image = pygame.image.load('images/health_charger/charger.png')
         self.image = pygame.transform.scale(self.image, (416 // 3, 687 // 3))
-        self.rect = self.image.get_rect().move(200, 300)
+        self.rect = self.image.get_rect()
         self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)
 
 

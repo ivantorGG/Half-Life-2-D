@@ -3,10 +3,7 @@ import pygame
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, *groups):
-        super().__init__()
-
-        for group in groups:
-            self.add(group)
+        super().__init__(*groups)
 
         self.image = pygame.Surface((30, 50))
         pygame.draw.rect(self.image, (0, 255, 0), (0, 0, 30, 50))
