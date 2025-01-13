@@ -15,3 +15,8 @@ class Player(pygame.sprite.Sprite):
 
     def move_player(self, plus_x, plus_y):
         self.rect = self.rect.move(plus_x, plus_y)
+
+    def print_stats(self):
+        print(f'player_health:{self.player_health}')
+        print(f'suit_health:{self.suit_health}')
+        print()
