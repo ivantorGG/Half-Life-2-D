@@ -112,6 +112,7 @@ class FoodBox(pygame.sprite.Sprite):
         self.groups = groups
 
     def crush(self):
+        self.sound.play()
         self.food(self.rect.centerx, self.rect.centery - 15, self.obj, *self.groups)
         self.kill()
 
@@ -135,6 +136,8 @@ if __name__ == '__main__':
         FoodMedkitSmall(30 * i, 150, player, all_sprites)
         FoodBottery(30 * i, 250, player, all_sprites)
 
+    box = FoodBox(500, 500, player, FoodGrenade, all_sprites)
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -157,6 +160,7 @@ if __name__ == '__main__':
                     player.move_player(0, 25)
 
                 if event.key == pygame.K_p:
+                    box.crush()
                     player.print_stats()
 
         screen.fill((0, 0, 0))
