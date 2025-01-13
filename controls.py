@@ -39,8 +39,12 @@ def main_game_check_events(player, all_sprites, HEV_charger, health_charger):
                 player.move_player(0, 25)
 
             if event.key == pygame.K_e:
-                E_sound.play()
+                no_action = True
                 if isinstance(pygame.sprite.spritecollideany(player, all_sprites), HEVChargerBox):
                     HEV_charger.start_animation(player)
+                    no_action = False
                 if isinstance(pygame.sprite.spritecollideany(player, all_sprites), HealthChargerBox):
                     health_charger.start_animation(player)
+                    no_action = False
+                if no_action:
+                    E_sound.play()
