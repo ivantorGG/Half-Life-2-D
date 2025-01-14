@@ -5,6 +5,7 @@ import stats
 import controls
 import pygame
 
+
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)

@@ -27,16 +27,16 @@ def main_game_check_events(player, all_sprites, HEV_charger, health_charger):
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_d:
-                player.move_player(25, 0)
+                player.move_right = True
 
             if event.key == pygame.K_a:
-                player.move_player(-25, 0)
+                player.move_left = True
 
             if event.key == pygame.K_w:
-                player.move_player(0, -25)
+                player.jumping = True
 
             if event.key == pygame.K_s:
-                player.move_player(0, 25)
+                player.crouch = True
 
             if event.key == pygame.K_e:
                 no_action = True
@@ -51,3 +51,13 @@ def main_game_check_events(player, all_sprites, HEV_charger, health_charger):
 
             if event.key == pygame.K_p:
                 player.print_stats()
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_d:
+                player.move_right = False
+
+            if event.key == pygame.K_a:
+                player.move_left = False
+
+            if event.key == pygame.K_s:
+                player.crouch = False

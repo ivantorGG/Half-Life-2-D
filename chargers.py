@@ -132,7 +132,6 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
         if not self.go:
             if self.charge_points == 0 or obj.player_health == 100:
                 self.err_sound.play()
-                print(1)
             else:
                 self.sound.play()
                 self.go = True
