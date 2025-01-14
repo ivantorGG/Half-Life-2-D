@@ -1,5 +1,6 @@
 from player import Player
 from chargers import HEVCharger, HealthCharger
+from food import FoodBox, FoodBottery, FoodGrenade, FoodMedkitBig, FoodMedkitSmall
 import stats
 import controls
 import pygame
@@ -30,7 +31,18 @@ def main_game():
 
     HEV_charger = HEVCharger(50, 300, all_sprites)
     health_charger = HealthCharger(250, 300, all_sprites)
+
     player = Player(150, 300, all_sprites)
+
+    FoodBottery(50, 200, player, all_sprites)
+    FoodMedkitSmall(100, 200, player, all_sprites)
+    FoodMedkitBig(150, 200, player, all_sprites)
+    FoodGrenade(200, 200, player, all_sprites)
+
+    FoodBox(250, 200, player, FoodBottery, all_sprites)
+    FoodBox(450, 280, player, FoodMedkitBig, all_sprites)
+    FoodBox(450, 360, player, FoodMedkitSmall, all_sprites)
+    FoodBox(450, 440, player, FoodGrenade, all_sprites)
 
     while True:
         controls.main_game_check_events(player, all_sprites, HEV_charger, health_charger)

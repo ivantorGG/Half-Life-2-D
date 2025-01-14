@@ -27,7 +27,6 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
 
         self.sound = pygame.mixer.Sound('sounds/hev_charger.mp3')  # звук
         self.err_sound = pygame.mixer.Sound('sounds/hev_charger-error.mp3')
-        self.time_start_hev_charger_sound = None  # время начала проигрывания звука
 
         self.image = pygame.image.load('images/hev_charger/for_animation.png')
         self.image = pygame.transform.scale(self.image, (13, 14))
@@ -39,15 +38,14 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect = self.rect.move(chargerx + 30, chargery + 86)  # перемещаю относительно тела
 
-        self.charge_points = 100  # столько в заряднике припасов
+        self.charge_points = 60  # столько в заряднике припасов
         self.object = None  # объект, которому давать припасы
 
     def update(self, *args, **kwargs):
-        if self.time_start_hev_charger_sound is not None and (
-                time() - self.time_start_hev_charger_sound > 8 or self.object.suit_health == 100 or
-                self.charge_points == 0) and self.go:
-            print(f"hev-charger points: {self.charge_points}")
-            print(f"object's suit health: {self.object.suit_health}")
+
+        if self.object is not None and (
+                (self.object.suit_health == 100 or self.charge_points == 0) and self.go or not isinstance(
+                pygame.sprite.spritecollideany(self.object, *self.groups()), HEVChargerBox)):
             self.go = False
             self.sound.stop()
 
@@ -73,7 +71,6 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
             else:
                 self.sound.play()
                 self.go = True
-                self.time_start_hev_charger_sound = time()
                 self.object = obj
 
 
@@ -91,8 +88,7 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
     def __init__(self, chargerx, chargery, *groups):
         super().__init__(*groups)
 
-        self.charge_points = 100
-        self.time_start_health_charger_sound = None
+        self.charge_points = 80
         self.sound = pygame.mixer.Sound('sounds/health_charger.mp3')
         self.err_sound = pygame.mixer.Sound('sounds/health_charger-error.mp3')
         self.chargerx = chargerx
@@ -115,11 +111,9 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
         self.rect = self.image.get_rect().move(self.chargerx + 60, self.chargery + 75)
 
     def update(self, *args, **kwargs):
-        if self.time_start_health_charger_sound is not None and (
-                time() - self.time_start_health_charger_sound > 14 or self.object.player_health == 100 or
-                self.charge_points == 0) and self.go:
-            print(f"health-charger points: {self.charge_points}")
-            print(f"object health: {self.object.player_health}")
+        if self.object is not None and (((self.object.player_health == 100 or
+                                          self.charge_points == 0) and self.go) or not isinstance(
+                pygame.sprite.spritecollideany(self.object, *self.groups()), HealthChargerBox)):
             self.go = False
             self.sound.stop()
 
@@ -142,7 +136,6 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
             else:
                 self.sound.play()
                 self.go = True
-                self.time_start_health_charger_sound = time()
                 self.object = obj
 
 

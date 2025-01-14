@@ -48,3 +48,6 @@ def main_game_check_events(player, all_sprites, HEV_charger, health_charger):
                     no_action = False
                 if no_action:
                     E_sound.play()
+
+            if event.key == pygame.K_p:
+                player.print_stats()
