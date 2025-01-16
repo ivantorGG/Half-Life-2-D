@@ -15,7 +15,7 @@ def pre_screen_check_events():
             return False
 
 
-def main_game_check_events(player, all_sprites, HEV_charger, health_charger):
+def main_game_check_events(player, all_sprites, HEV_charger=None, health_charger=None):
     """Проверка событий pygame"""
     E_sound = pygame.mixer.Sound('sounds/E_button-pressed.mp3')
     for event in pygame.event.get():
@@ -32,7 +32,7 @@ def main_game_check_events(player, all_sprites, HEV_charger, health_charger):
             if event.key == pygame.K_a:
                 player.move_left = True
 
-            if event.key == pygame.K_w:
+            if event.key == pygame.K_w or event.key == pygame.K_SPACE:
                 player.jumping = True
 
             if event.key == pygame.K_s:
@@ -61,3 +61,7 @@ def main_game_check_events(player, all_sprites, HEV_charger, health_charger):
 
             if event.key == pygame.K_s:
                 player.crouch = False
+
+            if event.key == pygame.K_w or event.key == pygame.K_SPACE:
+                player.jumping = False
+
