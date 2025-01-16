@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.for_slower = 0
         self.animation_phases = [
             pygame.image.load('images/gordon/right/1.png'),
-            pygame.image.load('images/gordon/right/2.png'),
+            pygame.image.load('images/gordon/right/22.png'),
             pygame.image.load('images/gordon/right/3.png'),
             pygame.image.load('images/gordon/right/4.png'),
             pygame.image.load('images/gordon/right/5.png'),
@@ -119,7 +119,7 @@ class Player(pygame.sprite.Sprite):
         #     self.direction = 'left'
         #     self.animation_phases = [
         #             pygame.image.load('images/gordon/left/1.png'),
-        #             pygame.image.load('images/gordon/left/2.png'),
+        #             pygame.image.load('images/gordon/left/22.png'),
         #             pygame.image.load('images/gordon/left/3.png'),
         #             pygame.image.load('images/gordon/left/4.png'),
         #             pygame.image.load('images/gordon/left/5.png'),
@@ -131,7 +131,7 @@ class Player(pygame.sprite.Sprite):
             self.direction = 'right'
             self.animation_phases = [
                 pygame.image.load('images/gordon/right/1.png'),
-                pygame.image.load('images/gordon/right/2.png'),
+                pygame.image.load('images/gordon/right/22.png'),
                 pygame.image.load('images/gordon/right/3.png'),
                 pygame.image.load('images/gordon/right/4.png'),
                 pygame.image.load('images/gordon/right/5.png'),
