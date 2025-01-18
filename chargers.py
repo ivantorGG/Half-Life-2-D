@@ -6,19 +6,19 @@ import pygame
 
 
 class HEVChargerBox(pygame.sprite.Sprite):
-    def __init__(self, x, y, *groups):
+    def __init__(self, k_size, x, y, *groups):
         """При инициализации указывать координаты и группы спрайтов"""
         super().__init__(*groups)
 
         self.image = pygame.image.load('images/hev_charger/charger.png')
-        self.image = pygame.transform.scale(self.image, (117, 245))
+        self.image = pygame.transform.scale(self.image, (round(117 * k_size[0]), round(245 * k_size[1])))
         self.rect = self.image.get_rect()
-
-        self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)  # двигаю тело зарядника по x и y
+        self.rect.x = x
+        self.rect.y = y
 
 
 class HEVChargerAnimationBlock(pygame.sprite.Sprite):
-    def __init__(self, chargerx, chargery, *groups):
+    def __init__(self, k_size, chargerx, chargery, *groups):
         """При инициализации указывать координаты тела зарядника и группы спрайтов"""
         super().__init__(*groups)
 
@@ -29,17 +29,19 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
         self.err_sound = pygame.mixer.Sound('sounds/hev_charger-error.mp3')
 
         self.image = pygame.image.load('images/hev_charger/for_animation.png')
-        self.image = pygame.transform.scale(self.image, (13, 14))
+        self.image = pygame.transform.scale(self.image, (round(13 * k_size[0]), round(14 * k_size[1])))
 
         self.go = False  # проигрывать анимацию?
         self.for_slover = 0  # это чтобы она была медленнее
         self.move_direction = 'down'  # двигается вниз
 
         self.rect = self.image.get_rect()
-        self.rect = self.rect.move(chargerx + 30, chargery + 86)  # перемещаю относительно тела
+        self.rect = self.rect.move(chargerx + 30 * k_size[0], chargery + 86 * k_size[1])  # перемещаю относительно тела
 
         self.charge_points = 60  # столько в заряднике припасов
         self.object = None  # объект, которому давать припасы
+
+        self.k_size = k_size
 
     def update(self, *args, **kwargs):
 
@@ -52,12 +54,12 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
         self.for_slover += 1
         if self.go and self.for_slover % 2 == 0:
             if self.move_direction == 'down':
-                self.rect = self.rect.move(0, 2)
-                if self.rect.y >= self.chargery + 125:
+                self.rect = self.rect.move(0, round(2 * self.k_size[1]))
+                if self.rect.y >= self.chargery + 125 * self.k_size[1]:
                     self.move_direction = 'up'
             else:
-                self.rect = self.rect.move(0, -2)
-                if self.rect.y <= self.chargery + 90:
+                self.rect = self.rect.move(0, round(-2 * self.k_size[1]))
+                if self.rect.y <= self.chargery + 90 * self.k_size[1]:
                     self.move_direction = 'down'
             if self.for_slover % 4 == 0:
                 self.charge_points -= 1
@@ -75,22 +77,24 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
 
 
 class HealthChargerBox(pygame.sprite.Sprite):
-    def __init__(self, x, y, *groups):
+    def __init__(self, k_size, x, y, *groups):
         super().__init__(*groups)
 
         self.image = pygame.image.load('images/health_charger/charger.png')
-        self.image = pygame.transform.scale(self.image, (416 // 3, 687 // 3))
+        self.image = pygame.transform.scale(self.image, (round(416 // 3 * k_size[0]), round(687 // 3 * k_size[1])))
         self.rect = self.image.get_rect()
         self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)
 
 
 class HealthChargerAnimationBlock(pygame.sprite.Sprite):
-    def __init__(self, chargerx, chargery, *groups):
+    def __init__(self,  k_size, chargerx, chargery, *groups):
         super().__init__(*groups)
 
         self.charge_points = 80
+
         self.sound = pygame.mixer.Sound('sounds/health_charger.mp3')
         self.err_sound = pygame.mixer.Sound('sounds/health_charger-error.mp3')
+
         self.chargerx = chargerx
         self.chargery = chargery
         self.go = False
@@ -106,9 +110,12 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
             'images/health_charger/for_animation (4).png',
             'images/health_charger/for_animation (5).png',
         ]
+
         self.image = pygame.image.load(self.images[self.animation_i])
-        self.image = pygame.transform.scale(self.image, (40, 40))
-        self.rect = self.image.get_rect().move(self.chargerx + 60, self.chargery + 75)
+        self.image = pygame.transform.scale(self.image, (round(40 * k_size[0]), round(40 * k_size[1])))
+        self.rect = self.image.get_rect().move(self.chargerx + 60 * k_size[0], self.chargery + 75 * k_size[1])
+
+        self.k_size = k_size
 
     def update(self, *args, **kwargs):
         if self.object is not None and (((self.object.player_health == 100 or
@@ -121,8 +128,8 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
         if self.go and self.for_slover % 2 == 0:
             self.animation_i = (self.animation_i + 1) % 6
             self.image = pygame.image.load(self.images[self.animation_i])
-            self.image = pygame.transform.scale(self.image, (40, 40))
-            self.rect = self.image.get_rect().move(self.chargerx + 60, self.chargery + 75)
+            self.image = pygame.transform.scale(self.image, (round(40 * self.k_size[0]), round(40 * self.k_size[1])))
+            self.rect = self.image.get_rect().move(self.chargerx + 60 * self.k_size[0], self.chargery + 75 * self.k_size[1])
             if self.for_slover % 4 == 0:
                 self.charge_points -= 1
                 self.object.player_health += 1
@@ -139,9 +146,9 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
 
 
 class HEVCharger:
-    def __init__(self, x, y, *groups):
-        self.hev_charger = HEVChargerBox(x, y, *groups)
-        self.hev_charger_animaton_block = HEVChargerAnimationBlock(self.hev_charger.rect.x, self.hev_charger.rect.y,
+    def __init__(self, k_size, x, y, *groups):
+        self.hev_charger = HEVChargerBox(k_size, x, y, *groups)
+        self.hev_charger_animaton_block = HEVChargerAnimationBlock(k_size, self.hev_charger.rect.x, self.hev_charger.rect.y,
                                                                    *groups)
 
     def start_animation(self, obj):
@@ -149,9 +156,9 @@ class HEVCharger:
 
 
 class HealthCharger:
-    def __init__(self, x, y, *groups):
-        self.health_charger = HealthChargerBox(x, y, *groups)
-        self.health_charger_animaton_block = HealthChargerAnimationBlock(self.health_charger.rect.x,
+    def __init__(self, k_size, x, y, *groups):
+        self.health_charger = HealthChargerBox(k_size, x, y, *groups)
+        self.health_charger_animaton_block = HealthChargerAnimationBlock(k_size, self.health_charger.rect.x,
                                                                          self.health_charger.rect.y,
                                                                          *groups)
 

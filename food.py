@@ -4,11 +4,11 @@ from player import Player
 
 
 class FoodBottery(pygame.sprite.Sprite):
-    def __init__(self, x, y, obj, *groups):
+    def __init__(self, k_size, x, y, obj, *groups):
         super().__init__(*groups)
         self.sound = pygame.mixer.Sound('sounds/battery_pickup.mp3')
         self.image = pygame.image.load('images/food/bottery.png')
-        self.image = pygame.transform.scale(self.image, (20, 44))
+        self.image = pygame.transform.scale(self.image, (20 * k_size[0], 44 * k_size[1]))
         self.rect = self.image.get_rect()
         self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)
         self.obj = obj
@@ -29,12 +29,12 @@ class FoodBottery(pygame.sprite.Sprite):
 
 
 class FoodGrenade(pygame.sprite.Sprite):
-    def __init__(self, x, y, obj, *groups):
+    def __init__(self, k_size,  x, y, obj, *groups):
         super().__init__(*groups)
 
         self.sound = pygame.mixer.Sound('sounds/ammo_pickup.mp3')
         self.image = pygame.image.load('images/food/grenade.png')
-        self.image = pygame.transform.scale(self.image, (23, 57))
+        self.image = pygame.transform.scale(self.image, (round(23 * k_size[0]), round(57 * k_size[1])))
         self.rect = self.image.get_rect()
         self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)
         self.obj = obj
@@ -47,12 +47,12 @@ class FoodGrenade(pygame.sprite.Sprite):
 
 
 class FoodMedkitSmall(pygame.sprite.Sprite):
-    def __init__(self, x, y, obj, *groups):
+    def __init__(self, k_size,  x, y, obj, *groups):
         super().__init__(*groups)
 
         self.sound = pygame.mixer.Sound('sounds/smallmedkit1.mp3')
         self.image = pygame.image.load('images/food/medkit-small.png')
-        self.image = pygame.transform.scale(self.image, (44, 56))
+        self.image = pygame.transform.scale(self.image, (44 * k_size[0], 56 * k_size[1]))
         self.rect = self.image.get_rect()
         self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)
         self.obj = obj
@@ -73,12 +73,12 @@ class FoodMedkitSmall(pygame.sprite.Sprite):
 
 
 class FoodMedkitBig(pygame.sprite.Sprite):
-    def __init__(self, x, y, obj, *groups):
+    def __init__(self, k_size,  x, y, obj, *groups):
         super().__init__(*groups)
 
         self.sound = pygame.mixer.Sound('sounds/smallmedkit1.mp3')
         self.image = pygame.image.load('images/food/medkit_big.png')
-        self.image = pygame.transform.scale(self.image, (38, 35))
+        self.image = pygame.transform.scale(self.image, (38 * k_size[0], 35 * k_size[1]))
         self.rect = self.image.get_rect()
         self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)
         self.obj = obj
@@ -99,20 +99,21 @@ class FoodMedkitBig(pygame.sprite.Sprite):
 
 
 class FoodBox(pygame.sprite.Sprite):
-    def __init__(self, x, y, obj, food, *groups):
+    def __init__(self, k_size, x, y, obj, food, *groups):
         super().__init__(*groups)
 
         self.sound = pygame.mixer.Sound('sounds/lucky_box_crushing.mp3')
-        self.image = pygame.image.load('images/food/lucky-box.png')
-        self.image = pygame.transform.scale(self.image, (111, 84))
+        self.image = pygame.image.load('images/food/box.png')
+        self.image = pygame.transform.scale(self.image, (round(111 * k_size[0]), round(84 * k_size[1])))
         self.rect = self.image.get_rect()
         self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)
         self.food = food
         self.obj = obj
+        self.k_size = k_size
 
     def crush(self):
         self.sound.play()
-        self.food(self.rect.centerx, self.rect.centery - 15, self.obj, *self.groups())
+        self.food(self.k_size, self.rect.centerx, self.rect.centery - 15, self.obj, *self.groups())
         self.kill()
 
     def update(self, *args, **kwargs):
@@ -132,14 +133,7 @@ if __name__ == '__main__':
 
     all_sprites = pygame.sprite.Group()
 
-    player = Player(150, 200, all_sprites)
-
-    for i in range(10):
-        FoodMedkitBig(30 * i, 50, player, all_sprites)
-        FoodMedkitSmall(30 * i, 150, player, all_sprites)
-        FoodBottery(30 * i, 250, player, all_sprites)
-
-    box = FoodBox(500, 500, player, FoodGrenade, all_sprites)
+    box = FoodBox(500, 500, None, FoodGrenade, all_sprites)
 
     while running:
         for event in pygame.event.get():
@@ -150,21 +144,9 @@ if __name__ == '__main__':
                 print(event.pos)
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_d:
-                    player.move_player(25, 0)
 
-                if event.key == pygame.K_a:
-                    player.move_player(-25, 0)
-
-                if event.key == pygame.K_w:
-                    player.move_player(0, -25)
-
-                if event.key == pygame.K_s:
-                    player.move_player(0, 25)
-
-                if event.key == pygame.K_p:
+                if event.key == pygame.K_q:
                     box.crush()
-                    player.print_stats()
 
         screen.fill((0, 0, 0))
         all_sprites.update()

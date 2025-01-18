@@ -34,6 +34,7 @@ def main_game_check_events(player, all_sprites, HEV_charger=None, health_charger
 
             if event.key == pygame.K_w or event.key == pygame.K_SPACE:
                 player.jumping = True
+                player.is_now_jumping = True
 
             if event.key == pygame.K_s:
                 player.crouch = True
