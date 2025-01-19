@@ -20,17 +20,22 @@ k_size = width / 1600, height / 900
 
 FPS = 60
 cloak = pygame.time.Clock()
-pygame.mouse.set_visible(False)
 screen.fill((255, 255, 255))
 
 
 def pre_screen():
     running = True
+    first_motion = True
+    last_place = None
+    image, all_sprites, draw_btn = stats.print_pre_screen(screen)
     while running:
-        stats.print_pre_screen(screen)
-        running = controls.pre_screen_check_events()
+        image, first_motion, last_place, running = controls.pre_screen_check_events(image, first_motion, last_place)
+
         pygame.display.flip()
         cloak.tick(FPS)
+        all_sprites.draw(screen)
+        all_sprites.update()
+        draw_btn()
         if running is None:
             running = True
 
@@ -66,4 +71,6 @@ def main_game():
         cloak.tick(FPS)
 
 
+pre_screen()
+pygame.mouse.set_visible(False)
 main_game()

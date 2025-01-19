@@ -4,15 +4,34 @@ import sys
 from chargers import HEVChargerBox, HealthChargerBox
 
 
-def pre_screen_check_events():
+def pre_screen_check_events(image, first_motion, last_place):
     """Проверка событий pygame"""
+    running = None
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
 
+        if event.type == pygame.MOUSEMOTION:
+            if first_motion:
+                last_place = event.pos
+                first_motion = False
+            else:
+                curr_place = event.pos
+                if last_place[0] > curr_place[0]:
+                    image.rect.x += 1
+                elif last_place[0] < curr_place[0]:
+                    image.rect.x -= 1
+                if last_place[1] > curr_place[1]:
+                    image.rect.y += 1
+                elif last_place[1] < curr_place[1]:
+                    image.rect.y -= 1
+                last_place = curr_place
+
         if event.type == pygame.MOUSEBUTTONDOWN and event.pos[0] in range(57, 528) and \
                 event.pos[1] in range(408, 441):
-            return False
+            running = False
+
+    return image, first_motion, last_place, running
 
 
 def main_game_check_events(player, all_sprites, HEV_charger=None, health_charger=None):
