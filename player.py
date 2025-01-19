@@ -23,7 +23,7 @@ class Player(pygame.sprite.Sprite):
         self.curr_weapon = None
 
         self.phase = 0
-        self.for_slower = 0
+        self.for_slower = 1
         self.count_jumped = 0
         self.jumped_direction = ''
 
@@ -58,9 +58,9 @@ class Player(pygame.sprite.Sprite):
                 self.direction != 'Jump-Right' and self.direction != 'Jump-Left':  # если только бегает
             self.for_slower += 1
             if self.for_slower % 3 == 0:
-                self.phase = (self.phase + 1) % 8
+                self.phase = (self.phase + 2) % 8
                 if not self.phase:
-                    self.phase += 1
+                    self.phase += 2
                 self.image = pygame.transform.scale(
                     pygame.image.load(f'images/gordon/{self.direction}/{self.phase}.png'),
                     (round(1.4 * 83 * self.k_size[0]), round(1.4 * 208 * self.k_size[1])))
