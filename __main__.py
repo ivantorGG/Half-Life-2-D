@@ -3,6 +3,8 @@ from chargers import HEVCharger, HealthCharger
 from food import FoodBox, FoodBottery, FoodGrenade, FoodMedkitBig, FoodMedkitSmall
 import stats
 import controls
+from camera import Camera
+
 
 from screeninfo import get_monitors
 import pygame
@@ -40,6 +42,8 @@ def main_game():
     health_charger = HealthCharger(k_size, 250, 300, all_sprites)
 
     player = Player(k_size, 150, 500, all_sprites)
+    camera = Camera(width, height)
+    camera.update(player)
 
     FoodBottery(k_size, 50 + 500, 600, player, all_sprites)
     FoodMedkitSmall(k_size, 100 + 500, 600, player, all_sprites)
@@ -54,6 +58,9 @@ def main_game():
         all_sprites.update()
         all_sprites.draw(screen)
         stats.print_stats(screen, k_size, player)
+        camera.update(player)
+        for sprite in all_sprites:
+            camera.apply(sprite)
 
         pygame.display.flip()
         cloak.tick(FPS)

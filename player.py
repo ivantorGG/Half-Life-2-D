@@ -57,7 +57,7 @@ class Player(pygame.sprite.Sprite):
         if (self.move_right or self.move_left) and \
                 self.direction != 'Jump-Right' and self.direction != 'Jump-Left':  # если только бегает
             self.for_slower += 1
-            if self.for_slower % 3 == 0:
+            if self.for_slower % 5 == 0:
                 self.phase = (self.phase + 2) % 8
                 if not self.phase:
                     self.phase += 2

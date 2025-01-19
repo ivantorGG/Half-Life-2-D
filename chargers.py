@@ -1,6 +1,5 @@
 # !!! MAIN CLASSES: HEVCharger, HealthCharger !!!
 
-from time import time
 from player import Player
 import pygame
 
@@ -18,12 +17,11 @@ class HEVChargerBox(pygame.sprite.Sprite):
 
 
 class HEVChargerAnimationBlock(pygame.sprite.Sprite):
-    def __init__(self, k_size, chargerx, chargery, *groups):
+    def __init__(self, k_size, charger, *groups):
         """При инициализации указывать координаты тела зарядника и группы спрайтов"""
         super().__init__(*groups)
 
-        self.chargerx = chargerx  # х тела
-        self.chargery = chargery  # у тела
+        self.charger = charger
 
         self.sound = pygame.mixer.Sound('sounds/hev_charger.mp3')  # звук
         self.err_sound = pygame.mixer.Sound('sounds/hev_charger-error.mp3')
@@ -36,7 +34,8 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
         self.move_direction = 'down'  # двигается вниз
 
         self.rect = self.image.get_rect()
-        self.rect = self.rect.move(chargerx + 30 * k_size[0], chargery + 86 * k_size[1])  # перемещаю относительно тела
+        self.rect = self.rect.move(charger.rect.x + 30 * k_size[0],
+                                   charger.rect.y + 86 * k_size[1])  # перемещаю относительно тела
 
         self.charge_points = 60  # столько в заряднике припасов
         self.object = None  # объект, которому давать припасы
@@ -44,7 +43,6 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
         self.k_size = k_size
 
     def update(self, *args, **kwargs):
-
         if self.object is not None and (
                 (self.object.suit_health == 100 or self.charge_points == 0) and self.go or not isinstance(
                 pygame.sprite.spritecollideany(self.object, *self.groups()), HEVChargerBox)):
@@ -55,11 +53,11 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
         if self.go and self.for_slover % 2 == 0:
             if self.move_direction == 'down':
                 self.rect = self.rect.move(0, round(2 * self.k_size[1]))
-                if self.rect.y >= self.chargery + 125 * self.k_size[1]:
+                if self.rect.y >= self.charger.rect.y + 125 * self.k_size[1]:
                     self.move_direction = 'up'
             else:
                 self.rect = self.rect.move(0, round(-2 * self.k_size[1]))
-                if self.rect.y <= self.chargery + 90 * self.k_size[1]:
+                if self.rect.y <= self.charger.rect.y + 90 * self.k_size[1]:
                     self.move_direction = 'down'
             if self.for_slover % 4 == 0:
                 self.charge_points -= 1
@@ -87,7 +85,7 @@ class HealthChargerBox(pygame.sprite.Sprite):
 
 
 class HealthChargerAnimationBlock(pygame.sprite.Sprite):
-    def __init__(self,  k_size, chargerx, chargery, *groups):
+    def __init__(self, k_size, charger, *groups):
         super().__init__(*groups)
 
         self.charge_points = 80
@@ -95,8 +93,7 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
         self.sound = pygame.mixer.Sound('sounds/health_charger.mp3')
         self.err_sound = pygame.mixer.Sound('sounds/health_charger-error.mp3')
 
-        self.chargerx = chargerx
-        self.chargery = chargery
+        self.charger = charger
         self.go = False
         self.object = None
         self.animation_i = 0
@@ -113,7 +110,8 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
 
         self.image = pygame.image.load(self.images[self.animation_i])
         self.image = pygame.transform.scale(self.image, (round(40 * k_size[0]), round(40 * k_size[1])))
-        self.rect = self.image.get_rect().move(self.chargerx + 60 * k_size[0], self.chargery + 75 * k_size[1])
+        self.rect = self.image.get_rect().move(self.charger.rect.x + 60 * k_size[0],
+                                               self.charger.rect.y + 75 * k_size[1])
 
         self.k_size = k_size
 
@@ -129,7 +127,8 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
             self.animation_i = (self.animation_i + 1) % 6
             self.image = pygame.image.load(self.images[self.animation_i])
             self.image = pygame.transform.scale(self.image, (round(40 * self.k_size[0]), round(40 * self.k_size[1])))
-            self.rect = self.image.get_rect().move(self.chargerx + 60 * self.k_size[0], self.chargery + 75 * self.k_size[1])
+            self.rect = self.image.get_rect().move(self.charger.rect.x + 60 * self.k_size[0],
+                                                   self.charger.rect.y + 75 * self.k_size[1])
             if self.for_slover % 4 == 0:
                 self.charge_points -= 1
                 self.object.player_health += 1
@@ -148,7 +147,7 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
 class HEVCharger:
     def __init__(self, k_size, x, y, *groups):
         self.hev_charger = HEVChargerBox(k_size, x, y, *groups)
-        self.hev_charger_animaton_block = HEVChargerAnimationBlock(k_size, self.hev_charger.rect.x, self.hev_charger.rect.y,
+        self.hev_charger_animaton_block = HEVChargerAnimationBlock(k_size, self.hev_charger,
                                                                    *groups)
 
     def start_animation(self, obj):
@@ -158,8 +157,7 @@ class HEVCharger:
 class HealthCharger:
     def __init__(self, k_size, x, y, *groups):
         self.health_charger = HealthChargerBox(k_size, x, y, *groups)
-        self.health_charger_animaton_block = HealthChargerAnimationBlock(k_size, self.health_charger.rect.x,
-                                                                         self.health_charger.rect.y,
+        self.health_charger_animaton_block = HealthChargerAnimationBlock(k_size, self.health_charger,
                                                                          *groups)
 
     def start_animation(self, obj):
