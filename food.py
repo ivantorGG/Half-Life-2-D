@@ -18,13 +18,11 @@ class FoodBottery(pygame.sprite.Sprite):
                       Player) and self.obj.suit_health <= 90:
             self.sound.play()
             self.obj.suit_health += 10
-            print('picked up bottery')
             self.kill()
         elif isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
                         Player) and self.obj.suit_health < 100:
             self.sound.play()
             self.obj.suit_health = 100
-            print('picked up bottery')
             self.kill()
 
 
@@ -42,7 +40,6 @@ class FoodGrenade(pygame.sprite.Sprite):
     def update(self, *args, **kwargs):
         if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player):
             self.sound.play()
-            print('picked up grenade')
             self.kill()
 
 
@@ -62,13 +59,11 @@ class FoodMedkitSmall(pygame.sprite.Sprite):
                       Player) and self.obj.player_health <= 85:
             self.obj.player_health += 15
             self.sound.play()
-            print('picked up small medkit')
             self.kill()
         elif isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
                         Player) and self.obj.player_health < 100:
             self.obj.player_health = 100
             self.sound.play()
-            print('picked up small medkit')
             self.kill()
 
 
@@ -88,13 +83,11 @@ class FoodMedkitBig(pygame.sprite.Sprite):
                       Player) and self.obj.player_health <= 70:
             self.obj.player_health += 30
             self.sound.play()
-            print('picked up big medkit')
             self.kill()
         elif isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
                         Player) and self.obj.player_health < 100:
             self.obj.player_health = 100
             self.sound.play()
-            print('picked up big medkit')
             self.kill()
 
 

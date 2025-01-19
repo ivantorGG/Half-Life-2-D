@@ -2,26 +2,28 @@
 import pygame
 
 
-def print_pre_screen(screen):
+def print_pre_screen(screen, width, height):
     def draw_btn():
-        screen.blit(text, (40, 400))
-        pygame.draw.rect(screen, (205, 205, 200), (20, 395, 505, 60), 3)
+        screen.blit(text, (round(40 * (width / 1600)), round(400 * (width / 1600))))
+        x1, y1, width1, height1 = round(20 * (width / 1600)), round(395 * (height / 900)), round(
+            505 * (width / 1600)), round(60 * (height / 900))
+        pygame.draw.rect(screen, (205, 205, 200), (x1, y1, width1, height1), round(3 * (width / 1600)))
 
     class PreImage(pygame.sprite.Sprite):
         def __init__(self, *groups):
             super().__init__(*groups)
             self.image = pygame.image.load('images/gordon/on_minimum.png')
-            self.image = pygame.transform.scale(self.image, (1920, 1170))  # 2080, 1170
+            self.image = pygame.transform.scale(self.image, (width * 1.2, height * 1.2))
             self.rect = self.image.get_rect()
-            self.rect.x = -200
-            self.rect.y = -200
+            self.rect.x = -(width * 1.2 - width) // 2
+            self.rect.y = -(height * 1.2 - height) // 2
 
     all_sprites = pygame.sprite.Group()
     pre_image = PreImage(all_sprites)
     all_sprites.draw(screen)
     all_sprites.update()
 
-    hl2_font = pygame.font.Font('fonts/halflife2.ttf', 40)
+    hl2_font = pygame.font.Font('fonts/halflife2.ttf', round(40 * (width / 1600)))
     text = hl2_font.render("HALF - LIFE'", True, (205, 205, 200))
 
     draw_btn()
