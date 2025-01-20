@@ -4,7 +4,7 @@ import sys
 from chargers import HEVChargerBox, HealthChargerBox
 
 
-def pre_screen_check_events(image, first_motion, last_place):
+def pre_screen_check_events(image, first_motion, last_place, width, height):
     """Проверка событий pygame"""
     running = None
     for event in pygame.event.get():
@@ -17,13 +17,13 @@ def pre_screen_check_events(image, first_motion, last_place):
                 first_motion = False
             else:
                 curr_place = event.pos
-                if last_place[0] > curr_place[0]:
+                if last_place[0] > curr_place[0] and image.rect.x < 0:
                     image.rect.x += 1
-                elif last_place[0] < curr_place[0]:
+                elif last_place[0] < curr_place[0] and image.rect.x > -(width * 1.2 - width):
                     image.rect.x -= 1
-                if last_place[1] > curr_place[1]:
+                if last_place[1] > curr_place[1] and image.rect.y < 0:
                     image.rect.y += 1
-                elif last_place[1] < curr_place[1]:
+                elif last_place[1] < curr_place[1] and image.rect.y > -(height * 1.2 - height):
                     image.rect.y -= 1
                 last_place = curr_place
 

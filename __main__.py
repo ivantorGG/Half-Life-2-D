@@ -29,7 +29,7 @@ def pre_screen():
     last_place = None
     image, all_sprites, draw_btn = stats.print_pre_screen(screen, width, height)
     while running:
-        image, first_motion, last_place, running = controls.pre_screen_check_events(image, first_motion, last_place)
+        image, first_motion, last_place, running = controls.pre_screen_check_events(image, first_motion, last_place, width, height)
 
         pygame.display.flip()
         cloak.tick(FPS)
