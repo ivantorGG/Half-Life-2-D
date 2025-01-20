@@ -128,4 +128,7 @@ class Player(pygame.sprite.Sprite):
 
         if self.jumping and not self.move_right and not self.move_left and \
                 self.direction != 'Jump-Right' and self.direction != 'Jump-Left':
-            self.direction = 'Jump-Right'
+            if self.direction == 'right':
+                self.direction = 'Jump-Right'
+            elif self.direction == 'left':
+                self.direction = 'Jump-Left'

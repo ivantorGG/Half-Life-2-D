@@ -18,7 +18,7 @@ pygame.display.set_caption("HALF-LIFE: 2D")
 size = width, height = get_monitors()[0].width, get_monitors()[0].height
 k_size = width / 1600, height / 900
 
-FPS = 60
+FPS = 1
 cloak = pygame.time.Clock()
 screen.fill((255, 255, 255))
 
