@@ -1,1 +1,1 @@
-print(1600)
+print()

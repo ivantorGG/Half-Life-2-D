@@ -27,8 +27,9 @@ def pre_screen_check_events(image, first_motion, last_place, width, height):
                     image.rect.y -= 1
                 last_place = curr_place
 
-        if event.type == pygame.MOUSEBUTTONDOWN and event.pos[0] in range(57, 528) and \
-                event.pos[1] in range(408, 441):
+        k = width / 1600
+        if event.type == pygame.MOUSEBUTTONDOWN and event.pos[0] in range(round(57 * k), round(528 * k)) and \
+                event.pos[1] in range(round(408 * k), round(441 * k)):
             running = False
 
     return image, first_motion, last_place, running

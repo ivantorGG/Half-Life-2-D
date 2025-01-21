@@ -7,7 +7,7 @@ class Player(pygame.sprite.Sprite):
 
         self.image = pygame.image.load('images/gordon/right/stand.png')
         self.image = pygame.transform.scale(self.image, (round(1.4 * 83 * k_size[0]), round(1.4 * 208 * k_size[1])))
-        self.rect = self.image.get_rect(center=(x, y))
+        self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
 
         self.move_left = False
         self.move_right = False

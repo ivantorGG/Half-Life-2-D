@@ -1,6 +1,9 @@
 # TODO: add grenade to player's inventory
+import random
+
 import pygame
 from player import Player
+from chips import create_chips
 
 
 class FoodBottery(pygame.sprite.Sprite):
@@ -9,8 +12,7 @@ class FoodBottery(pygame.sprite.Sprite):
         self.sound = pygame.mixer.Sound('sounds/battery_pickup.mp3')
         self.image = pygame.image.load('images/food/bottery.png')
         self.image = pygame.transform.scale(self.image, (20 * k_size[0], 44 * k_size[1]))
-        self.rect = self.image.get_rect()
-        self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)
+        self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
         self.obj = obj
 
     def update(self, *args, **kwargs):
@@ -27,14 +29,13 @@ class FoodBottery(pygame.sprite.Sprite):
 
 
 class FoodGrenade(pygame.sprite.Sprite):
-    def __init__(self, k_size,  x, y, obj, *groups):
+    def __init__(self, k_size, x, y, obj, *groups):
         super().__init__(*groups)
 
         self.sound = pygame.mixer.Sound('sounds/ammo_pickup.mp3')
         self.image = pygame.image.load('images/food/grenade.png')
         self.image = pygame.transform.scale(self.image, (round(23 * k_size[0]), round(57 * k_size[1])))
-        self.rect = self.image.get_rect()
-        self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)
+        self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
         self.obj = obj
 
     def update(self, *args, **kwargs):
@@ -44,14 +45,13 @@ class FoodGrenade(pygame.sprite.Sprite):
 
 
 class FoodMedkitSmall(pygame.sprite.Sprite):
-    def __init__(self, k_size,  x, y, obj, *groups):
+    def __init__(self, k_size, x, y, obj, *groups):
         super().__init__(*groups)
 
         self.sound = pygame.mixer.Sound('sounds/smallmedkit1.mp3')
         self.image = pygame.image.load('images/food/medkit-small.png')
         self.image = pygame.transform.scale(self.image, (44 * k_size[0], 56 * k_size[1]))
-        self.rect = self.image.get_rect()
-        self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)
+        self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
         self.obj = obj
 
     def update(self, *args, **kwargs):
@@ -68,14 +68,13 @@ class FoodMedkitSmall(pygame.sprite.Sprite):
 
 
 class FoodMedkitBig(pygame.sprite.Sprite):
-    def __init__(self, k_size,  x, y, obj, *groups):
+    def __init__(self, k_size, x, y, obj, *groups):
         super().__init__(*groups)
 
         self.sound = pygame.mixer.Sound('sounds/smallmedkit1.mp3')
         self.image = pygame.image.load('images/food/medkit_big.png')
         self.image = pygame.transform.scale(self.image, (38 * k_size[0], 35 * k_size[1]))
-        self.rect = self.image.get_rect()
-        self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)
+        self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
         self.obj = obj
 
     def update(self, *args, **kwargs):
@@ -98,19 +97,24 @@ class FoodBox(pygame.sprite.Sprite):
         self.sound = pygame.mixer.Sound('sounds/lucky_box_crushing.mp3')
         self.image = pygame.image.load('images/food/box.png')
         self.image = pygame.transform.scale(self.image, (round(111 * k_size[0]), round(84 * k_size[1])))
-        self.rect = self.image.get_rect()
-        self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)
+        self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
         self.food = food
         self.obj = obj
         self.k_size = k_size
+        self.is_crushed = False
 
     def crush(self):
         self.sound.play()
-        self.food(self.k_size, self.rect.centerx, self.rect.centery - 15, self.obj, *self.groups())
-        self.kill()
+        img = random.choice(['images/food/crushed_box.png', 'images/food/crushed_box1.png'])
+        self.image = pygame.transform.scale(pygame.image.load(img), (self.rect.width, self.rect.height))
+        self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+        self.food(self.k_size, round((self.rect.centerx - 4) / self.k_size[0]),
+                  round((self.rect.centery - 12) / self.k_size[1]), self.obj, *self.groups())
+        self.is_crushed = True
+        create_chips((self.rect.centerx, self.rect.centery - 30), 'FoodBox', self.groups())
 
     def update(self, *args, **kwargs):
-        if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player):
+        if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player) and not self.is_crushed:
             self.crush()
 
 

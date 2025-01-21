@@ -11,9 +11,7 @@ class HEVChargerBox(pygame.sprite.Sprite):
 
         self.image = pygame.image.load('images/hev_charger/charger.png')
         self.image = pygame.transform.scale(self.image, (round(117 * k_size[0]), round(245 * k_size[1])))
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect = self.image.get_rect(center=(round(x * k_size[0]), round(y * k_size[1])))
 
 
 class HEVChargerAnimationBlock(pygame.sprite.Sprite):
@@ -80,8 +78,7 @@ class HealthChargerBox(pygame.sprite.Sprite):
 
         self.image = pygame.image.load('images/health_charger/charger.png')
         self.image = pygame.transform.scale(self.image, (round(416 // 3 * k_size[0]), round(687 // 3 * k_size[1])))
-        self.rect = self.image.get_rect()
-        self.rect = self.rect.move(x - self.rect.x, y - self.rect.y)
+        self.rect = self.image.get_rect(center=(round(x * k_size[0]), round(y * k_size[1])))
 
 
 class HealthChargerAnimationBlock(pygame.sprite.Sprite):
