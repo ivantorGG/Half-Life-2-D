@@ -8,6 +8,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load('images/gordon/right/stand.png')
         self.image = pygame.transform.scale(self.image, (round(1.4 * 83 * k_size[0]), round(1.4 * 208 * k_size[1])))
         self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
+        self.mask = pygame.mask.from_surface(self.image)
 
         self.move_left = False
         self.move_right = False
@@ -42,8 +43,14 @@ class Player(pygame.sprite.Sprite):
         self.update_animation_phases()
         if self.move_left:
             self.move_player(-10, 0)
+            if args[0].mask is not None and pygame.sprite.collide_mask(self, args[0]) is not None or \
+                    args[0].car is not None and pygame.sprite.collide_mask(self, args[0].car) is not None:
+                self.move_player(10, 0)
         if self.move_right:
             self.move_player(10, 0)
+            if args[0].mask is not None and pygame.sprite.collide_mask(self, args[0]) is not None or \
+                    args[0].car is not None and pygame.sprite.collide_mask(self, args[0].car) is not None:
+                self.move_player(-10, 0)
         if self.jumping or self.jumping_speed != -30:
             if self.jumping_speed not in (30, 28, 26, 24, 22, -26, -28, -30, -24, -22):
                 self.move_player(0, self.jumping_speed)
@@ -112,6 +119,8 @@ class Player(pygame.sprite.Sprite):
                 self.image = pygame.transform.scale(
                     pygame.image.load(f'images/gordon/{self.direction}/4.png'),
                     (round(358 * self.k_size[0] / 2), round(500 * self.k_size[1] / 2)))
+
+        self.mask = pygame.mask.from_surface(self.image)
 
     def update_animation_phases(self):
         if self.move_left and self.jumping:

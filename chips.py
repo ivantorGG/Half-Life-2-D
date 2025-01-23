@@ -23,7 +23,7 @@ class Particle(pygame.sprite.Sprite):
         self.gravity = 1
         self.pos = pos
 
-    def update(self):
+    def update(self, *args, **kwargs):
         # применяем гравитационный эффект:
         # движение с ускорением под действием гравитации
         self.velocity[1] += self.gravity

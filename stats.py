@@ -1,4 +1,6 @@
 # TODO: upgrade func print_pre_screen
+import random
+
 import pygame
 
 
@@ -8,11 +10,13 @@ def print_pre_screen(screen, width, height):
         x1, y1, width1, height1 = round(20 * (width / 1600)), round(395 * (height / 900)), round(
             505 * (width / 1600)), round(60 * (height / 900))
         pygame.draw.rect(screen, (205, 205, 200), (x1, y1, width1, height1), round(3 * (width / 1600)))
+        return x1, y1, x1 + width1, y1 + height1
 
     class PreImage(pygame.sprite.Sprite):
         def __init__(self, *groups):
             super().__init__(*groups)
-            self.image = pygame.image.load('images/gordon/on_minimum.png')
+            img = pygame.image.load(random.choice(['images/gordon/on_minimum.png', 'images/gordon/heavy_tf2.png']))
+            self.image = img
             self.image = pygame.transform.scale(self.image, (width * 1.2, height * 1.2))
             self.rect = self.image.get_rect()
             self.rect.x = -(width * 1.2 - width) // 2
@@ -26,9 +30,9 @@ def print_pre_screen(screen, width, height):
     hl2_font = pygame.font.Font('fonts/halflife2.ttf', round(40 * (width / 1600)))
     text = hl2_font.render("HALF - LIFE'", True, (205, 205, 200))
 
-    draw_btn()
+    btn_x1, btn_y1, btn_x2, btn_y2 = draw_btn()
 
-    return pre_image, all_sprites, draw_btn
+    return pre_image, all_sprites, draw_btn, btn_x1, btn_y1, btn_x2, btn_y2
 
 
 def print_stats(screen, k_size, player):
