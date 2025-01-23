@@ -5,10 +5,17 @@ import pygame
 
 
 def print_pre_screen(screen, width, height):
-    def draw_btn():
+    def draw_btn1():
         screen.blit(text, (round(40 * (width / 1600)), round(400 * (width / 1600))))
         x1, y1, width1, height1 = round(20 * (width / 1600)), round(395 * (height / 900)), round(
             505 * (width / 1600)), round(60 * (height / 900))
+        pygame.draw.rect(screen, (205, 205, 200), (x1, y1, width1, height1), round(3 * (width / 1600)))
+        return x1, y1, x1 + width1, y1 + height1
+
+    def draw_btn2():
+        screen.blit(text2, (round(40 * (width / 1600)), round(500 * (width / 1600))))
+        x1, y1, width1, height1 = round(20 * (width / 1600)), round(495 * (height / 900)), round(
+            180 * (width / 1600)), round(60 * (height / 900))
         pygame.draw.rect(screen, (205, 205, 200), (x1, y1, width1, height1), round(3 * (width / 1600)))
         return x1, y1, x1 + width1, y1 + height1
 
@@ -28,11 +35,15 @@ def print_pre_screen(screen, width, height):
     all_sprites.update()
 
     hl2_font = pygame.font.Font('fonts/halflife2.ttf', round(40 * (width / 1600)))
+    normal_font = pygame.font.Font('fonts/Roboto-Regular.ttf', round(40 * (width / 1600)))
+
     text = hl2_font.render("HALF - LIFE'", True, (205, 205, 200))
+    text2 = normal_font.render("ВЫХОД", True, (205, 205, 200))
 
-    btn_x1, btn_y1, btn_x2, btn_y2 = draw_btn()
+    btn_x1, btn_y1, btn_x2, btn_y2 = draw_btn1()
+    btn2_x1, btn2_y1, btn2_x2, btn2_y2 = draw_btn2()
 
-    return pre_image, all_sprites, draw_btn, btn_x1, btn_y1, btn_x2, btn_y2
+    return pre_image, all_sprites, draw_btn1, draw_btn2, btn_x1, btn_y1, btn_x2, btn_y2, btn2_x1, btn2_y1, btn2_x2, btn2_y2
 
 
 def print_stats(screen, k_size, player):

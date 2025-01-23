@@ -5,13 +5,11 @@ from chargers import HEVChargerBox, HealthChargerBox
 from connecting_objects import Level
 
 
-def pre_screen_check_events(image, first_motion, last_place, width, height, btn_x1, btn_y1, btn_x2, btn_y2):
+def pre_screen_check_events(image, first_motion, last_place, width, height, btn_x1, btn_y1, btn_x2, btn_y2, btn2_x1,
+                            btn2_y1, btn2_x2, btn2_y2):
     """Проверка событий pygame"""
     running = None
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
-
         if event.type == pygame.MOUSEMOTION:
             if first_motion:
                 last_place = event.pos
@@ -28,10 +26,16 @@ def pre_screen_check_events(image, first_motion, last_place, width, height, btn_
                     image.rect.y -= 1
                 last_place = curr_place
 
-        k = width / 1600
-        if event.type == pygame.MOUSEBUTTONDOWN and event.pos[0] in range(btn_x1, btn_x2) and \
-                event.pos[1] in range(btn_y1, btn_y2):
-            running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # в кнопке "старт"
+            if event.pos[0] in range(btn_x1, btn_x2) and \
+                    event.pos[1] in range(btn_y1, btn_y2):
+                running = False
+            # в кнопке "выход"
+            if event.pos[0] in range(btn2_x1, btn2_x2) and \
+                    event.pos[1] in range(btn2_y1, btn2_y2):
+                pygame.quit()
+                sys.exit()
 
     return image, first_motion, last_place, running
 
@@ -89,4 +93,3 @@ def first_level_check_events(player, all_sprites, HEV_charger=None, health_charg
 
             if event.key == pygame.K_w or event.key == pygame.K_SPACE:
                 player.jumping = False
-

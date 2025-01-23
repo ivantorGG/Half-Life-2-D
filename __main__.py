@@ -27,17 +27,20 @@ def pre_screen():
     running = True
     first_motion = True
     last_place = None
-    image, all_sprites, draw_btn, btn_x1, btn_y1, btn_x2, btn_y2 = stats.print_pre_screen(screen, width, height)
+    image, all_sprites, draw_btn, draw_btn2, btn_x1, btn_y1, btn_x2, btn_y2, btn2_x1, btn2_y1, btn2_x2, btn2_y2 = stats.print_pre_screen(
+        screen, width, height)
     while running:
         image, first_motion, last_place, running = controls.pre_screen_check_events(image, first_motion, last_place,
                                                                                     width, height, btn_x1, btn_y1,
-                                                                                    btn_x2, btn_y2)
+                                                                                    btn_x2, btn_y2, btn2_x1, btn2_y1,
+                                                                                    btn2_x2, btn2_y2)
 
         pygame.display.flip()
         cloak.tick(FPS)
         all_sprites.draw(screen)
         all_sprites.update()
         draw_btn()
+        draw_btn2()
         if running is None:
             running = True
 
