@@ -22,7 +22,9 @@ def print_pre_screen(screen, width, height):
     class PreImage(pygame.sprite.Sprite):
         def __init__(self, *groups):
             super().__init__(*groups)
-            img = pygame.image.load(random.choice(['images/gordon/on_minimum.png', 'images/gordon/heavy_tf2.png']))
+            img = pygame.image.load(random.choice(
+                ['images/pre_screen/on_minimum.png', 'images/pre_screen/heavy_tf2.jpg',
+                 'images/pre_screen/wake_up.png']))
             self.image = img
             self.image = pygame.transform.scale(self.image, (width * 1.2, height * 1.2))
             self.rect = self.image.get_rect()

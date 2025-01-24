@@ -1,7 +1,7 @@
 from player import Player
 from chargers import HEVCharger, HealthCharger
 from food import FoodBox, FoodBottery, FoodGrenade, FoodMedkitBig, FoodMedkitSmall
-from connecting_objects import Level
+from connecting_objects import Level, InvisibleWall
 from objects import CrushedCarChained
 import stats
 import controls
@@ -47,6 +47,11 @@ def pre_screen():
 
 def first_level():
     all_sprites = pygame.sprite.Group()
+    invisible_horizontal_walls = pygame.sprite.Group()
+    invisible_vertical_walls = pygame.sprite.Group()
+
+    InvisibleWall(-400, -300, -400, 300, all_sprites, invisible_vertical_walls, is_visible=True)
+    InvisibleWall(200, -300, 200, 300, all_sprites, invisible_vertical_walls, is_visible=True)
 
     HEV_charger = HEVCharger(k_size, -400, 0, all_sprites)
     health_charger = HealthCharger(k_size, -600, 0, all_sprites)
@@ -68,10 +73,11 @@ def first_level():
         controls.first_level_check_events(player, all_sprites, HEV_charger, health_charger, level1, crushed_car)
 
         screen.fill((0, 0, 0))
-        all_sprites.update(crushed_car)
+        all_sprites.update(crushed_car, invisible_horizontal_walls, invisible_vertical_walls)
         all_sprites.draw(screen)
         stats.print_stats(screen, k_size, player)
         camera.update(player)
+
         for sprite in all_sprites:
             camera.apply(sprite)
 

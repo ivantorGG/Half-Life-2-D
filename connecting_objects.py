@@ -27,6 +27,19 @@ class Level(pygame.sprite.Sprite):
         return False
 
 
+class InvisibleWall(pygame.sprite.Sprite):
+    def __init__(self, x1, y1, x2, y2, *groups, is_visible=False):
+        super().__init__(*groups)
+        if x1 == x2:  # вертикальная стенка
+            self.image = pygame.Surface([1, y2 - y1])
+            self.rect = pygame.Rect(x1, y1, 1, y2 - y1)
+        else:  # горизонтальная стенка
+            self.image = pygame.Surface([x2 - x1, 1])
+            self.rect = pygame.Rect(x1, y1, x2 - x1, 1)
+        if is_visible:
+            pygame.draw.circle(self.image, (255, 255, 255), (200, 200), 999999)
+
+
 if __name__ == '__main__':
     pygame.init()
     pygame.mixer.init()
