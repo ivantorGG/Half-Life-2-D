@@ -15,7 +15,7 @@ class Player(pygame.sprite.Sprite):
         self.jumping = False
         self.is_now_jumping = False
         self.crouch = False
-        self.jumping_speed = -30
+        self.jumping_speed = -60
         self.direction = 'right'
 
         self.player_health = 10
@@ -25,7 +25,6 @@ class Player(pygame.sprite.Sprite):
 
         self.phase = 0
         self.for_slower = 1
-        self.count_jumped = 0
         self.jumped_direction = ''
 
         self.k_size = k_size
@@ -42,6 +41,14 @@ class Player(pygame.sprite.Sprite):
     def update(self, *args, **kwargs):
         self.update_animation_phases()
 
+        if not pygame.sprite.spritecollideany(self, args[1]) and not (
+                args[0].mask is not None and pygame.sprite.collide_mask(self, args[0]) is not None or
+                args[0].car is not None and pygame.sprite.collide_mask(self, args[0].car) is not None):
+            self.move_player(0, 20)
+
+        elif self.jumping:
+            self.is_now_jumping = True
+
         if self.move_left:
             self.move_player(-10, 0)
             if args[0].mask is not None and pygame.sprite.collide_mask(self, args[0]) is not None or \
@@ -56,16 +63,6 @@ class Player(pygame.sprite.Sprite):
                     pygame.sprite.spritecollideany(self, args[2]):
                 self.move_player(-10, 0)
 
-        if self.jumping or self.jumping_speed != -30:
-            if self.jumping_speed not in (30, 28, 26, 24, 22, -26, -28, -30, -24, -22):
-                self.move_player(0, self.jumping_speed)
-            if self.jumping_speed < 30:
-                self.jumping_speed += 2
-            else:
-                self.jumping_speed = -30
-        else:
-            self.is_now_jumping = False
-
         if (self.move_right or self.move_left) and \
                 self.direction != 'Jump-Right' and self.direction != 'Jump-Left':  # если только бегает
             self.for_slower += 1
@@ -77,53 +74,21 @@ class Player(pygame.sprite.Sprite):
                     pygame.image.load(f'images/gordon/{self.direction}/{self.phase}.png'),
                     (round(1.4 * 83 * self.k_size[0]), round(1.4 * 208 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
-            if self.count_jumped != 0:
-                self.count_jumped -= 1
-                self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/{self.jumped_direction}/last.png'),
-                    (round(209 * self.k_size[0]), round(264 * self.k_size[1])))
-        else:
+        elif self.direction != 'Jump-Right' and self.direction != 'Jump-Left':
             self.image = pygame.transform.scale(
                 pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
                 (round(1.4 * 83 * self.k_size[0]), round(1.4 * 208 * self.k_size[1])))
             self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
-            if self.count_jumped != 0:
-                self.count_jumped -= 1
-                self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/{self.jumped_direction}/last.png'),
-                    (round(209 * self.k_size[0]), round(264 * self.k_size[1])))
 
-        if self.is_now_jumping:  # если прыгает
-            if self.jumping_speed in (-26, -28):
-                self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/{self.direction}/pre-1.png'),
-                    (round(284 * self.k_size[0] / 2), round(500 * self.k_size[1] / 2)))
-            elif self.jumping_speed in (-22, -24):
-                self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/{self.direction}/pre-2.png'),
-                    (round(328 * self.k_size[0] / 2), round(500 * self.k_size[1] / 2)))
-            elif self.jumping_speed in (30, 28, 26):
-                self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/{self.direction}/last.png'),
-                    (round(209 * self.k_size[0]), round(264 * self.k_size[1])))
-                self.count_jumped = 3
-                self.jumped_direction = self.direction
-            elif -30 < self.jumping_speed <= -10:
-                self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/{self.direction}/1.png'),
-                    (round(358 * self.k_size[0] / 2), round(500 * self.k_size[1] / 2)))
-            elif -10 < self.jumping_speed <= 0:
-                self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/{self.direction}/2.png'),
-                    (round(358 * self.k_size[0] / 2), round(500 * self.k_size[1] / 2)))
-            elif 0 < self.jumping_speed <= 10:
-                self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/{self.direction}/3.png'),
-                    (round(358 * self.k_size[0] / 2), round(500 * self.k_size[1] / 2)))
-            elif 10 < self.jumping_speed <= 30:
-                self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/{self.direction}/4.png'),
-                    (round(358 * self.k_size[0] / 2), round(500 * self.k_size[1] / 2)))
+        elif (self.direction == 'Jump-Right' or self.direction == 'Jump-Left') and self.is_now_jumping:
+            self.image = pygame.transform.scale(pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
+                                                (round(352 / 2 * self.k_size[0]), round(500 / 2 * self.k_size[1])))
+            self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+            self.move_player(0, self.jumping_speed)
+            self.jumping_speed += 4
+            if self.jumping_speed == 0:
+                self.jumping_speed = -60
+                self.is_now_jumping = False
 
         self.mask = pygame.mask.from_surface(self.image)
 
