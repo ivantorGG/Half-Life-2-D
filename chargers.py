@@ -113,7 +113,7 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
         self.k_size = k_size
 
     def update(self, *args, **kwargs):
-        if self.object is not None and (((self.object.player_health == 100 or
+        if self.object is not None and (((self.object.health == 100 or
                                           self.charge_points == 0) and self.go) or not isinstance(
                 pygame.sprite.spritecollideany(self.object, *self.groups()), HealthChargerBox)):
             self.go = False
@@ -128,12 +128,12 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
                                                    self.charger.rect.y + 75 * self.k_size[1])
             if self.for_slover % 4 == 0:
                 self.charge_points -= 1
-                self.object.player_health += 1
+                self.object.health += 1
 
     def start_animation(self, obj) -> None:
         """Начать анимацию зарядника здоровья"""
         if not self.go:
-            if self.charge_points == 0 or obj.player_health == 100:
+            if self.charge_points == 0 or obj.health == 100:
                 self.err_sound.play()
             else:
                 self.sound.play()

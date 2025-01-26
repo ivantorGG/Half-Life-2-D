@@ -52,6 +52,9 @@ def first_level_check_events(player, all_sprites, invisible_horizontal_walls, in
             print(event.pos)
 
         if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_r:
+                player.test()
+
             if event.key == pygame.K_d:
                 player.move_right = True
 
