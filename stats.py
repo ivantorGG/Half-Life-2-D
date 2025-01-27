@@ -1,6 +1,5 @@
 # TODO: upgrade func print_pre_screen
 import random
-
 import pygame
 
 
@@ -54,10 +53,10 @@ def print_stats(screen, k_size, player):
 
     # здоровье
     health_text = normal_font.render('жизнь', True, (244, 169, 0))
-    num_health_text = hl2_font.render(str(player.player_health), True, (244, 169, 0))
+    num_health_text = hl2_font.render(str(player.health), True, (244, 169, 0))
 
     health_text_x, health_text_y = 30, screen.get_height() - round(10 + 45 * k_size[1])
-    num_health_text_x, num_health_text_y = round(50 + 62 * k_size[1]) if len(str(player.player_health)) == 3 else round(
+    num_health_text_x, num_health_text_y = round(50 + 62 * k_size[1]) if len(str(player.health)) == 3 else round(
         50 + 70 * k_size[1]), screen.get_height() - round(12 + 70 * k_size[1])
 
     screen.blit(health_text, (health_text_x, health_text_y))
@@ -85,3 +84,10 @@ def print_stats(screen, k_size, player):
     pygame.draw.rect(screen, (244, 169, 0, 128), (health_text_x - 15, num_health_text_y - 10,
                                                   round(80 + 130 * k_size[1]), num_health_text.get_height() + 25), 1,
                      20)
+
+
+def print_death_screen(screen, i, play_sound):
+    if play_sound:
+        death_sound = pygame.mixer.Sound('sounds/player_died-long.mp3')
+        death_sound.play()
+    screen.fill((i, 0, 0))

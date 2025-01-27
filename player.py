@@ -1,8 +1,12 @@
+import time
+
 import pygame
+
+import stats
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, k_size, x, y, *groups):
+    def __init__(self, k_size, screen, x, y, *groups):
         super().__init__(*groups)
 
         self.image = pygame.image.load('images/gordon/right/stand.png')
@@ -18,7 +22,7 @@ class Player(pygame.sprite.Sprite):
         self.jumping_speed = -60
         self.direction = 'right'
 
-        self.player_health = 10
+        self.health = 10
         self.suit_health = 10
 
         self.curr_weapon = None
@@ -29,12 +33,24 @@ class Player(pygame.sprite.Sprite):
 
         self.k_size = k_size
 
+        self.x = x
+        self.y = y
+        self.base_x = x
+        self.base_y = y
+
+        self.i = 0
+        self.screen = screen
+        self.died = False
+        self.go_again = False
+
     def move_player(self, plus_x, plus_y):
-        self.rect.x += plus_x
-        self.rect.y += plus_y
+        self.rect.centerx += plus_x
+        self.rect.centery += plus_y
+        self.x += plus_x
+        self.y += plus_y
 
     def print_stats(self):
-        print(f'player_health:{self.player_health}')
+        print(f'player_health:{self.health}')
         print(f'suit_health:{self.suit_health}')
         print()
 
@@ -92,6 +108,9 @@ class Player(pygame.sprite.Sprite):
 
         self.mask = pygame.mask.from_surface(self.image)
 
+        self.is_in_death_zone()
+        self.is_alive()
+
     def update_animation_phases(self):
         if self.move_left and self.jumping:
             self.direction = 'Jump-Left'
@@ -111,3 +130,18 @@ class Player(pygame.sprite.Sprite):
                 self.direction = 'Jump-Right'
             elif self.direction == 'left':
                 self.direction = 'Jump-Left'
+
+    def is_alive(self):
+        if self.health <= 0:
+            self.i += 1
+            stats.print_death_screen(self.screen, self.i, self.i == 1)
+            self.image = pygame.Surface((0, 0))
+            self.rect = pygame.Rect(0, 0, 0, 0)
+            self.died = True
+            if self.i == 255:
+                self.go_again = True
+
+    def is_in_death_zone(self):
+        if self.y > 700:
+            self.health = 0
+

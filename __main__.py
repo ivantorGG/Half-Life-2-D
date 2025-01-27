@@ -57,8 +57,10 @@ def first_level():
     level1 = Level(k_size, crushed_car, 400, 100, all_sprites)
 
     InvisibleWall(-200, 200, 800, 200, all_sprites, invisible_horizontal_walls, is_visible=True)
+    InvisibleWall(-600, 600, 800, 600, all_sprites, invisible_horizontal_walls, is_visible=True)
+    InvisibleWall(-800, 1000, 800, 1000, all_sprites, invisible_horizontal_walls, is_visible=True)
 
-    player = Player(k_size, 0, 0, all_sprites)
+    player = Player(k_size, screen, 0, 0, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
 
@@ -75,7 +77,11 @@ def first_level():
         screen.fill((0, 0, 0))
         all_sprites.update(crushed_car, invisible_horizontal_walls, invisible_vertical_walls)
         all_sprites.draw(screen)
-        stats.print_stats(screen, k_size, player)
+        if not player.died:
+            stats.print_stats(screen, k_size, player)
+
+        if player.go_again:
+            first_level()
         camera.update(player)
 
         for sprite in all_sprites:

@@ -56,13 +56,13 @@ class FoodMedkitSmall(pygame.sprite.Sprite):
 
     def update(self, *args, **kwargs):
         if isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
-                      Player) and self.obj.player_health <= 85:
-            self.obj.player_health += 15
+                      Player) and self.obj.health <= 85:
+            self.obj.health += 15
             self.sound.play()
             self.kill()
         elif isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
-                        Player) and self.obj.player_health < 100:
-            self.obj.player_health = 100
+                        Player) and self.obj.health < 100:
+            self.obj.health = 100
             self.sound.play()
             self.kill()
 
@@ -79,13 +79,13 @@ class FoodMedkitBig(pygame.sprite.Sprite):
 
     def update(self, *args, **kwargs):
         if isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
-                      Player) and self.obj.player_health <= 70:
-            self.obj.player_health += 30
+                      Player) and self.obj.health <= 70:
+            self.obj.health += 30
             self.sound.play()
             self.kill()
         elif isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
-                        Player) and self.obj.player_health < 100:
-            self.obj.player_health = 100
+                        Player) and self.obj.health < 100:
+            self.obj.health = 100
             self.sound.play()
             self.kill()
 
