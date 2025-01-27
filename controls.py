@@ -76,6 +76,7 @@ def first_level_check_events(player, all_sprites, invisible_horizontal_walls, in
 
             if event.key == pygame.K_e:
                 no_action = True
+                print(pygame.sprite.spritecollideany(player, all_sprites))
                 if isinstance(pygame.sprite.spritecollideany(player, all_sprites), HEVChargerBox):
                     HEV_charger.start_animation(player)
                     no_action = False

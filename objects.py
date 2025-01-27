@@ -50,7 +50,7 @@ class GameLevel(pygame.sprite.Sprite):
         self.image = pygame.image.load('images/levels/1.jpg')
         self.image = pygame.transform.scale(self.image, (
             round(self.image.get_width() * k_size[0]), round(self.image.get_height() * k_size[1])))
-        self.rect = self.image.get_rect(center=(300, 0))
+        self.rect = self.image.get_rect(center=(300, 200))
 
 
 if __name__ == '__main__':

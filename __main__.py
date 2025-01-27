@@ -47,36 +47,50 @@ def pre_screen():
 
 def first_level():
     all_sprites = pygame.sprite.Group()
+    level_sprites = pygame.sprite.Group()
     invisible_horizontal_walls = pygame.sprite.Group()
     invisible_vertical_walls = pygame.sprite.Group()
 
-    # HEV_charger = HEVCharger(k_size, -400, 0, all_sprites)
-    # health_charger = HealthCharger(k_size, -600, 0, all_sprites)
-    #
-    # crushed_car = CrushedCarChained(k_size, 1000, -1000, 600, all_sprites)
-    # level1 = Level(k_size, crushed_car, 400, 100, all_sprites)
-    #
-    # InvisibleWall(-200, 200, 800, 200, all_sprites, invisible_horizontal_walls, is_visible=True)
-    # InvisibleWall(-600, 600, 800, 600, all_sprites, invisible_horizontal_walls, is_visible=True)
-    # InvisibleWall(-800, 1000, 800, 1000, all_sprites, invisible_horizontal_walls, is_visible=True)
-    level = GameLevel(k_size, all_sprites)
+    walls_are_visible = False
+    if walls_are_visible:
+        level = GameLevel(k_size, level_sprites)
+    InvisibleWall(-500, -1000, -500, 1000, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(1100, -1000, 1100, 1000, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+
+    InvisibleWall(-500, 150, 310, 150, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    InvisibleWall(310, 240, 510, 240, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+
+    InvisibleWall(310, 180, 310, 250, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(510, 180, 510, 250, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+
+    InvisibleWall(510, 150, 640, 150, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+
+    InvisibleWall(790, 180, 790, 230, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(640, 180, 640, 230, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+
+    InvisibleWall(790, 150, 1100, 150, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    if not walls_are_visible:
+        level = GameLevel(k_size, level_sprites)
+
+    health_charger = HealthCharger(k_size, 900, 0, 30, all_sprites)
 
     player = Player(k_size, screen, 0, 0, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
 
-    # FoodBottery(k_size, 80, 0, player, all_sprites)
-    # FoodMedkitSmall(k_size, 140, 0, player, all_sprites)
-    # FoodMedkitBig(k_size, 200, 0, player, all_sprites)
-    # FoodGrenade(k_size, -80, 0, player, all_sprites)
-    # FoodBox(k_size, -200, 0, player, FoodGrenade, all_sprites)
+    FoodBottery(k_size, 700, 0, player, all_sprites)
+    FoodMedkitSmall(k_size, 420, 210, player, all_sprites)
 
     while True:
-        controls.first_level_check_events(player, all_sprites, invisible_horizontal_walls, invisible_vertical_walls)
+        controls.first_level_check_events(player, all_sprites, invisible_horizontal_walls, invisible_vertical_walls, None,
+                                          health_charger)
 
         screen.fill((0, 0, 0))
+        level_sprites.update()
+        level_sprites.draw(screen)
         all_sprites.update(None, invisible_horizontal_walls, invisible_vertical_walls)
         all_sprites.draw(screen)
+
         if not player.died:
             stats.print_stats(screen, k_size, player)
 
@@ -86,13 +100,15 @@ def first_level():
 
         for sprite in all_sprites:
             camera.apply(sprite)
+        for sprite in level_sprites:
+            camera.apply(sprite)
 
         pygame.display.flip()
         cloak.tick(FPS)
 
 
 def main():
-    #pre_screen()
+    pre_screen()
     pygame.mouse.set_visible(False)
     first_level()
 

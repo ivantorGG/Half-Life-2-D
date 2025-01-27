@@ -44,7 +44,12 @@ def create_chips(position, type_of_object, *groups):
     if type_of_object == 'FoodBox':
         for _ in range(particle_count):
             Particle(position, random.choice(numbers), random.choice(numbers),
-                     ['images/food/box_chip1.png'], *groups)
+                     ['images/food/box_chip1.png',
+                      'images/food/box_chip2.png',
+                      'images/food/box_chip1.png',
+                      'images/food/box_chip4.png',
+                      'images/food/box_chip5.png',
+                      ], *groups)
 
 
 if __name__ == '__main__':

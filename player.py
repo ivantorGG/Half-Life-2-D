@@ -57,19 +57,20 @@ class Player(pygame.sprite.Sprite):
     def update(self, *args, **kwargs):
         self.update_animation_phases()
 
-        if not pygame.sprite.spritecollideany(self, args[1]) or args[0] is not None and not (
+        if not pygame.sprite.spritecollideany(self, args[2]) and not pygame.sprite.spritecollideany(self, args[1]) or \
+                args[0] and not None and not (
                 args[0].mask is not None and pygame.sprite.collide_mask(self, args[0]) is not None or
                 args[0].car is not None and pygame.sprite.collide_mask(self, args[0].car) is not None):
             self.move_player(0, 20)
-            self.move_player(0, -20)
 
         elif self.jumping:
             self.is_now_jumping = True
 
         if self.move_left:
             self.move_player(-10, 0)
-            if args[0] is not None and (args[0] is not None and args[0].mask is not None and pygame.sprite.collide_mask(self,
-                                                                                               args[0]) is not None or \
+            if args[0] is not None and (
+                    args[0] is not None and args[0].mask is not None and pygame.sprite.collide_mask(self, args[
+                0]) is not None or
                     args[0].car is not None and pygame.sprite.collide_mask(self, args[0].car) is not None) or \
                     pygame.sprite.spritecollideany(self, args[2]):
                 self.move_player(10, 0)
@@ -77,8 +78,9 @@ class Player(pygame.sprite.Sprite):
         if self.move_right:
             self.move_player(10, 0)
             if args[0] is not None and (args[0].mask is not None and pygame.sprite.collide_mask(self,
-                                                                                               args[0]) is not None or \
-                    args[0].car is not None and pygame.sprite.collide_mask(self, args[0].car) is not None) or \
+                                                                                                args[0]) is not None or
+                                        args[0].car is not None and pygame.sprite.collide_mask(self, args[
+                        0].car) is not None) or \
                     pygame.sprite.spritecollideany(self, args[2]):
                 self.move_player(-10, 0)
 
@@ -105,10 +107,13 @@ class Player(pygame.sprite.Sprite):
             self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
             self.move_player(0, self.jumping_speed)
             self.jumping_speed += 4
-            if self.jumping_speed == 0:
+            if self.jumping_speed == 20:
                 self.jumping_speed = -60
                 self.is_now_jumping = False
-
+                self.direction = 'left' if self.direction == 'Jump-Left' else 'right'
+                self.image = pygame.transform.scale(pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
+                                                    (round(1.4 * 83 * self.k_size[0]), round(1.4 * 208 * self.k_size[1])))
+                self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
         self.mask = pygame.mask.from_surface(self.image)
 
         self.is_in_death_zone()

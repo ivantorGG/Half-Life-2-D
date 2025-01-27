@@ -59,11 +59,15 @@ def print_stats(screen, k_size, player):
     num_health_text_x, num_health_text_y = round(50 + 62 * k_size[1]) if len(str(player.health)) == 3 else round(
         50 + 70 * k_size[1]), screen.get_height() - round(12 + 70 * k_size[1])
 
+    pygame.draw.rect(screen, (10, 10, 10, 128), (health_text_x - 15, num_health_text_y - 10,
+                                                 round(80 + 130 * k_size[1]), num_health_text.get_height() + 25),
+                     border_radius=20)
+
     screen.blit(health_text, (health_text_x, health_text_y))
     screen.blit(num_health_text, (num_health_text_x, num_health_text_y))
 
     pygame.draw.rect(screen, (244, 169, 0, 128), (health_text_x - 15, num_health_text_y - 10,
-                                                  round(60 + 130 * k_size[1]), num_health_text.get_height() + 25), 1,
+                                                  round(60 + 150 * k_size[1]), num_health_text.get_height() + 25), 1,
                      20)
 
     # здоровье костюма

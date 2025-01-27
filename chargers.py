@@ -15,7 +15,7 @@ class HEVChargerBox(pygame.sprite.Sprite):
 
 
 class HEVChargerAnimationBlock(pygame.sprite.Sprite):
-    def __init__(self, k_size, charger, *groups):
+    def __init__(self, k_size, charger, charge_points, *groups):
         """При инициализации указывать координаты тела зарядника и группы спрайтов"""
         super().__init__(*groups)
 
@@ -35,7 +35,7 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
         self.rect = self.rect.move(charger.rect.x + 30 * k_size[0],
                                    charger.rect.y + 86 * k_size[1])  # перемещаю относительно тела
 
-        self.charge_points = 60  # столько в заряднике припасов
+        self.charge_points = charge_points  # столько в заряднике припасов
         self.object = None  # объект, которому давать припасы
 
         self.k_size = k_size
@@ -82,10 +82,10 @@ class HealthChargerBox(pygame.sprite.Sprite):
 
 
 class HealthChargerAnimationBlock(pygame.sprite.Sprite):
-    def __init__(self, k_size, charger, *groups):
+    def __init__(self, k_size, charger, charge_points, *groups):
         super().__init__(*groups)
 
-        self.charge_points = 80
+        self.charge_points = charge_points
 
         self.sound = pygame.mixer.Sound('sounds/health_charger.mp3')
         self.err_sound = pygame.mixer.Sound('sounds/health_charger-error.mp3')
@@ -142,9 +142,9 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
 
 
 class HEVCharger:
-    def __init__(self, k_size, x, y, *groups):
+    def __init__(self, k_size, x, y, charge_points, *groups):
         self.hev_charger = HEVChargerBox(k_size, x, y, *groups)
-        self.hev_charger_animaton_block = HEVChargerAnimationBlock(k_size, self.hev_charger,
+        self.hev_charger_animaton_block = HEVChargerAnimationBlock(k_size, self.hev_charger, charge_points,
                                                                    *groups)
 
     def start_animation(self, obj):
@@ -152,9 +152,9 @@ class HEVCharger:
 
 
 class HealthCharger:
-    def __init__(self, k_size, x, y, *groups):
+    def __init__(self, k_size, x, y, charge_points, *groups):
         self.health_charger = HealthChargerBox(k_size, x, y, *groups)
-        self.health_charger_animaton_block = HealthChargerAnimationBlock(k_size, self.health_charger,
+        self.health_charger_animaton_block = HealthChargerAnimationBlock(k_size, self.health_charger, charge_points,
                                                                          *groups)
 
     def start_animation(self, obj):
