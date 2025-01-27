@@ -2,7 +2,7 @@ from player import Player
 from chargers import HEVCharger, HealthCharger
 from food import FoodBox, FoodBottery, FoodGrenade, FoodMedkitBig, FoodMedkitSmall
 from connecting_objects import Level, InvisibleWall
-from objects import CrushedCarChained
+from objects import CrushedCarChained, GameLevel
 import stats
 import controls
 from camera import Camera
@@ -50,32 +50,32 @@ def first_level():
     invisible_horizontal_walls = pygame.sprite.Group()
     invisible_vertical_walls = pygame.sprite.Group()
 
-    HEV_charger = HEVCharger(k_size, -400, 0, all_sprites)
-    health_charger = HealthCharger(k_size, -600, 0, all_sprites)
-
-    crushed_car = CrushedCarChained(k_size, 1000, -1000, 600, all_sprites)
-    level1 = Level(k_size, crushed_car, 400, 100, all_sprites)
-
-    InvisibleWall(-200, 200, 800, 200, all_sprites, invisible_horizontal_walls, is_visible=True)
-    InvisibleWall(-600, 600, 800, 600, all_sprites, invisible_horizontal_walls, is_visible=True)
-    InvisibleWall(-800, 1000, 800, 1000, all_sprites, invisible_horizontal_walls, is_visible=True)
+    # HEV_charger = HEVCharger(k_size, -400, 0, all_sprites)
+    # health_charger = HealthCharger(k_size, -600, 0, all_sprites)
+    #
+    # crushed_car = CrushedCarChained(k_size, 1000, -1000, 600, all_sprites)
+    # level1 = Level(k_size, crushed_car, 400, 100, all_sprites)
+    #
+    # InvisibleWall(-200, 200, 800, 200, all_sprites, invisible_horizontal_walls, is_visible=True)
+    # InvisibleWall(-600, 600, 800, 600, all_sprites, invisible_horizontal_walls, is_visible=True)
+    # InvisibleWall(-800, 1000, 800, 1000, all_sprites, invisible_horizontal_walls, is_visible=True)
+    level = GameLevel(k_size, all_sprites)
 
     player = Player(k_size, screen, 0, 0, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
 
-    FoodBottery(k_size, 80, 0, player, all_sprites)
-    FoodMedkitSmall(k_size, 140, 0, player, all_sprites)
-    FoodMedkitBig(k_size, 200, 0, player, all_sprites)
-    FoodGrenade(k_size, -80, 0, player, all_sprites)
-    FoodBox(k_size, -200, 0, player, FoodGrenade, all_sprites)
+    # FoodBottery(k_size, 80, 0, player, all_sprites)
+    # FoodMedkitSmall(k_size, 140, 0, player, all_sprites)
+    # FoodMedkitBig(k_size, 200, 0, player, all_sprites)
+    # FoodGrenade(k_size, -80, 0, player, all_sprites)
+    # FoodBox(k_size, -200, 0, player, FoodGrenade, all_sprites)
 
     while True:
-        controls.first_level_check_events(player, all_sprites, invisible_horizontal_walls, invisible_vertical_walls,
-                                          HEV_charger, health_charger, level1, crushed_car)
+        controls.first_level_check_events(player, all_sprites, invisible_horizontal_walls, invisible_vertical_walls)
 
         screen.fill((0, 0, 0))
-        all_sprites.update(crushed_car, invisible_horizontal_walls, invisible_vertical_walls)
+        all_sprites.update(None, invisible_horizontal_walls, invisible_vertical_walls)
         all_sprites.draw(screen)
         if not player.died:
             stats.print_stats(screen, k_size, player)
@@ -92,7 +92,7 @@ def first_level():
 
 
 def main():
-    pre_screen()
+    #pre_screen()
     pygame.mouse.set_visible(False)
     first_level()
 

@@ -43,6 +43,16 @@ class CrushedCar(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
 
 
+class GameLevel(pygame.sprite.Sprite):
+    def __init__(self, k_size, *groups):
+        super().__init__(*groups)
+
+        self.image = pygame.image.load('images/levels/1.jpg')
+        self.image = pygame.transform.scale(self.image, (
+            round(self.image.get_width() * k_size[0]), round(self.image.get_height() * k_size[1])))
+        self.rect = self.image.get_rect(center=(300, 0))
+
+
 if __name__ == '__main__':
     pygame.init()
     pygame.mixer.init()

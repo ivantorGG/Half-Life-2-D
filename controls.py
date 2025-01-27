@@ -63,9 +63,12 @@ def first_level_check_events(player, all_sprites, invisible_horizontal_walls, in
 
             if event.key == pygame.K_w or event.key == pygame.K_SPACE:
                 player.jumping = True
+
                 if pygame.sprite.spritecollideany(player, invisible_horizontal_walls) or \
+                        crushed_car is not None and (
                         crushed_car.mask is not None and pygame.sprite.collide_mask(player, crushed_car) is not None or \
-                        crushed_car.car is not None and pygame.sprite.collide_mask(player, crushed_car.car) is not None:
+                        crushed_car.car is not None and pygame.sprite.collide_mask(player,
+                                                                                   crushed_car.car) is not None):
                     player.is_now_jumping = True
 
             if event.key == pygame.K_s:
