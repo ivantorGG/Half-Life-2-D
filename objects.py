@@ -44,12 +44,12 @@ class CrushedCar(pygame.sprite.Sprite):
 
 
 class GameLevel(pygame.sprite.Sprite):
-    def __init__(self, k_size, *groups):
+    def __init__(self, k_size, img, *groups):
         super().__init__(*groups)
 
-        self.image = pygame.image.load('images/levels/1.jpg')
+        self.image = pygame.image.load(img)
         self.image = pygame.transform.scale(self.image, (
-            round(self.image.get_width() * k_size[0]), round(self.image.get_height() * k_size[1])))
+            round(1600 * k_size[0]), round(900 * k_size[1])))
         self.rect = self.image.get_rect(center=(300, 200))
 
 
