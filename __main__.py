@@ -51,9 +51,9 @@ def first_level():
     invisible_horizontal_walls = pygame.sprite.Group()
     invisible_vertical_walls = pygame.sprite.Group()
 
-    walls_are_visible = False
+    walls_are_visible = True
     if walls_are_visible:
-        level = GameLevel(k_size, level_sprites)
+        level = GameLevel(k_size, 'images/levels/1.jpg', (0, 0), (0, 0), level_sprites)
     InvisibleWall(-500, -1000, -500, 1000, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
     InvisibleWall(1100, -1000, 1100, 1000, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
@@ -82,7 +82,8 @@ def first_level():
     FoodMedkitSmall(k_size, 420, 210, player, all_sprites)
 
     while True:
-        controls.first_level_check_events(player, all_sprites, invisible_horizontal_walls, invisible_vertical_walls, None,
+        controls.first_level_check_events(player, all_sprites, invisible_horizontal_walls, invisible_vertical_walls,
+                                          None,
                                           health_charger)
 
         screen.fill((0, 0, 0))

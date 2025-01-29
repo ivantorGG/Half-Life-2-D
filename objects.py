@@ -44,13 +44,96 @@ class CrushedCar(pygame.sprite.Sprite):
 
 
 class GameLevel(pygame.sprite.Sprite):
-    def __init__(self, k_size, img, *groups):
+    def __init__(self, k_size, img, portal1_xy, portal2_xy, *groups):
         super().__init__(*groups)
 
         self.image = pygame.image.load(img)
         self.image = pygame.transform.scale(self.image, (
-            round(1600 * k_size[0]), round(900 * k_size[1])))
-        self.rect = self.image.get_rect(center=(300, 200))
+            round(self.image.get_width() * k_size[0]), round(self.image.get_height() * k_size[1])))
+        self.rect = self.image.get_rect(center=(300, -170))
+        self.start_portal = Portal(k_size, portal1_xy[0], portal1_xy[1], True, *self.groups())
+        self.end_portal = Portal(k_size, portal2_xy[0], portal2_xy[1], True, *self.groups())
+
+        self.completed = False
+
+    def update(self, *args, **kwargs):
+        pass
+        # try:
+        #     if self.start_portal.is_done:
+        #         del self.start_portal
+        # except NameError:
+        #     pass
+        # try:
+        #     if self.end_portal.is_done:
+        #         del self.end_portal
+        # except NameError:
+        #     self.completed = True
+
+
+class Portal(pygame.sprite.Sprite):
+    def __init__(self, k_size, x, y, is_first, *groups):
+        pass
+        # super().__init__(*groups)
+        #
+        # if is_first:
+        #     self.phase = 'starting'
+        #     self.counting_i = 0
+        #     self.counting_max = 3
+        #     self.color = 'green'
+        # else:
+        #     self.phase = 'waiting'
+        #     self.color = 'purple'
+        #
+        # self.is_first = is_first
+        # self.is_done = False
+        #
+        # self.starting_images = [...]
+        # self.waiting_images = [...]
+        # self.closing_images = [...]
+        #
+        # self.i = 0
+        # self.image = pygame.image.load(f'images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
+        # self.image = pygame.transform.scale(self.image, (
+        #     round(50 * k_size[0]), round(100 * k_size[1])))
+        # self.rect = self.image.get_rect(center=(x, y))
+
+    def update(self, *args, **kwargs):
+        pass
+        # if self.phase == 'starting':
+        #     self.image = pygame.image.load(f'images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
+        #     self.image = pygame.transform.scale(self.image, (
+        #         round(50 * k_size[0]), round(100 * k_size[1])))
+        #     self.rect = self.image.get_rect(center=(self.rect.x, self.rect.y))
+        #     self.i += 1
+        #     if self.i is ...:
+        #         self.i = 0
+        #         self.phase = 'waiting'
+        #
+        # if self.phase == 'waiting':
+        #     self.image = pygame.image.load(f'images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
+        #     self.image = pygame.transform.scale(self.image, (
+        #         round(50 * k_size[0]), round(100 * k_size[1])))
+        #     self.rect = self.image.get_rect(center=(self.rect.x, self.rect.y))
+        #     self.i += 1
+        #
+        #     if self.i is ...:
+        #         self.i = 0
+        #         if self.is_first:
+        #             self.counting_i += 1
+        #
+        #     if self.counting_i == self.counting_max:
+        #         self.phase = 'closing'
+        #
+        # if self.phase == 'closing':
+        #     self.image = pygame.image.load(f'images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
+        #     self.image = pygame.transform.scale(self.image, (
+        #         round(50 * k_size[0]), round(100 * k_size[1])))
+        #     self.rect = self.image.get_rect(center=(self.rect.x, self.rect.y))
+        #     self.i += 1
+        #     if self.i is ...:
+        #         self.i = 0
+        #         self.is_done = True
+        #         self.kill()
 
 
 if __name__ == '__main__':
