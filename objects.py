@@ -92,7 +92,7 @@ class Portal(pygame.sprite.Sprite):
         # self.closing_images = [...]
         #
         # self.i = 0
-        # self.image = pygame.image.load(f'images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
+        # self.image = pygame.image.load(f'images/levels/Portal/{self.color}/{self.phase}/{self.i}.png')
         # self.image = pygame.transform.scale(self.image, (
         #     round(50 * k_size[0]), round(100 * k_size[1])))
         # self.rect = self.image.get_rect(center=(x, y))
@@ -100,7 +100,7 @@ class Portal(pygame.sprite.Sprite):
     def update(self, *args, **kwargs):
         pass
         # if self.phase == 'starting':
-        #     self.image = pygame.image.load(f'images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
+        #     self.image = pygame.image.load(f'images/levels/Portal/{self.color}/{self.phase}/{self.i}.png')
         #     self.image = pygame.transform.scale(self.image, (
         #         round(50 * k_size[0]), round(100 * k_size[1])))
         #     self.rect = self.image.get_rect(center=(self.rect.x, self.rect.y))
@@ -110,7 +110,7 @@ class Portal(pygame.sprite.Sprite):
         #         self.phase = 'waiting'
         #
         # if self.phase == 'waiting':
-        #     self.image = pygame.image.load(f'images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
+        #     self.image = pygame.image.load(f'images/levels/Portal/{self.color}/{self.phase}/{self.i}.png')
         #     self.image = pygame.transform.scale(self.image, (
         #         round(50 * k_size[0]), round(100 * k_size[1])))
         #     self.rect = self.image.get_rect(center=(self.rect.x, self.rect.y))
@@ -125,7 +125,7 @@ class Portal(pygame.sprite.Sprite):
         #         self.phase = 'closing'
         #
         # if self.phase == 'closing':
-        #     self.image = pygame.image.load(f'images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
+        #     self.image = pygame.image.load(f'images/levels/Portal/{self.color}/{self.phase}/{self.i}.png')
         #     self.image = pygame.transform.scale(self.image, (
         #         round(50 * k_size[0]), round(100 * k_size[1])))
         #     self.rect = self.image.get_rect(center=(self.rect.x, self.rect.y))
