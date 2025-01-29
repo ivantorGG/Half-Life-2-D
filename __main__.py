@@ -53,7 +53,7 @@ def first_level():
 
     walls_are_visible = True
     if walls_are_visible:
-        level = GameLevel(k_size, 'images/levels/1.jpg', (0, 0), (0, 0), level_sprites)
+        level = GameLevel(k_size, 'images/levels/1.png', (0, 0), (0, 0), level_sprites)
     InvisibleWall(-500, -1000, -500, 1000, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
     InvisibleWall(1100, -1000, 1100, 1000, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
@@ -70,7 +70,7 @@ def first_level():
 
     InvisibleWall(790, 150, 1100, 150, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
     if not walls_are_visible:
-        level = GameLevel(k_size, 'images/levels/1.jpg', level_sprites)
+        level = GameLevel(k_size, 'images/levels/1.png', level_sprites)
 
     health_charger = HealthCharger(k_size, 900, 0, 30, all_sprites)
 
