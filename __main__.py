@@ -54,37 +54,34 @@ def first_level():
     walls_are_visible = True
     if walls_are_visible:
         level = GameLevel(k_size, 'images/levels/1.png', (0, 0), (0, 0), level_sprites)
-    InvisibleWall(-500, -1000, -500, 1000, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(1100, -1000, 1100, 1000, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
-    InvisibleWall(-500, 150, 310, 150, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
-    InvisibleWall(310, 240, 510, 240, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    InvisibleWall(-410, -300, -410, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(950, -300, 950, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
-    InvisibleWall(310, 180, 310, 250, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(510, 180, 510, 250, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(-450, 180, 220, 180, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    InvisibleWall(220, 240, 350, 240, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
 
-    InvisibleWall(510, 150, 640, 150, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    InvisibleWall(220, 200, 220, 240, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(350, 200, 350, 240, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
-    InvisibleWall(790, 180, 790, 230, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(640, 180, 640, 230, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(350, 180, 445, 180, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
 
-    InvisibleWall(790, 150, 1100, 150, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    InvisibleWall(445, 200, 445, 230, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(570, 200, 570, 230, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+
+    InvisibleWall(570, 180, 950, 180, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
     if not walls_are_visible:
         level = GameLevel(k_size, 'images/levels/1.png', (0, 0), (0, 0), level_sprites)
 
-    health_charger = HealthCharger(k_size, 900, 0, 30, all_sprites)
+    control_level = Level(k_size, None, 700, 148, all_sprites)
 
     player = Player(k_size, screen, 0, 0, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
 
-    FoodBottery(k_size, 700, 0, player, all_sprites)
-    FoodMedkitSmall(k_size, 420, 210, player, all_sprites)
-
     while True:
-        controls.first_level_check_events(player, all_sprites, invisible_horizontal_walls, invisible_vertical_walls,
-                                          None,
-                                          health_charger)
+        controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls, invisible_vertical_walls,
+                                          level=control_level)
 
         screen.fill((0, 0, 0))
         level_sprites.update()

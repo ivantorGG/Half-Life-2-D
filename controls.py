@@ -3,6 +3,7 @@ import sys
 
 from chargers import HEVChargerBox, HealthChargerBox
 from connecting_objects import Level
+from food import *
 
 
 def pre_screen_check_events(image, first_motion, last_place, width, height, btn_x1, btn_y1, btn_x2, btn_y2, btn2_x1,
@@ -40,7 +41,7 @@ def pre_screen_check_events(image, first_motion, last_place, width, height, btn_
     return image, first_motion, last_place, running
 
 
-def first_level_check_events(player, all_sprites, invisible_horizontal_walls, invisible_vertical_walls,
+def first_level_check_events(k_size, player, game_level, all_sprites, invisible_horizontal_walls, invisible_vertical_walls,
                              HEV_charger=None, health_charger=None, level=None, crushed_car=None):
     """Проверка событий pygame"""
     E_sound = pygame.mixer.Sound('sounds/E_button-pressed.mp3')
@@ -76,7 +77,6 @@ def first_level_check_events(player, all_sprites, invisible_horizontal_walls, in
 
             if event.key == pygame.K_e:
                 no_action = True
-                print(pygame.sprite.spritecollideany(player, all_sprites))
                 if isinstance(pygame.sprite.spritecollideany(player, all_sprites), HEVChargerBox):
                     HEV_charger.start_animation(player)
                     no_action = False
@@ -86,6 +86,11 @@ def first_level_check_events(player, all_sprites, invisible_horizontal_walls, in
                 if isinstance(pygame.sprite.spritecollideany(player, all_sprites), Level):
                     if level.switch():
                         no_action = False
+                        FoodBottery(k_size, game_level.rect.x + 2610, -200, player, invisible_horizontal_walls, all_sprites)
+                        FoodBottery(k_size, game_level.rect.x + 2610, -600, player, invisible_horizontal_walls, all_sprites)
+                        FoodMedkitBig(k_size, game_level.rect.x + 2610, -800, player, invisible_horizontal_walls, all_sprites)
+                        FoodBox(k_size, game_level.rect.x + 2610, -1200, player, FoodBottery, invisible_horizontal_walls, all_sprites)
+                        FoodMedkitSmall(k_size, game_level.rect.x + 2610, -400, player, invisible_horizontal_walls, all_sprites)
                 if no_action:
                     E_sound.play()
 

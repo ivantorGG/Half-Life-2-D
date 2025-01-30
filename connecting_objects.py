@@ -22,7 +22,8 @@ class Level(pygame.sprite.Sprite):
             self.image = pygame.transform.scale(self.image, (round(32 * 2 * self.k_size[0]), round(26 * 2 * self.k_size[1])))
             self.rect = self.image.get_rect(center=(self.rect.centerx + 18 * self.k_size[0], self.rect.centery))
             self.state = 'on'
-            self.obj.go = True
+            if self.obj is not None:
+                self.obj.go = True
             return True
         return False
 
