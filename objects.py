@@ -97,6 +97,8 @@ class Portal(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (
             round(self.image.get_width() * 6 * self.k_size[0]), round(self.image.get_height() * 6 * self.k_size[1])))
         self.rect = self.image.get_rect(center=(x, y))
+        start_snd = pygame.mixer.Sound('sounds/teleport_entering.mp3')
+        start_snd.play()
 
     def update(self, *args, **kwargs):
         self.for_slower += 1
@@ -138,6 +140,8 @@ class Portal(pygame.sprite.Sprite):
                 if self.i == 6:
                     self.i = 1
                     self.is_done = True
+                    close_snd = pygame.mixer.Sound('sounds/teleport_closing.mp3')
+                    close_snd.play()
                     self.kill()
         if self.phase != 'ending' and isinstance(pygame.sprite.spritecollideany(self, self.obj_groups),
                                                  Player) and not self.is_first:
