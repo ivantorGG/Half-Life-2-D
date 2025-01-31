@@ -53,7 +53,7 @@ def first_level():
 
     walls_are_visible = True
     if walls_are_visible:
-        level = GameLevel(k_size, 'images/levels/1.png', (0, 0), (0, 0), level_sprites)
+        level = GameLevel(k_size, 'images/levels/1.png', (-300, -200, 'green'), (880, 0, 'green'), [all_sprites], level_sprites)
 
     InvisibleWall(-410, -300, -410, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
     InvisibleWall(950, -300, 950, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
@@ -71,17 +71,17 @@ def first_level():
 
     InvisibleWall(570, 180, 950, 180, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
     if not walls_are_visible:
-        level = GameLevel(k_size, 'images/levels/1.png', (0, 0), (0, 0), level_sprites)
+        level = GameLevel(k_size, 'images/levels/1.png', (-300, -200, 'green'), (880, 0, 'green'), all_sprites, level_sprites)
 
     control_level = Level(k_size, None, 700, 148, all_sprites)
 
-    player = Player(k_size, screen, 0, 0, all_sprites)
+    player = Player(k_size, screen, -300, -200, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
 
     while True:
-        controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls, invisible_vertical_walls,
-                                          level=control_level)
+        controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
+                                          invisible_vertical_walls, level=control_level)
 
         screen.fill((0, 0, 0))
         level_sprites.update()
@@ -95,6 +95,9 @@ def first_level():
         if player.go_again:
             first_level()
         camera.update(player)
+
+        if level.completed:
+            print(1)
 
         for sprite in all_sprites:
             camera.apply(sprite)
