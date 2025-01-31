@@ -114,6 +114,18 @@ class Player(pygame.sprite.Sprite):
                 self.image = pygame.transform.scale(pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
                                                     (round(1.4 * 83 * self.k_size[0]), round(1.4 * 208 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+
+        if self.direction == 'crouch_left' or self.direction == 'crouch_right':
+            self.for_slower += 1
+            if self.for_slower % 5 == 0:
+                self.phase = (self.phase + 2) % 8
+                if not self.phase:
+                    self.phase += 2
+                self.image = pygame.transform.scale(
+                    pygame.image.load(f'images/gordon/{self.direction}/{self.phase}.png'),
+                    (round(1.4 * 83 * self.k_size[0]), round(1.4 * 208 * self.k_size[1])))
+                self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+
         self.mask = pygame.mask.from_surface(self.image)
 
         self.is_in_death_zone()
@@ -138,6 +150,13 @@ class Player(pygame.sprite.Sprite):
                 self.direction = 'Jump-Right'
             elif self.direction == 'left':
                 self.direction = 'Jump-Left'
+
+        if self.move_left and self.crouch:
+            self.direction = 'crouch_left'
+
+        if self.move_right and self.crouch:
+            self.direction = 'crouch_right'
+
 
     def is_alive(self):
         if self.health <= 0:

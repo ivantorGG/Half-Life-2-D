@@ -72,7 +72,7 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
                                                                                    crushed_car.car) is not None):
                     player.is_now_jumping = True
 
-            if event.key == pygame.K_s:
+            if event.key == pygame.K_s or event.key == pygame.KMOD_SHIFT:
                 player.crouch = True
 
             if event.key == pygame.K_e:
@@ -104,7 +104,7 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
             if event.key == pygame.K_a:
                 player.move_left = False
 
-            if event.key == pygame.K_s:
+            if event.key == pygame.K_s or event.key == pygame.KMOD_SHIFT:
                 player.crouch = False
 
             if event.key == pygame.K_w or event.key == pygame.K_SPACE:
