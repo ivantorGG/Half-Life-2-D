@@ -122,11 +122,14 @@ def second_level():
                           level_sprites)
 
     # вот стены
-    InvisibleWall(k_size, x1, y1, x2, y2, all_sprites, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -410, -300, -410, 200, all_sprites, is_visible=walls_are_visible)
 
     if not walls_are_visible:
         level = GameLevel(k_size, 'images/levels/2.png', (-300, -200, 'purple'), (880, 0, 'green'), all_sprites,
                           level_sprites)
+
+
+
 
     player = Player(k_size, screen, -300, -200, all_sprites)
     camera = Camera(width, height)
