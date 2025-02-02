@@ -52,7 +52,7 @@ class GameLevel(pygame.sprite.Sprite):
         self.image = pygame.image.load(img)
         self.image = pygame.transform.scale(self.image, (
             round(self.image.get_width() * k_size[0]), round(self.image.get_height() * k_size[1])))
-        self.rect = self.image.get_rect(center=(300, -265))
+        self.rect = self.image.get_rect(center=(300 * k_size[0], -265 * k_size[1]))
         self.start_portal = Portal(k_size, portal1[0], portal1[1], True, portal1[2], *obj_groups, *self.groups())
         self.end_portal = Portal(k_size, portal2[0], portal2[1], False, portal2[2], *obj_groups, *self.groups())
 
@@ -96,7 +96,7 @@ class Portal(pygame.sprite.Sprite):
         self.image = pygame.image.load(f'images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
         self.image = pygame.transform.scale(self.image, (
             round(self.image.get_width() * 6 * self.k_size[0]), round(self.image.get_height() * 6 * self.k_size[1])))
-        self.rect = self.image.get_rect(center=(x, y))
+        self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
         start_snd = pygame.mixer.Sound('sounds/teleport_entering.mp3')
         start_snd.play()
 

@@ -42,10 +42,10 @@ class Player(pygame.sprite.Sprite):
         self.go_again = False
 
     def move_player(self, plus_x, plus_y):
-        self.rect.centerx += plus_x
-        self.rect.centery += plus_y
-        self.x += plus_x
-        self.y += plus_y
+        self.rect.centerx += plus_x * self.k_size[0]
+        self.rect.centery += plus_y * self.k_size[0]
+        self.x += plus_x * self.k_size[0]
+        self.y += plus_y * self.k_size[0]
 
     def print_stats(self):
         print(f'player_health:{self.health}')

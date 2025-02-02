@@ -15,6 +15,7 @@ class FoodBottery(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
         self.obj = obj
         self.walls = walls
+        self.k_size = k_size
 
     def update(self, *args, **kwargs):
         if isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
@@ -28,7 +29,7 @@ class FoodBottery(pygame.sprite.Sprite):
             self.obj.suit_health = 100
             self.kill()
         if not pygame.sprite.spritecollideany(self, self.walls):
-            self.rect.y += 10
+            self.rect.y += 10 * self.k_size[0]
 
 
 class FoodGrenade(pygame.sprite.Sprite):
@@ -57,6 +58,7 @@ class FoodMedkitSmall(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
         self.obj = obj
         self.walls = walls
+        self.k_size = k_size
 
     def update(self, *args, **kwargs):
         if isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
@@ -70,7 +72,7 @@ class FoodMedkitSmall(pygame.sprite.Sprite):
             self.sound.play()
             self.kill()
         if not pygame.sprite.spritecollideany(self, self.walls):
-            self.rect.y += 10
+            self.rect.y += 10 * self.k_size[0]
 
 
 class FoodMedkitBig(pygame.sprite.Sprite):
@@ -83,6 +85,7 @@ class FoodMedkitBig(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
         self.obj = obj
         self.walls = walls
+        self.k_size = k_size
 
     def update(self, *args, **kwargs):
         if isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
@@ -96,7 +99,7 @@ class FoodMedkitBig(pygame.sprite.Sprite):
             self.sound.play()
             self.kill()
         if not pygame.sprite.spritecollideany(self, self.walls):
-            self.rect.y += 10
+            self.rect.y += 10 * self.k_size[0]
 
 
 class FoodBox(pygame.sprite.Sprite):
@@ -112,6 +115,7 @@ class FoodBox(pygame.sprite.Sprite):
         self.k_size = k_size
         self.is_crushed = False
         self.walls = walls
+        self.k_size = k_size
 
     def crush(self):
         self.sound.play()
@@ -121,11 +125,11 @@ class FoodBox(pygame.sprite.Sprite):
         self.food(self.k_size, round((self.rect.centerx - 4) / self.k_size[0]),
                   round((self.rect.centery - 12) / self.k_size[1]), self.obj, self.walls, *self.groups())
         self.is_crushed = True
-        create_chips((self.rect.centerx, self.rect.centery - 30), 'FoodBox', self.groups())
+        create_chips(self.k_size, (self.rect.centerx, self.rect.centery - 30), 'FoodBox', self.groups())
 
     def update(self, *args, **kwargs):
         if not pygame.sprite.spritecollideany(self, self.walls):
-            self.rect.y += 10
+            self.rect.y += 10 * self.k_size[0]
         if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player) and not self.is_crushed:
             self.crush()
 

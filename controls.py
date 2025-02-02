@@ -87,11 +87,11 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
                 if isinstance(pygame.sprite.spritecollideany(player, all_sprites), Level):
                     if level.switch():
                         no_action = False
-                        FoodBottery(k_size, game_level.rect.x + 2610, -200, player, invisible_horizontal_walls, all_sprites)
-                        FoodBottery(k_size, game_level.rect.x + 2610, -600, player, invisible_horizontal_walls, all_sprites)
-                        FoodMedkitBig(k_size, game_level.rect.x + 2610, -800, player, invisible_horizontal_walls, all_sprites)
-                        FoodBox(k_size, game_level.rect.x + 2610, -1200, player, FoodBottery, invisible_horizontal_walls, all_sprites)
-                        FoodMedkitSmall(k_size, game_level.rect.x + 2610, -400, player, invisible_horizontal_walls, all_sprites)
+                        FoodBottery(k_size, game_level.rect.x + 2610 * k_size[0], -200 * k_size[1], player, invisible_horizontal_walls, all_sprites)
+                        FoodBottery(k_size, game_level.rect.x + 2610 * k_size[0], -600 * k_size[1], player, invisible_horizontal_walls, all_sprites)
+                        FoodMedkitBig(k_size, game_level.rect.x + 2610 * k_size[0], -800 * k_size[1], player, invisible_horizontal_walls, all_sprites)
+                        FoodBox(k_size, game_level.rect.x + 2610 * k_size[0], -1200 * k_size[1], player, FoodBottery, invisible_horizontal_walls, all_sprites)
+                        FoodMedkitSmall(k_size, game_level.rect.x + 2610 * k_size[0], -400 * k_size[1], player, invisible_horizontal_walls, all_sprites)
                 if no_action:
                     E_sound.play()
 

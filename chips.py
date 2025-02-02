@@ -8,7 +8,7 @@ screen = pygame.display.set_mode((width, height))
 
 
 class Particle(pygame.sprite.Sprite):
-    def __init__(self, pos, dx, dy, images, *groups):
+    def __init__(self, k_size, pos, dx, dy, images, *groups):
         super().__init__(*groups)
         img = pygame.image.load(random.choice(images))
         self.image = pygame.transform.scale(img, (32, 52))
@@ -22,6 +22,7 @@ class Particle(pygame.sprite.Sprite):
         # гравитация будет одинаковой (значение константы)
         self.gravity = 1
         self.pos = pos
+        self.k_size = k_size
 
     def update(self, *args, **kwargs):
         # применяем гравитационный эффект:
@@ -31,11 +32,11 @@ class Particle(pygame.sprite.Sprite):
         self.rect.x += self.velocity[0]
         self.rect.y += self.velocity[1]
         # убиваем, если частица ушла за экран
-        if self.rect.y - self.pos[1] > 80:
+        if self.rect.y - self.pos[1] > 80 * self.k_size[0]:
             self.kill()
 
 
-def create_chips(position, type_of_object, *groups):
+def create_chips(k_size, position, type_of_object, *groups):
     # количество создаваемых частиц
     particle_count = 20
     # возможные скорости
@@ -43,7 +44,7 @@ def create_chips(position, type_of_object, *groups):
 
     if type_of_object == 'FoodBox':
         for _ in range(particle_count):
-            Particle(position, random.choice(numbers), random.choice(numbers),
+            Particle(k_size, position, random.choice(numbers), random.choice(numbers),
                      ['images/food/box_chip1.png',
                       'images/food/box_chip2.png',
                       'images/food/box_chip1.png',

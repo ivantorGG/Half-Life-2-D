@@ -40,7 +40,7 @@ class InvisibleWall(pygame.sprite.Sprite):
         else:  # горизонтальная стенка
             self.image = pygame.Surface([round(k_size[0] * x2) - round(k_size[0] * x1), 1])
             self.rect = pygame.Rect(round(k_size[0] * x1), round(k_size[1] * y1),
-                                    round(k_size[0] * x2) - round(k_size[1] * x1), 1)
+                                    round(k_size[0] * x2) - round(k_size[0] * x1), 1)
         if is_visible:
             pygame.draw.circle(self.image, (255, 255, 255), (200, 200), 999999)
 
