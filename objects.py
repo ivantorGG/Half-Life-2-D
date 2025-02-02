@@ -52,7 +52,7 @@ class GameLevel(pygame.sprite.Sprite):
         self.image = pygame.image.load(img)
         self.image = pygame.transform.scale(self.image, (
             round(self.image.get_width() * k_size[0]), round(self.image.get_height() * k_size[1])))
-        self.rect = self.image.get_rect(center=(300, -170))
+        self.rect = self.image.get_rect(center=(300, -265))
         self.start_portal = Portal(k_size, portal1[0], portal1[1], True, portal1[2], *obj_groups, *self.groups())
         self.end_portal = Portal(k_size, portal2[0], portal2[1], False, portal2[2], *obj_groups, *self.groups())
 

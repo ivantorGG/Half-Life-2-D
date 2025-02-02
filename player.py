@@ -1,7 +1,4 @@
-import time
-
 import pygame
-
 import stats
 
 
@@ -10,7 +7,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__(*groups)
 
         self.image = pygame.image.load('images/gordon/right/stand.png')
-        self.image = pygame.transform.scale(self.image, (round(1.4 * 83 * k_size[0]), round(1.4 * 208 * k_size[1])))
+        self.image = pygame.transform.scale(self.image, (round(83 * k_size[0]), round(208 * k_size[1])))
         self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
         self.mask = pygame.mask.from_surface(self.image)
 
@@ -19,6 +16,7 @@ class Player(pygame.sprite.Sprite):
         self.jumping = False
         self.is_now_jumping = False
         self.crouch = False
+        self.crouched = False
         self.jumping_speed = -60
         self.direction = 'right'
 
@@ -85,25 +83,32 @@ class Player(pygame.sprite.Sprite):
                 self.move_player(-10, 0)
 
         if (self.move_right or self.move_left) and \
-                self.direction != 'Jump-Right' and self.direction != 'Jump-Left':  # если только бегает
-            self.for_slower += 1
+                self.direction != 'Jump-Right' and self.direction != 'Jump-Left' and not self.crouch:  # если только бегает
             if self.for_slower % 5 == 0:
                 self.phase = (self.phase + 2) % 8
                 if not self.phase:
                     self.phase += 2
                 self.image = pygame.transform.scale(
                     pygame.image.load(f'images/gordon/{self.direction}/{self.phase}.png'),
-                    (round(1.4 * 83 * self.k_size[0]), round(1.4 * 208 * self.k_size[1])))
+                    (round(83 * self.k_size[0]), round(208 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
-        elif self.direction != 'Jump-Right' and self.direction != 'Jump-Left':
+
+        elif self.direction != 'Jump-Right' and self.direction != 'Jump-Left' and not self.crouch and not self.crouched:
             self.image = pygame.transform.scale(
                 pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
-                (round(1.4 * 83 * self.k_size[0]), round(1.4 * 208 * self.k_size[1])))
+                (round(83 * self.k_size[0]), round(208 * self.k_size[1])))
             self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+        elif self.direction != 'Jump-Right' and self.direction != 'Jump-Left' and not self.crouch and self.crouched:
+            self.image = pygame.transform.scale(
+                pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
+                (round(105 * self.k_size[0]), round(142 * self.k_size[1])))
+            self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+            self.move_player(0, -20)
 
-        elif (self.direction == 'Jump-Right' or self.direction == 'Jump-Left') and self.is_now_jumping:
+        elif (
+                self.direction == 'Jump-Right' or self.direction == 'Jump-Left') and self.is_now_jumping and not self.crouch:
             self.image = pygame.transform.scale(pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
-                                                (round(352 / 2 * self.k_size[0]), round(500 / 2 * self.k_size[1])))
+                                                (round(352 / 2.6 * self.k_size[0]), round(500 / 2.6 * self.k_size[1])))
             self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
             self.move_player(0, self.jumping_speed)
             self.jumping_speed += 4
@@ -112,22 +117,44 @@ class Player(pygame.sprite.Sprite):
                 self.is_now_jumping = False
                 self.direction = 'left' if self.direction == 'Jump-Left' else 'right'
                 self.image = pygame.transform.scale(pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
-                                                    (round(1.4 * 83 * self.k_size[0]), round(1.4 * 208 * self.k_size[1])))
+                                                    (round(83 * self.k_size[0]),
+                                                     round(208 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
 
-        if self.direction == 'crouch_left' or self.direction == 'crouch_right':
-            self.for_slower += 1
+        if (self.move_right or self.move_left) and self.crouched:
+            self.move_player(0, -150)
+            self.image = pygame.transform.scale(
+                self.image,
+                (round(105 * self.k_size[0]), round(142 * self.k_size[1])))
+            self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+
+        if self.crouch and self.for_slower % 5 == 0:
+            self.image = pygame.transform.scale(
+                pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
+                (round(105 * self.k_size[0]), round(142 * self.k_size[1])))
+            self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+
+        if self.crouched and not (self.move_right or self.move_left or self.is_now_jumping or self.jumping):
+            self.image = pygame.transform.scale(
+                self.image,
+                (round(105 * self.k_size[0]), round(142 * self.k_size[1])))
+            self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+
+        if (self.move_right or self.move_left) and self.crouch:
+            self.phase = (self.phase + 2) % 10
+            if not self.phase:
+                self.phase += 2
             if self.for_slower % 5 == 0:
-                self.phase = (self.phase + 2) % 8
-                if not self.phase:
-                    self.phase += 2
                 self.image = pygame.transform.scale(
                     pygame.image.load(f'images/gordon/{self.direction}/{self.phase}.png'),
-                    (round(1.4 * 83 * self.k_size[0]), round(1.4 * 208 * self.k_size[1])))
+                    (round(105 * self.k_size[0]), round(142 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
 
-        self.mask = pygame.mask.from_surface(self.image)
+        if self.move_left or self.move_right or self.is_now_jumping or self.jumping:
+            self.crouched = False
 
+        self.mask = pygame.mask.from_surface(self.image)
+        self.for_slower += 1
         self.is_in_death_zone()
         self.is_alive()
 
@@ -156,7 +183,6 @@ class Player(pygame.sprite.Sprite):
 
         if self.move_right and self.crouch:
             self.direction = 'crouch_right'
-
 
     def is_alive(self):
         if self.health <= 0:

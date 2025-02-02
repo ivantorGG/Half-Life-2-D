@@ -62,7 +62,7 @@ if __name__ == '__main__':
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # создаём частицы по щелчку мыши
-                create_chips(pygame.mouse.get_pos(), 'food_box')
+                create_chips(pygame.mouse.get_pos(), 'FoodBox', all_sprites)
 
         all_sprites.update()
         screen.fill((0, 0, 0))

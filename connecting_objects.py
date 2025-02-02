@@ -19,7 +19,8 @@ class Level(pygame.sprite.Sprite):
         if self.state == 'off':
             self.sound.play()
             self.image = pygame.image.load('images/objects/level1-on.png')
-            self.image = pygame.transform.scale(self.image, (round(32 * 2 * self.k_size[0]), round(26 * 2 * self.k_size[1])))
+            self.image = pygame.transform.scale(self.image,
+                                                (round(32 * 2 * self.k_size[0]), round(26 * 2 * self.k_size[1])))
             self.rect = self.image.get_rect(center=(self.rect.centerx + 18 * self.k_size[0], self.rect.centery))
             self.state = 'on'
             if self.obj is not None:
@@ -29,14 +30,17 @@ class Level(pygame.sprite.Sprite):
 
 
 class InvisibleWall(pygame.sprite.Sprite):
-    def __init__(self, x1, y1, x2, y2, *groups, is_visible=False):
+    def __init__(self, k_size, x1, y1, x2, y2, *groups, is_visible=False):
+        """Указываем: x1, y1, x2, y2, в каких группах и видно ли её"""
         super().__init__(*groups)
         if x1 == x2:  # вертикальная стенка
-            self.image = pygame.Surface([1, y2 - y1])
-            self.rect = pygame.Rect(x1, y1, 1, y2 - y1)
+            self.image = pygame.Surface([1, round(k_size[1] * y2) - round(k_size[1] * y1)])
+            self.rect = pygame.Rect(round(k_size[0] * x1), round(k_size[1] * y1), 1,
+                                    round(k_size[1] * y2) - round(k_size[1] * y1))
         else:  # горизонтальная стенка
-            self.image = pygame.Surface([x2 - x1, 1])
-            self.rect = pygame.Rect(x1, y1, x2 - x1, 1)
+            self.image = pygame.Surface([round(k_size[0] * x2) - round(k_size[0] * x1), 1])
+            self.rect = pygame.Rect(round(k_size[0] * x1), round(k_size[1] * y1),
+                                    round(k_size[0] * x2) - round(k_size[1] * x1), 1)
         if is_visible:
             pygame.draw.circle(self.image, (255, 255, 255), (200, 200), 999999)
 

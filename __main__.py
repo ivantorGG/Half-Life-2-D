@@ -56,21 +56,21 @@ def first_level():
         level = GameLevel(k_size, 'images/levels/1.png', (-300, -200, 'purple'), (880, 0, 'purple'), [all_sprites],
                           level_sprites)
 
-    InvisibleWall(-410, -300, -410, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(950, -300, 950, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -410, -300, -410, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 950, -300, 950, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
-    InvisibleWall(-450, 180, 220, 180, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
-    InvisibleWall(220, 240, 350, 240, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -450, 180, 220, 180, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 220, 240, 350, 240, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
 
-    InvisibleWall(220, 200, 220, 240, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(350, 200, 350, 240, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 220, 200, 220, 240, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 350, 200, 350, 240, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
-    InvisibleWall(350, 180, 445, 180, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 350, 180, 445, 180, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
 
-    InvisibleWall(445, 200, 445, 230, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(570, 200, 570, 230, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 445, 200, 445, 230, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 570, 200, 570, 230, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
-    InvisibleWall(570, 180, 950, 180, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 570, 180, 950, 180, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
     if not walls_are_visible:
         level = GameLevel(k_size, 'images/levels/1.png', (-300, -200, 'purple'), (880, 0, 'purple'), all_sprites,
                           level_sprites)
@@ -121,7 +121,8 @@ def second_level():
         level = GameLevel(k_size, 'images/levels/2.png', (-300, -200, 'purple'), (880, 0, 'purple'), [all_sprites],
                           level_sprites)
 
-    # InvisibleWall()
+    # вот стены
+    InvisibleWall(k_size, x1, y1, x2, y2, all_sprites, is_visible=walls_are_visible)
 
     if not walls_are_visible:
         level = GameLevel(k_size, 'images/levels/2.png', (-300, -200, 'purple'), (880, 0, 'green'), all_sprites,
@@ -136,7 +137,7 @@ def second_level():
                                           invisible_vertical_walls)
 
         screen.fill((0, 0, 0))
-        level_sprites.updpurple
+        level_sprites.update()
         level_sprites.draw(screen)
         all_sprites.update(None, invisible_horizontal_walls, invisible_vertical_walls)
         all_sprites.draw(screen)
