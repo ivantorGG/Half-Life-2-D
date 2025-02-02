@@ -15,7 +15,7 @@ pygame.mixer.init()
 
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("HALF-LIFE: 2D")
-size = width, height = get_monitors()[0].width * 1.5, get_monitors()[0].height * 1.5
+size = width, height = get_monitors()[0].width * 1, get_monitors()[0].height * 1
 k_size = width / 1600, height / 900
 
 FPS = 60
