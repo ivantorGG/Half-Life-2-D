@@ -121,8 +121,11 @@ def second_level():
         level = GameLevel(k_size, 'images/levels/2.png', (-300, -200, 'purple'), (880, 0, 'purple'), [all_sprites],
                           level_sprites)
 
-    # вот стены
-    InvisibleWall(k_size, x1, y1, x2, y2, all_sprites, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -750, -95, -365, 240, all_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -245, -95, 230, 240, all_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 350, -95, 650, 240, all_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+
+    # InvisibleWall(k_size, -750, -600, -1, 600, all_sprites, invisible_horizontal_walls, is_visible=walls_are_visible) ???
 
     if not walls_are_visible:
         level = GameLevel(k_size, 'images/levels/2.png', (-300, -200, 'purple'), (880, 0, 'green'), all_sprites,
@@ -146,7 +149,7 @@ def second_level():
             stats.print_stats(screen, k_size, player)
 
         if player.go_again:
-            third_level()
+            second_level()
         camera.update(player)
 
         if level.completed:
@@ -164,7 +167,7 @@ def second_level():
 def main():
     # pre_screen()
     pygame.mouse.set_visible(False)
-    #first_level()
+    # first_level()
     second_level()
 
 
