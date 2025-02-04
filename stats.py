@@ -23,7 +23,8 @@ def print_pre_screen(screen, width, height):
             super().__init__(*groups)
             img = pygame.image.load(random.choice(
                 ['images/pre_screen/on_minimum.png', 'images/pre_screen/heavy_tf2.jpg',
-                 'images/pre_screen/wake_up.png', 'images/pre_screen/no_chess.jpg']))
+                 'images/pre_screen/wake_up.png', 'images/pre_screen/no_chess.jpg',
+                 "images/pre_screen/maxresdefault.jpg", "images/pre_screen/abeba.jpg"]))
             self.image = img
             self.image = pygame.transform.scale(self.image, (width * 1.2, height * 1.2))
             self.rect = self.image.get_rect()

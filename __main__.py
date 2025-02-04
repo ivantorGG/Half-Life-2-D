@@ -166,7 +166,7 @@ def second_level():
 
 
 def main():
-    # pre_screen()
+    pre_screen()
     pygame.mouse.set_visible(False)
     # first_level()
     second_level()
