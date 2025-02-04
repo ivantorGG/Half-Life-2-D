@@ -118,20 +118,21 @@ def second_level():
 
     walls_are_visible = True
     if walls_are_visible:
-        level = GameLevel(k_size, 'images/levels/2.png', (-300, -200, 'purple'), (880, 0, 'purple'), [all_sprites],
+        level = GameLevel(k_size, 'images/levels/2.png', (-650, -500, 'purple'), (550, -250, 'purple'), [all_sprites],
                           level_sprites)
 
-    InvisibleWall(k_size, -750, -95, -365, 240, all_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(k_size, -245, -95, 230, 240, all_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(k_size, 350, -95, 650, 240, all_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -750, -97, -365, 240, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -245, -97, 230, 240, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 350, -97, 650, 240, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
 
-    # InvisibleWall(k_size, -750, -600, -1, 600, all_sprites, invisible_horizontal_walls, is_visible=walls_are_visible) ???
+    InvisibleWall(k_size, -730, -750, -730, -97, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 640, -750, 640, -97, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
     if not walls_are_visible:
-        level = GameLevel(k_size, 'images/levels/2.png', (-300, -200, 'purple'), (880, 0, 'green'), all_sprites,
+        level = GameLevel(k_size, 'images/levels/2.png', (-650, -500, 'purple'), (550, -250, 'green'), all_sprites,
                           level_sprites)
 
-    player = Player(k_size, screen, -300, -200, all_sprites)
+    player = Player(k_size, screen, -650, -300, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
 
