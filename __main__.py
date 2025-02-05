@@ -1,6 +1,7 @@
 from player import Player
 from chargers import HEVCharger, HealthCharger
 from food import FoodBox, FoodBottery, FoodGrenade, FoodMedkitBig, FoodMedkitSmall
+from enemies import Crab
 from connecting_objects import Level, InvisibleWall
 from objects import CrushedCarChained, GameLevel
 import stats
@@ -77,7 +78,7 @@ def first_level():
 
     control_level = Level(k_size, None, 700, 148, all_sprites)
 
-    player = Player(k_size, screen, -300, -200, all_sprites)
+    player = Player(k_size, screen, -300, -200, 10, 0, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
 
@@ -121,24 +122,30 @@ def second_level():
         level = GameLevel(k_size, 'images/levels/2.png', (-650, -500, 'purple'), (550, -250, 'purple'), [all_sprites],
                           level_sprites)
 
-    InvisibleWall(k_size, -750, -97, -365, 240, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
-    InvisibleWall(k_size, -245, -97, 230, 240, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
-    InvisibleWall(k_size, 350, -97, 650, 240, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -750, -97, -365, 240, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -245, -97, 230, 240, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, 350, -97, 650, 240, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
 
-    InvisibleWall(k_size, -730, -750, -730, -97, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(k_size, 640, -750, 640, -97, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -730, -750, -730, -97, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, 640, -750, 640, -97, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
 
-    InvisibleWall(k_size, -375, -95, -375, -5, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(k_size, -240, -95, -240, -6, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -375, -80, -375, -5, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -240, -80, -240, -6, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
-    InvisibleWall(k_size, 228, -95, 228, -5, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(k_size, 348, -95, 348, -6, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 228, -80, 228, -5, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 348, -80, 348, -6, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
     if not walls_are_visible:
-        level = GameLevel(k_size, 'images/levels/2.png', (-650, -500, 'purple'), (550, -250, 'green'), all_sprites,
-                          level_sprites)
+        level = GameLevel(k_size, 'images/levels/2.png', (-650, -500, 'purple'),
+                          (550, -250, 'green'), all_sprites,level_sprites)
 
-    player = Player(k_size, screen, -650, -300, all_sprites)
+    player = Player(k_size, screen, -650, -300, 100, 60, all_sprites)
+    crab = Crab(k_size, player, 100, -200, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
 
@@ -172,9 +179,9 @@ def second_level():
 
 
 def main():
-    pre_screen()
+    #pre_screen()
     pygame.mouse.set_visible(False)
-    first_level()
+    #first_level()
     second_level()
 
 

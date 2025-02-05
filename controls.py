@@ -50,12 +50,9 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
             sys.exit()
 
         if event.type == pygame.MOUSEBUTTONDOWN:
-            print(event.pos)
+            player.shoot()
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_r:
-                player.test()
-
             if event.key == pygame.K_d:
                 player.move_right = True
 
@@ -63,18 +60,21 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
                 player.move_left = True
 
             if event.key == pygame.K_w or event.key == pygame.K_SPACE:
-                player.jumping = True
 
                 if pygame.sprite.spritecollideany(player, invisible_horizontal_walls) or \
                         crushed_car is not None and (
                         crushed_car.mask is not None and pygame.sprite.collide_mask(player, crushed_car) is not None or \
                         crushed_car.car is not None and pygame.sprite.collide_mask(player,
                                                                                    crushed_car.car) is not None):
+                    player.jumping = True
                     player.is_now_jumping = True
 
-            if event.key == pygame.K_s or event.key == pygame.K_LSHIFT:
+            if event.key == pygame.K_s:
                 player.crouch = True
                 player.crouched = False
+
+            if event.key == pygame.K_LSHIFT:
+                player.speed = 20
 
             if event.key == pygame.K_e:
                 no_action = True
@@ -105,9 +105,13 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
             if event.key == pygame.K_a:
                 player.move_left = False
 
-            if event.key == pygame.K_s or event.key == pygame.K_LSHIFT:
+            if event.key == pygame.K_s:
                 player.crouch = False
                 player.crouched = True
 
             if event.key == pygame.K_w or event.key == pygame.K_SPACE:
                 player.jumping = False
+
+            if event.key == pygame.K_LSHIFT:
+                player.speed = 10
+
