@@ -77,11 +77,9 @@ def first_level():
                           level_sprites)
 
     control_level = Level(k_size, None, 700, 148, all_sprites)
-
     player = Player(k_size, screen, -300, -200, 10, 0, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
-
     while True:
         controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
                                           invisible_vertical_walls, level=control_level)
