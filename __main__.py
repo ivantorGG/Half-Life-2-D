@@ -133,10 +133,8 @@ def second_level():
                   is_visible=walls_are_visible)
     InvisibleWall(k_size, 640, -750, 640, -97, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
-
     InvisibleWall(k_size, -375, -80, -375, -5, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
     InvisibleWall(k_size, -240, -80, -240, -6, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-
     InvisibleWall(k_size, 228, -80, 228, -5, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
     InvisibleWall(k_size, 348, -80, 348, -6, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
@@ -152,7 +150,6 @@ def second_level():
     while True:
         controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
                                           invisible_vertical_walls)
-
         screen.fill((0, 0, 0))
         level_sprites.update()
         level_sprites.draw(screen)
@@ -168,12 +165,10 @@ def second_level():
 
         if level.completed:
             break
-
         for sprite in all_sprites:
             camera.apply(sprite)
         for sprite in level_sprites:
             camera.apply(sprite)
-
         pygame.display.flip()
         cloak.tick(FPS)
 
