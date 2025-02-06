@@ -11,7 +11,7 @@ class Crab(pygame.sprite.Sprite):
 
         self.image = pygame.image.load('images/enemies/Crab/right/1.png')
         self.image = pygame.transform.scale(self.image, (
-            round(self.image.get_height() * k_size[0]), round(self.image.get_width() * k_size[1])))
+            round(self.image.get_height() * 2 * k_size[0]), round(self.image.get_width() * 2 * k_size[1])))
         self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
 
         self.phase = 0

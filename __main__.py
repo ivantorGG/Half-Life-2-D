@@ -1,6 +1,6 @@
 from player import Player
 from chargers import HEVCharger, HealthCharger
-from food import FoodBox, FoodBottery, FoodGrenade, FoodMedkitBig, FoodMedkitSmall
+from food import FoodBox, FoodBottery, FoodBullets, FoodMedkitBig, FoodMedkitSmall
 from enemies import Crab
 from connecting_objects import Level, InvisibleWall
 from objects import CrushedCarChained, GameLevel
@@ -16,7 +16,7 @@ pygame.mixer.init()
 
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("HALF-LIFE: 2D")
-size = width, height = get_monitors()[0].width * 1, get_monitors()[0].height * 1
+size = width, height = get_monitors()[0].width * 1.5, get_monitors()[0].height * 1.5
 k_size = width / 1600, height / 900
 
 FPS = 60
@@ -60,10 +60,11 @@ def first_level():
     InvisibleWall(k_size, -410, -300, -410, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
     InvisibleWall(k_size, 950, -300, 950, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
-    InvisibleWall(k_size, -450, 180, 220, 180, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
-    InvisibleWall(k_size, 220, 240, 350, 240, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -450, 180, 210, 180, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 220, 260, 350, 260, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -400, -300, -350, -300, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
 
-    InvisibleWall(k_size, 220, 200, 220, 240, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 210, 200, 210, 240, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
     InvisibleWall(k_size, 350, 200, 350, 240, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
     InvisibleWall(k_size, 350, 180, 445, 180, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
@@ -77,9 +78,10 @@ def first_level():
                           level_sprites)
 
     control_level = Level(k_size, None, 700, 148, all_sprites)
-    player = Player(k_size, screen, -300, -200, 10, 0, all_sprites)
+    player = Player(k_size, screen, -300, -200, 10, 10, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
+
     while True:
         controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
                                           invisible_vertical_walls, level=control_level)
@@ -95,6 +97,7 @@ def first_level():
 
         if player.go_again:
             first_level()
+            break
         camera.update(player)
 
         if level.completed:
@@ -131,6 +134,7 @@ def second_level():
                   is_visible=walls_are_visible)
     InvisibleWall(k_size, 640, -750, 640, -97, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
+
     InvisibleWall(k_size, -375, -80, -375, -5, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
     InvisibleWall(k_size, -240, -80, -240, -6, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
     InvisibleWall(k_size, 228, -80, 228, -5, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
@@ -141,7 +145,7 @@ def second_level():
                           (550, -250, 'green'), all_sprites,level_sprites)
 
     player = Player(k_size, screen, -650, -300, 100, 60, all_sprites)
-    crab = Crab(k_size, player, 100, -200, all_sprites)
+    crab = Crab(k_size, player, 100, -500, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
 
@@ -157,12 +161,15 @@ def second_level():
         if not player.died:
             stats.print_stats(screen, k_size, player)
 
-        if player.go_again:
-            second_level()
-        camera.update(player)
-
         if level.completed:
             break
+
+        if player.go_again:
+            second_level()
+            break
+
+        camera.update(player)
+
         for sprite in all_sprites:
             camera.apply(sprite)
         for sprite in level_sprites:
@@ -174,7 +181,7 @@ def second_level():
 def main():
     #pre_screen()
     pygame.mouse.set_visible(False)
-    #first_level()
+    first_level()
     second_level()
 
 

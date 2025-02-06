@@ -26,7 +26,7 @@ class Player(pygame.sprite.Sprite):
         self.health = health
         self.suit_health = suit_health
 
-        self.curr_weapon = None
+        self.bullets = 0
 
         self.shooting_count = 0
         self.phase = 0
@@ -69,14 +69,16 @@ class Player(pygame.sprite.Sprite):
         else:
             self.move_player(0, -20)
             if (not pygame.sprite.spritecollideany(self, args[2]) and not pygame.sprite.spritecollideany(self,
-                                                                                                        args[1]) or \
-                    args[0] and not None and not (
+                                                                                                         args[
+                                                                                                             1]) or (
+                    args[0] is not None and not (
                     args[0].mask is not None and pygame.sprite.collide_mask(self, args[0]) is not None or
-                    args[0].car is not None and pygame.sprite.collide_mask(self, args[0].car) is not None)):
+                    args[0].car is not None and pygame.sprite.collide_mask(self, args[0].car) is not None))):
                 self.move_player(0, 20)
 
         if not self.shooting_count:
-            if self.jumping and pygame.sprite.spritecollideany(self, args[1]) and not pygame.sprite.spritecollideany(self, args[2]) or \
+            if self.jumping and pygame.sprite.spritecollideany(self, args[1]) and not pygame.sprite.spritecollideany(
+                    self, args[2]) or \
                     args[0] and not None and not (
                     args[0].mask is not None and pygame.sprite.collide_mask(self, args[0]) is not None or
                     args[0].car is not None and pygame.sprite.collide_mask(self, args[0].car) is not None):
@@ -97,7 +99,8 @@ class Player(pygame.sprite.Sprite):
             if self.move_right:
                 self.move_player(self.speed, 0)
                 if args[0] is not None and (args[0].mask is not None and pygame.sprite.collide_mask(self,
-                                                                                                    args[0]) is not None or
+                                                                                                    args[
+                                                                                                        0]) is not None or
                                             args[0].car is not None and pygame.sprite.collide_mask(self, args[
                             0].car) is not None) or \
                         pygame.sprite.spritecollideany(self, args[2]):
@@ -133,9 +136,12 @@ class Player(pygame.sprite.Sprite):
             elif (
                     self.direction == 'Jump-right' or self.direction == 'Jump-left') and self.is_now_jumping and not self.crouch:
                 self.image = pygame.transform.scale(pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
-                                                    (round(352 / 2.6 * self.k_size[0]), round(500 / 2.6 * self.k_size[1])))
+                                                    (round(352 / 2.6 * self.k_size[0]),
+                                                     round(500 / 2.6 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
                 self.move_player(0, self.jumping_speed)
+                if pygame.sprite.spritecollideany(self, args[1]):
+                    self.move_player(0, -self.jumping_speed)
                 self.jumping_speed += 4
                 if self.jumping_speed == 20:
                     self.jumping_speed = -60
@@ -226,17 +232,19 @@ class Player(pygame.sprite.Sprite):
             self.health = 0
 
     def shoot(self):
-        self.shooting_count = 15
-        if self.direction == 'left' or self.direction == 'Jump-left' or self.direction == 'crouch_left':
-            self.image = pygame.transform.scale(
-                pygame.image.load(f'images/gordon/attack_gun/left.png'),
-                (round(204 / 1.5 * self.k_size[0]), round(330 / 1.5 * self.k_size[1])))
-            self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
-            GlockBullet(self.k_size, self.rect.centerx - 32, self.rect.centery - 48, 'left', *self.groups())
+        if self.bullets > 0:
+            self.shooting_count = 15
+            self.bullets -= 1
+            if self.direction == 'left' or self.direction == 'Jump-left' or self.direction == 'crouch_left':
+                self.image = pygame.transform.scale(
+                    pygame.image.load(f'images/gordon/attack_gun/left.png'),
+                    (round(204 / 1.5 * self.k_size[0]), round(330 / 1.5 * self.k_size[1])))
+                self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+                GlockBullet(self.rect.centerx - 32, self.rect.centery - 48, 'left', *self.groups())
 
-        elif self.direction == 'right' or self.direction == 'Jump-right' or self.direction == 'crouch_right':
-            self.image = pygame.transform.scale(
-                pygame.image.load(f'images/gordon/attack_gun/right.png'),
-                (round(355 / 1.5 * self.k_size[0]), round(500 / 1.5 * self.k_size[1])))
-            self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
-            GlockBullet(self.k_size, self.rect.centerx + 32, self.rect.centery - 48, 'right', *self.groups())
+            elif self.direction == 'right' or self.direction == 'Jump-right' or self.direction == 'crouch_right':
+                self.image = pygame.transform.scale(
+                    pygame.image.load(f'images/gordon/attack_gun/right.png'),
+                    (round(204 / 1.5 * self.k_size[0]), round(330 / 1.5 * self.k_size[1])))
+                self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+                GlockBullet(self.rect.centerx + 32, self.rect.centery - 48, 'right', *self.groups())

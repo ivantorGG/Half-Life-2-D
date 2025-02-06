@@ -2,7 +2,7 @@ import pygame
 
 
 class GlockBullet(pygame.sprite.Sprite):
-    def __init__(self, k_size, x, y, direction, *groups):
+    def __init__(self, x, y, direction, *groups):
         super().__init__(*groups)
 
         self.speed = 50 if direction == 'right' else 50

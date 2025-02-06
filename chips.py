@@ -11,7 +11,7 @@ class Particle(pygame.sprite.Sprite):
     def __init__(self, k_size, pos, dx, dy, images, *groups):
         super().__init__(*groups)
         img = pygame.image.load(random.choice(images))
-        self.image = pygame.transform.scale(img, (32, 52))
+        self.image = pygame.transform.scale(img, (32 * k_size[0], 52 * k_size[1]))
         self.rect = self.image.get_rect()
 
         # у каждой частицы своя скорость — это вектор
@@ -32,7 +32,7 @@ class Particle(pygame.sprite.Sprite):
         self.rect.x += self.velocity[0]
         self.rect.y += self.velocity[1]
         # убиваем, если частица ушла за экран
-        if self.rect.y - self.pos[1] > 80 * self.k_size[0]:
+        if self.rect.y - self.pos[1] > 130 * self.k_size[0]:
             self.kill()
 
 

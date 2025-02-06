@@ -7,12 +7,15 @@ from chips import create_chips
 
 
 class FoodBottery(pygame.sprite.Sprite):
-    def __init__(self, k_size, x, y, obj, walls, *groups):
+    def __init__(self, k_size, x, y, obj, walls, *groups, do_move=True):
         super().__init__(*groups)
         self.sound = pygame.mixer.Sound('sounds/battery_pickup.mp3')
         self.image = pygame.image.load('images/food/bottery.png')
         self.image = pygame.transform.scale(self.image, (20 * k_size[0], 44 * k_size[1]))
-        self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
+        if do_move:
+            self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
+        else:
+            self.rect = self.image.get_rect(center=(x, y))
         self.obj = obj
         self.walls = walls
         self.k_size = k_size
@@ -32,30 +35,40 @@ class FoodBottery(pygame.sprite.Sprite):
             self.rect.y += 10 * self.k_size[0]
 
 
-class FoodGrenade(pygame.sprite.Sprite):
-    def __init__(self, k_size, x, y, obj, *groups):
+class FoodBullets(pygame.sprite.Sprite):
+    def __init__(self, k_size, x, y, obj, walls, *groups, do_move=True):
         super().__init__(*groups)
 
         self.sound = pygame.mixer.Sound('sounds/ammo_pickup.mp3')
         self.image = pygame.image.load('images/food/grenade.png')
         self.image = pygame.transform.scale(self.image, (round(23 * k_size[0]), round(57 * k_size[1])))
-        self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
+        if do_move:
+            self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
+        else:
+            self.rect = self.image.get_rect(center=(x, y))
         self.obj = obj
+        self.k_size = k_size
+        self.walls = walls
 
     def update(self, *args, **kwargs):
         if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player):
             self.sound.play()
             self.kill()
+        if not pygame.sprite.spritecollideany(self, self.walls):
+            self.rect.y += 10 * self.k_size[0]
 
 
 class FoodMedkitSmall(pygame.sprite.Sprite):
-    def __init__(self, k_size, x, y, obj, walls, *groups):
+    def __init__(self, k_size, x, y, obj, walls, *groups, do_move=True):
         super().__init__(*groups)
 
         self.sound = pygame.mixer.Sound('sounds/smallmedkit1.mp3')
         self.image = pygame.image.load('images/food/medkit-small.png')
         self.image = pygame.transform.scale(self.image, (44 * k_size[0], 56 * k_size[1]))
-        self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
+        if do_move:
+            self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
+        else:
+            self.rect = self.image.get_rect(center=(x, y))
         self.obj = obj
         self.walls = walls
         self.k_size = k_size
@@ -76,13 +89,16 @@ class FoodMedkitSmall(pygame.sprite.Sprite):
 
 
 class FoodMedkitBig(pygame.sprite.Sprite):
-    def __init__(self, k_size, x, y, obj, walls, *groups):
+    def __init__(self, k_size, x, y, obj, walls, *groups, do_move=True):
         super().__init__(*groups)
 
         self.sound = pygame.mixer.Sound('sounds/smallmedkit1.mp3')
         self.image = pygame.image.load('images/food/medkit_big.png')
         self.image = pygame.transform.scale(self.image, (38 * k_size[0], 35 * k_size[1]))
-        self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
+        if do_move:
+            self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
+        else:
+            self.rect = self.image.get_rect(center=(x, y))
         self.obj = obj
         self.walls = walls
         self.k_size = k_size
@@ -103,13 +119,16 @@ class FoodMedkitBig(pygame.sprite.Sprite):
 
 
 class FoodBox(pygame.sprite.Sprite):
-    def __init__(self, k_size, x, y, obj, food, walls, *groups):
+    def __init__(self, k_size, x, y, obj, food, walls, *groups, do_move=True):
         super().__init__(*groups)
 
         self.sound = pygame.mixer.Sound('sounds/lucky_box_crushing.mp3')
         self.image = pygame.image.load('images/food/box.png')
         self.image = pygame.transform.scale(self.image, (round(111 * k_size[0]), round(84 * k_size[1])))
-        self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
+        if do_move:
+            self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
+        else:
+            self.rect = self.image.get_rect(center=(x, y))
         self.food = food
         self.obj = obj
         self.k_size = k_size
@@ -146,7 +165,7 @@ if __name__ == '__main__':
 
     all_sprites = pygame.sprite.Group()
 
-    box = FoodBox(500, 500, None, FoodGrenade, all_sprites)
+    box = FoodBox(500, 500, None, FoodBullets, all_sprites)
 
     while running:
         for event in pygame.event.get():
