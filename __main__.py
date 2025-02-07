@@ -122,26 +122,26 @@ def second_level(player_health, player_suit_health):
         level = GameLevel(k_size, 'images/levels/2.png', (-650, -500, 'purple'), (550, -250, 'purple'), [all_sprites],
                           level_sprites)
 
-    InvisibleWall(k_size, -750, -97, -365, 240, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -750, -97, -355, 240, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -245, -97, 230, 240, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -235, -97, 258, 240, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, 350, -97, 650, 240, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, 380, -97, 670, 240, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
 
     InvisibleWall(k_size, -730, -750, -730, -97, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, 640, -750, 640, -97, level_sprites, invisible_vertical_walls,
+    InvisibleWall(k_size, 680, -750, 680, -97, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
 
-    InvisibleWall(k_size, -375, -80, -375, -5, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(k_size, -240, -80, -240, -6, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(k_size, 228, -80, 228, -5, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(k_size, 348, -80, 348, -6, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -354, -80, -354, -5, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -232, -80, -232, -6, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 258, -96, 258, -5, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 380, -96, 380, -6, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
     if not walls_are_visible:
         level = GameLevel(k_size, 'images/levels/2.png', (-650, -500, 'purple'),
-                          (550, -250, 'green'), all_sprites,level_sprites)
+                          (550, -250, 'green'), all_sprites, level_sprites)
 
     player = Player(k_size, screen, -650, -300, player_health, player_suit_health, all_sprites)
     crab = Crab(k_size, player, 100, -500, all_sprites)
@@ -178,9 +178,9 @@ def second_level(player_health, player_suit_health):
 
 
 def main():
-    #pre_screen()
+    # pre_screen()
     pygame.mouse.set_visible(False)
-    first_level(30, 0)
+    # first_level(30, 0)
     second_level(60, 70)
 
 
