@@ -26,7 +26,7 @@ class Player(pygame.sprite.Sprite):
         self.health = health
         self.suit_health = suit_health
 
-        self.bullets = 0
+        self.bullets = 5
 
         self.shooting_count = 0
         self.phase = 0
@@ -78,10 +78,7 @@ class Player(pygame.sprite.Sprite):
 
         if not self.shooting_count:
             if self.jumping and pygame.sprite.spritecollideany(self, args[1]) and not pygame.sprite.spritecollideany(
-                    self, args[2]) or \
-                    args[0] and not None and not (
-                    args[0].mask is not None and pygame.sprite.collide_mask(self, args[0]) is not None or
-                    args[0].car is not None and pygame.sprite.collide_mask(self, args[0].car) is not None):
+                    self, args[2]):
                 if self.is_now_jumping is False:
                     self.is_now_jumping = True
                     sound = pygame.mixer.Sound(f'sounds/jump_{randrange(1, 4)}.mp3')
@@ -126,12 +123,6 @@ class Player(pygame.sprite.Sprite):
                     pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
                     (round(83 * self.k_size[0]), round(208 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
-            elif self.direction != 'Jump-right' and self.direction != 'Jump-left' and not self.crouch and self.crouched:
-                self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
-                    (round(105 * self.k_size[0]), round(142 * self.k_size[1])))
-                self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
-                self.move_player(0, -20)
 
             elif (
                     self.direction == 'Jump-right' or self.direction == 'Jump-left') and self.is_now_jumping and not self.crouch:
@@ -151,13 +142,6 @@ class Player(pygame.sprite.Sprite):
                                                         (round(83 * self.k_size[0]),
                                                          round(208 * self.k_size[1])))
                     self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
-
-            if (self.move_right or self.move_left) and self.crouched:
-                self.move_player(0, -150)
-                self.image = pygame.transform.scale(
-                    self.image,
-                    (round(105 * self.k_size[0]), round(142 * self.k_size[1])))
-                self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
 
             if self.crouch and self.for_slower % 5 == 0:
                 self.image = pygame.transform.scale(

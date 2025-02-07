@@ -17,8 +17,9 @@ class Crab(pygame.sprite.Sprite):
         self.phase = 0
         self.for_slower = 0
 
+        self.speed = 6
         self.obj = obj
-        self.speed = 5
+        self.damage = 40
         self.direction = None
         self.k_size = k_size
 
@@ -27,14 +28,14 @@ class Crab(pygame.sprite.Sprite):
         self.rect.centery += plus_y * self.k_size[0]
 
     def update(self, *args, **kwargs):
-        if not pygame.sprite.spritecollideany(self, args[2]) and not pygame.sprite.spritecollideany(self, args[1]):
+        if not pygame.sprite.spritecollideany(self, args[1]):
             self.move_crab(0, 20)
 
         if pygame.sprite.spritecollideany(self, args[1]):
             stop_animating = False
             self.check_direction()
 
-            if self.obj.rect.x > self.rect.x:
+            if self.obj.rect.centerx > self.rect.centerx:
                 self.move_crab(self.speed, 0)
                 if not pygame.sprite.spritecollideany(self, args[1]):
                     self.move_crab(-self.speed, 0)
@@ -56,15 +57,15 @@ class Crab(pygame.sprite.Sprite):
 
             self.for_slower += 1
 
-        if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player) and self.for_slower % 65 == 0:
-            if self.obj.suit_health >= 50:
-                self.obj.suit_health -= 50
+        if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player) and self.for_slower % 45 == 0:
+            if self.obj.suit_health >= self.damage:
+                self.obj.suit_health -= self.damage
             elif self.obj.suit_health > 0:
-                damage_to_player = self.obj.suit_health
+                damage_to_player = self.damage - self.obj.suit_health
                 self.obj.suit_health = 0
                 self.obj.health -= damage_to_player
             else:
-                self.obj.health -= 50
+                self.obj.health -= self.damage
                 if self.obj.health < 0:
                     self.obj.health = 0
 

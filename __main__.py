@@ -16,7 +16,7 @@ pygame.mixer.init()
 
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("HALF-LIFE: 2D")
-size = width, height = get_monitors()[0].width * 1.5, get_monitors()[0].height * 1.5
+size = width, height = get_monitors()[0].width * 1, get_monitors()[0].height * 1
 k_size = width / 1600, height / 900
 
 FPS = 60
@@ -46,7 +46,7 @@ def pre_screen():
             running = True
 
 
-def first_level():
+def first_level(player_health, player_suit_health):
     all_sprites = pygame.sprite.Group()
     level_sprites = pygame.sprite.Group()
     invisible_horizontal_walls = pygame.sprite.Group()
@@ -57,12 +57,11 @@ def first_level():
         level = GameLevel(k_size, 'images/levels/1.png', (-300, -200, 'purple'), (880, 0, 'purple'), [all_sprites],
                           level_sprites)
 
-    InvisibleWall(k_size, -410, -300, -410, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(k_size, 950, -300, 950, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -410, -180, -410, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 950, -180, 950, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
     InvisibleWall(k_size, -450, 180, 210, 180, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
     InvisibleWall(k_size, 220, 260, 350, 260, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
-    InvisibleWall(k_size, -400, -300, -350, -300, level_sprites, invisible_horizontal_walls, is_visible=walls_are_visible)
 
     InvisibleWall(k_size, 210, 200, 210, 240, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
     InvisibleWall(k_size, 350, 200, 350, 240, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
@@ -78,7 +77,7 @@ def first_level():
                           level_sprites)
 
     control_level = Level(k_size, None, 700, 148, all_sprites)
-    player = Player(k_size, screen, -300, -200, 10, 10, all_sprites)
+    player = Player(k_size, screen, -300, -200, player_health, player_suit_health, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
 
@@ -96,7 +95,7 @@ def first_level():
             stats.print_stats(screen, k_size, player)
 
         if player.go_again:
-            first_level()
+            first_level(player_health, player_suit_health)
             break
         camera.update(player)
 
@@ -112,7 +111,7 @@ def first_level():
         cloak.tick(FPS)
 
 
-def second_level():
+def second_level(player_health, player_suit_health):
     all_sprites = pygame.sprite.Group()
     level_sprites = pygame.sprite.Group()
     invisible_horizontal_walls = pygame.sprite.Group()
@@ -144,7 +143,7 @@ def second_level():
         level = GameLevel(k_size, 'images/levels/2.png', (-650, -500, 'purple'),
                           (550, -250, 'green'), all_sprites,level_sprites)
 
-    player = Player(k_size, screen, -650, -300, 100, 60, all_sprites)
+    player = Player(k_size, screen, -650, -300, player_health, player_suit_health, all_sprites)
     crab = Crab(k_size, player, 100, -500, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
@@ -165,7 +164,7 @@ def second_level():
             break
 
         if player.go_again:
-            second_level()
+            second_level(player_health, player_suit_health)
             break
 
         camera.update(player)
@@ -181,8 +180,8 @@ def second_level():
 def main():
     #pre_screen()
     pygame.mouse.set_visible(False)
-    first_level()
-    second_level()
+    first_level(30, 0)
+    second_level(60, 70)
 
 
 main()
