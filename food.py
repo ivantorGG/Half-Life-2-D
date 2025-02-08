@@ -53,6 +53,7 @@ class FoodBullets(pygame.sprite.Sprite):
     def update(self, *args, **kwargs):
         if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player):
             self.sound.play()
+            self.obj.bullets += 5
             self.kill()
         if not pygame.sprite.spritecollideany(self, self.walls):
             self.rect.y += 10 * self.k_size[0]

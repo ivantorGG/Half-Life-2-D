@@ -3,6 +3,7 @@ import sys
 
 from chargers import HEVChargerBox, HealthChargerBox
 from connecting_objects import Level
+from enemies import Crab
 from food import *
 
 
@@ -41,7 +42,8 @@ def pre_screen_check_events(image, first_motion, last_place, width, height, btn_
     return image, first_motion, last_place, running
 
 
-def first_level_check_events(k_size, player, game_level, all_sprites, invisible_horizontal_walls, invisible_vertical_walls,
+def first_level_check_events(k_size, player, game_level, all_sprites, invisible_horizontal_walls,
+                             invisible_vertical_walls,
                              HEV_charger=None, health_charger=None, level=None, crushed_car=None):
     """Проверка событий pygame"""
     E_sound = pygame.mixer.Sound('sounds/E_button-pressed.mp3')
@@ -87,16 +89,47 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
                 if isinstance(pygame.sprite.spritecollideany(player, all_sprites), Level):
                     if level.switch():
                         no_action = False
-                        FoodBottery(k_size, game_level.rect.centerx + 210 * k_size[0], -200 * k_size[0], player, invisible_horizontal_walls, all_sprites, do_move=False)
-                        FoodBottery(k_size, game_level.rect.centerx + 210 * k_size[0], -600 * k_size[0], player, invisible_horizontal_walls, all_sprites, do_move=False)
-                        FoodMedkitBig(k_size, game_level.rect.centerx + 210 * k_size[0], -800 * k_size[0], player, invisible_horizontal_walls, all_sprites, do_move=False)
-                        FoodBox(k_size, game_level.rect.centerx + 210 * k_size[0], -1200 * k_size[0], player, FoodBottery, invisible_horizontal_walls, all_sprites, do_move=False)
-                        FoodMedkitSmall(k_size, game_level.rect.centerx + 210 * k_size[0], -400 * k_size[0], player, invisible_horizontal_walls, all_sprites, do_move=False)
+                        FoodBottery(k_size, game_level.rect.centerx + 210 * k_size[0], -200 * k_size[0], player,
+                                    invisible_horizontal_walls, all_sprites, do_move=False)
+                        FoodBottery(k_size, game_level.rect.centerx + 210 * k_size[0], -600 * k_size[0], player,
+                                    invisible_horizontal_walls, all_sprites, do_move=False)
+                        FoodMedkitBig(k_size, game_level.rect.centerx + 210 * k_size[0], -800 * k_size[0], player,
+                                      invisible_horizontal_walls, all_sprites, do_move=False)
+                        FoodBox(k_size, game_level.rect.centerx + 210 * k_size[0], -1200 * k_size[0], player,
+                                FoodBottery, invisible_horizontal_walls, all_sprites, do_move=False)
+                        FoodMedkitSmall(k_size, game_level.rect.centerx + 210 * k_size[0], -400 * k_size[0], player,
+                                        invisible_horizontal_walls, all_sprites, do_move=False)
+
+                        Crab(k_size, player, game_level.rect.centerx + 310 * k_size[0], -12500 * k_size[0], all_sprites,
+                             do_move=False)
+                        Crab(k_size, player, game_level.rect.centerx + 210 * k_size[0], -12500 * k_size[0], all_sprites,
+                             do_move=False)
+                        Crab(k_size, player, game_level.rect.centerx + 110 * k_size[0], -12500 * k_size[0], all_sprites,
+                             do_move=False)
+                        Crab(k_size, player, game_level.rect.centerx + 10 * k_size[0], -12500 * k_size[0], all_sprites,
+                             do_move=False)
+                        Crab(k_size, player, game_level.rect.centerx + -110 * k_size[0], -12500 * k_size[0],
+                             all_sprites, do_move=False)
+                        Crab(k_size, player, game_level.rect.centerx + -210 * k_size[0], -12500 * k_size[0],
+                             all_sprites, do_move=False)
+                        Crab(k_size, player, game_level.rect.centerx + -310 * k_size[0], -12500 * k_size[0],
+                             all_sprites, do_move=False)
+                        Crab(k_size, player, game_level.rect.centerx + -310 * k_size[0], -10500 * k_size[0],
+                             all_sprites, do_move=False)
+                        Crab(k_size, player, game_level.rect.centerx + -410 * k_size[0], -13500 * k_size[0],
+                             all_sprites, do_move=False)
+                        Crab(k_size, player, game_level.rect.centerx + -110 * k_size[0], -13500 * k_size[0],
+                             all_sprites, do_move=False)
+                        Crab(k_size, player, game_level.rect.centerx + -510 * k_size[0], -13500 * k_size[0],
+                             all_sprites, do_move=False)
                 if no_action:
                     E_sound.play()
 
             if event.key == pygame.K_p:
                 player.print_stats()
+
+            if event.key == pygame.K_ESCAPE:
+                return True
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_d:
@@ -114,4 +147,3 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
 
             if event.key == pygame.K_LSHIFT:
                 player.speed = 10
-

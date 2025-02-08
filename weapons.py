@@ -5,9 +5,11 @@ class GlockBullet(pygame.sprite.Sprite):
     def __init__(self, x, y, direction, *groups):
         super().__init__(*groups)
 
-        self.speed = 50 if direction == 'right' else 50
+        self.speed = 50 if direction == 'right' else -50
         self.image = pygame.Surface([1, 1])
         self.rect = pygame.Rect(0, 0, 1, 1)
+        self.rect.x = x
+        self.rect.y = y
         pygame.draw.circle(self.image, (0, 0, 0), (10, 10), 80)
 
     def update(self, *args, **kwargs):

@@ -6,13 +6,16 @@ from player import Player
 
 
 class Crab(pygame.sprite.Sprite):
-    def __init__(self, k_size, obj, x, y, *groups):
+    def __init__(self, k_size, obj, x, y, *groups, do_move=True):
         super().__init__(*groups)
 
         self.image = pygame.image.load('images/enemies/Crab/right/1.png')
         self.image = pygame.transform.scale(self.image, (
             round(self.image.get_height() * 2 * k_size[0]), round(self.image.get_width() * 2 * k_size[1])))
-        self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
+        if do_move:
+            self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
+        else:
+            self.rect = self.image.get_rect(center=(x, y))
 
         self.phase = 0
         self.for_slower = 0
