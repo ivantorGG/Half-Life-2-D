@@ -60,9 +60,6 @@ class Player(pygame.sprite.Sprite):
     def update(self, *args, **kwargs):
         self.update_animation_phases()
 
-        if pygame.sprite.spritecollideany(self, args[3]):
-            self.move_player(0, 40)
-
         if not pygame.sprite.spritecollideany(self, args[2]) and not pygame.sprite.spritecollideany(self, args[1]) or \
                 args[0] and not None and not (
                 args[0].mask is not None and pygame.sprite.collide_mask(self, args[0]) is not None or
@@ -78,6 +75,7 @@ class Player(pygame.sprite.Sprite):
                     args[0].mask is not None and pygame.sprite.collide_mask(self, args[0]) is not None or
                     args[0].car is not None and pygame.sprite.collide_mask(self, args[0].car) is not None))):
                 self.move_player(0, 20)
+
 
         if not self.shooting_count:
             if self.jumping and pygame.sprite.spritecollideany(self, args[1]) and not pygame.sprite.spritecollideany(

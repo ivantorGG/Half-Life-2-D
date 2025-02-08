@@ -24,10 +24,6 @@ cloak = pygame.time.Clock()
 screen.fill((255, 255, 255))
 
 
-def login():
-    running = True
-
-
 def pre_screen():
     running = True
     first_motion = True
@@ -55,14 +51,11 @@ def first_level(player_health, player_suit_health):
     level_sprites = pygame.sprite.Group()
     invisible_horizontal_walls = pygame.sprite.Group()
     invisible_vertical_walls = pygame.sprite.Group()
-    box_walls = pygame.sprite.Group()
 
     walls_are_visible = True
     if walls_are_visible:
         level = GameLevel(k_size, 'images/levels/1.png', (-300, -200, 'purple'), (880, 0, 'purple'), [all_sprites],
                           level_sprites)
-
-    InvisibleWall(k_size, -854, -290, 1200, -290, level_sprites, box_walls, is_visible=walls_are_visible)
 
     InvisibleWall(k_size, -410, -180, -410, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
     InvisibleWall(k_size, 950, -180, 950, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
@@ -89,28 +82,25 @@ def first_level(player_health, player_suit_health):
     camera.update(player)
 
     while True:
-        do_break = controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
+        controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
                                           invisible_vertical_walls, level=control_level)
-
-        if do_break:
-            return True
 
         screen.fill((0, 0, 0))
         level_sprites.update()
         level_sprites.draw(screen)
-        all_sprites.update(None, invisible_horizontal_walls, invisible_vertical_walls, box_walls)
+        all_sprites.update(None, invisible_horizontal_walls, invisible_vertical_walls)
         all_sprites.draw(screen)
 
         if not player.died:
             stats.print_stats(screen, k_size, player)
 
         if player.go_again:
-            player_health, player_suit_health = first_level(player_health, player_suit_health)
-            return player_health, player_suit_health
+            first_level(player_health, player_suit_health)
+            break
         camera.update(player)
 
         if level.completed:
-            return player.health, player.suit_health
+            break
 
         for sprite in all_sprites:
             camera.apply(sprite)
@@ -126,14 +116,11 @@ def second_level(player_health, player_suit_health):
     level_sprites = pygame.sprite.Group()
     invisible_horizontal_walls = pygame.sprite.Group()
     invisible_vertical_walls = pygame.sprite.Group()
-    box_walls = pygame.sprite.Group()
 
     walls_are_visible = True
     if walls_are_visible:
         level = GameLevel(k_size, 'images/levels/2.png', (-650, -500, 'purple'), (550, -250, 'purple'), [all_sprites],
                           level_sprites)
-
-    InvisibleWall(k_size, -854, -600, 1200, -600, level_sprites, box_walls, is_visible=walls_are_visible)
 
     InvisibleWall(k_size, -750, -97, -355, 240, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
@@ -157,32 +144,100 @@ def second_level(player_health, player_suit_health):
                           (550, -250, 'green'), all_sprites, level_sprites)
 
     player = Player(k_size, screen, -650, -300, player_health, player_suit_health, all_sprites)
-    Crab(k_size, player, 100, -500, all_sprites)
+    crab = Crab(k_size, player, 100, -500, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
 
     while True:
-        do_break = controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
+        controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
                                           invisible_vertical_walls)
-
-        if do_break:
-            return True
-
         screen.fill((0, 0, 0))
         level_sprites.update()
         level_sprites.draw(screen)
-        all_sprites.update(None, invisible_horizontal_walls, invisible_vertical_walls, box_walls)
+        all_sprites.update(None, invisible_horizontal_walls, invisible_vertical_walls)
         all_sprites.draw(screen)
 
         if not player.died:
             stats.print_stats(screen, k_size, player)
 
         if level.completed:
-            return player.health, player.suit_health
+            break
 
         if player.go_again:
-            player_health, player_suit_health = second_level(player_health, player_suit_health)
-            return player_health, player_suit_health
+            second_level(player_health, player_suit_health)
+            break
+
+        camera.update(player)
+
+        for sprite in all_sprites:
+            camera.apply(sprite)
+        for sprite in level_sprites:
+            camera.apply(sprite)
+        pygame.display.flip()
+        cloak.tick(FPS)
+
+
+def third_level(player_health, player_suit_health):
+    all_sprites = pygame.sprite.Group()
+    level_sprites = pygame.sprite.Group()
+    invisible_horizontal_walls = pygame.sprite.Group()
+    invisible_vertical_walls = pygame.sprite.Group()
+
+    walls_are_visible = True
+    if walls_are_visible:
+        level = GameLevel(k_size, 'images/levels/3.png', (-1500, -600, 'purple'), (2100, -330, 'purple'), [all_sprites],
+                          level_sprites)
+
+    InvisibleWall(k_size, -1613, -175, -1228, 0, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -1120, -175, -1013, 0, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -900, -175, -800, 0, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -685, -175, -260, 0, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -148, -175, 60, 0, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, 175, -175, 389, 0, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, 500, -175, 1362, 0, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, 1474, -175, 1578, 0, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, 1689, -175, 1790, 0, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, 1905, -175, 2215, 0, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+
+    InvisibleWall(k_size, -1600, -1000, -1600, -170, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, 2200, -1000, 2200, -158, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+
+    if not walls_are_visible:
+        level = GameLevel(k_size, 'images/levels/3.png', (-1500, -600, 'purple'),
+                          (2100, -330, 'green'), all_sprites, level_sprites)
+
+    player = Player(k_size, screen, -1500, -280, player_health, player_suit_health, all_sprites)
+    camera = Camera(width, height)
+    camera.update(player)
+
+    while True:
+        controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
+                                          invisible_vertical_walls)
+        screen.fill((0, 0, 0))
+        level_sprites.update()
+        level_sprites.draw(screen)
+        all_sprites.update(None, invisible_horizontal_walls, invisible_vertical_walls)
+        all_sprites.draw(screen)
+
+        if not player.died:
+            stats.print_stats(screen, k_size, player)
+
+        if level.completed:
+            break
+
+        if player.go_again:
+            second_level(player_health, player_suit_health)
+            break
 
         camera.update(player)
 
@@ -195,16 +250,11 @@ def second_level(player_health, player_suit_health):
 
 
 def main():
-    pygame.mouse.set_visible(True)
     pre_screen()
     pygame.mouse.set_visible(False)
-    try:
-        player_health, player_suit_health = first_level(30, 0)
-        player_health, player_suit_health = second_level(player_health, player_suit_health)
-    except TypeError:
-        return None
+    first_level(30, 0)
+    second_level(60, 70)
+    third_level(60, 70)
 
 
-if __name__ == '__main__':
-    while True:
-        main()
+main()
