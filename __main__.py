@@ -199,11 +199,14 @@ def third_level(player_health, player_suit_health):
     level_sprites = pygame.sprite.Group()
     invisible_horizontal_walls = pygame.sprite.Group()
     invisible_vertical_walls = pygame.sprite.Group()
+    box_walls = pygame.sprite.Group()
 
     walls_are_visible = True
     if walls_are_visible:
         level = GameLevel(k_size, 'images/levels/3.png', (-1500, -600, 'purple'), (2100, -330, 'purple'), [all_sprites],
                           level_sprites)
+
+    InvisibleWall(k_size, -1854, -600, 3200, -600, level_sprites, box_walls, is_visible=walls_are_visible)
 
     InvisibleWall(k_size, -1613, -175, -1228, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
@@ -238,23 +241,27 @@ def third_level(player_health, player_suit_health):
     camera.update(player)
 
     while True:
-        controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
+        do_break = controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
                                           invisible_vertical_walls)
+
+        if do_break:
+            return True
+
         screen.fill((0, 0, 0))
         level_sprites.update()
         level_sprites.draw(screen)
-        all_sprites.update(None, invisible_horizontal_walls, invisible_vertical_walls)
+        all_sprites.update(None, invisible_horizontal_walls, invisible_vertical_walls, box_walls)
         all_sprites.draw(screen)
 
         if not player.died:
             stats.print_stats(screen, k_size, player)
 
         if level.completed:
-            break
+            return player.health, player.suit_health
 
         if player.go_again:
-            second_level(player_health, player_suit_health)
-            break
+            player_health, player_suit_health = third_level(player_health, player_suit_health)
+            return player_health, player_suit_health
 
         camera.update(player)
 
@@ -270,10 +277,12 @@ def main():
     pygame.mouse.set_visible(True)
     pre_screen()
     pygame.mouse.set_visible(False)
+
+    player_health, player_suit_health = 30, 0
     try:
-        player_health, player_suit_health = first_level(30, 0)
+        player_health, player_suit_health = first_level(player_health, player_suit_health)
         player_health, player_suit_health = second_level(player_health, player_suit_health)
-        third_level(player_health, player_suit_health)
+        player_health, player_suit_health = third_level(player_health, player_suit_health)
     except TypeError:
         return None
 

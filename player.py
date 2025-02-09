@@ -66,6 +66,9 @@ class Player(pygame.sprite.Sprite):
                 args[0].car is not None and pygame.sprite.collide_mask(self, args[0].car) is not None):
             self.move_player(0, 20)
 
+        if pygame.sprite.spritecollideany(self, args[3]):
+            self.move_player(0, 40)
+
         else:
             self.move_player(0, -20)
             if (not pygame.sprite.spritecollideany(self, args[2]) and not pygame.sprite.spritecollideany(self,
