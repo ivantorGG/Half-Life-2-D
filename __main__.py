@@ -90,7 +90,7 @@ def first_level(player_health, player_suit_health):
 
     while True:
         do_break = controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
-                                          invisible_vertical_walls, level=control_level)
+                                                     invisible_vertical_walls, level=control_level)
 
         if do_break:
             return True
@@ -163,7 +163,7 @@ def second_level(player_health, player_suit_health):
 
     while True:
         do_break = controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
-                                          invisible_vertical_walls)
+                                                     invisible_vertical_walls)
 
         if do_break:
             return True
@@ -203,46 +203,46 @@ def third_level(player_health, player_suit_health):
 
     walls_are_visible = True
     if walls_are_visible:
-        level = GameLevel(k_size, 'images/levels/3.png', (-1500, -600, 'purple'), (2100, -330, 'purple'), [all_sprites],
+        level = GameLevel(k_size, 'images/levels/3.png', (-3050, -600, 'purple'), (4850, -330, 'purple'), [all_sprites],
                           level_sprites)
 
-    InvisibleWall(k_size, -1854, -600, 3200, -600, level_sprites, box_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -4000, -600, 7000, -600, level_sprites, box_walls, is_visible=walls_are_visible)
 
-    InvisibleWall(k_size, -1613, -175, -1228, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -4200, -160, -2835, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -1120, -175, -1013, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -2730, -160, -2640, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -900, -175, -800, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -2540, -160, -2450, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -685, -175, -260, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -2355, -160, -1970, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -148, -175, 60, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -1875, -160, -1685, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, 175, -175, 389, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -1590, -160, -1400, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, 500, -175, 1362, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -1305, -160, -540, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, 1474, -175, 1578, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -445, -160, -355, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, 1689, -175, 1790, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -255, -160, -160, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, 1905, -175, 2215, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -60, -160, 7000, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
 
-    InvisibleWall(k_size, -1600, -1000, -1600, -170, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
-    InvisibleWall(k_size, 2200, -1000, 2200, -158, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -3155, -777, -3155, -160, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
 
     if not walls_are_visible:
-        level = GameLevel(k_size, 'images/levels/3.png', (-1500, -600, 'purple'),
-                          (2100, -330, 'green'), all_sprites, level_sprites)
+        level = GameLevel(k_size, 'images/levels/3.png', (-3050, -600, 'purple'),
+                          (4850, -330, 'green'), all_sprites, level_sprites)
 
-    player = Player(k_size, screen, -1500, -280, player_health, player_suit_health, all_sprites)
+    player = Player(k_size, screen, -3050, -280, player_health, player_suit_health, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
 
     while True:
         do_break = controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
-                                          invisible_vertical_walls)
+                                                     invisible_vertical_walls)
 
         if do_break:
             return True
@@ -275,14 +275,14 @@ def third_level(player_health, player_suit_health):
 
 def main():
     pygame.mouse.set_visible(True)
-    #pre_screen()
+    # pre_screen()
     pygame.mouse.set_visible(False)
     music = pygame.mixer.Sound('sounds/main_music1.mp3')
     music.play()
     player_health, player_suit_health = 30, 0
     try:
-        #player_health, player_suit_health = first_level(player_health, player_suit_health)
-        #player_health, player_suit_health = second_level(player_health, player_suit_health)
+        # player_health, player_suit_health = first_level(player_health, player_suit_health)
+        # player_health, player_suit_health = second_level(player_health, player_suit_health)
         player_health, player_suit_health = third_level(player_health, player_suit_health)
         music.stop()
     except TypeError:
