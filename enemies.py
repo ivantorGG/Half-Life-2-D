@@ -31,21 +31,21 @@ class Crab(pygame.sprite.Sprite):
         self.rect.centery += plus_y * self.k_size[0]
 
     def update(self, *args, **kwargs):
-        if not pygame.sprite.spritecollideany(self, args[1]):
+        if not pygame.sprite.spritecollideany(self, args[0]):
             self.move_crab(0, 20)
 
-        if pygame.sprite.spritecollideany(self, args[1]):
+        if pygame.sprite.spritecollideany(self, args[0]):
             stop_animating = False
             self.check_direction()
 
             if self.obj.rect.centerx > self.rect.centerx:
                 self.move_crab(self.speed, 0)
-                if not pygame.sprite.spritecollideany(self, args[1]):
+                if not pygame.sprite.spritecollideany(self, args[0]):
                     self.move_crab(-self.speed, 0)
                     stop_animating = True
             else:
                 self.move_crab(-self.speed, 0)
-                if not pygame.sprite.spritecollideany(self, args[1]):
+                if not pygame.sprite.spritecollideany(self, args[0]):
                     self.move_crab(self.speed, 0)
                     stop_animating = True
 

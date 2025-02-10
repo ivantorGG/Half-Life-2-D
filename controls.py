@@ -44,7 +44,7 @@ def pre_screen_check_events(image, first_motion, last_place, width, height, btn_
 
 def first_level_check_events(k_size, player, game_level, all_sprites, invisible_horizontal_walls,
                              invisible_vertical_walls,
-                             HEV_charger=None, health_charger=None, level=None, crushed_car=None):
+                             HEV_charger=None, health_charger=None, level=None):
     """Проверка событий pygame"""
     E_sound = pygame.mixer.Sound('sounds/E_button-pressed.mp3')
     for event in pygame.event.get():
@@ -63,15 +63,11 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
 
             if event.key == pygame.K_w or event.key == pygame.K_SPACE:
 
-                if pygame.sprite.spritecollideany(player, invisible_horizontal_walls) or \
-                        crushed_car is not None and (
-                        crushed_car.mask is not None and pygame.sprite.collide_mask(player, crushed_car) is not None or \
-                        crushed_car.car is not None and pygame.sprite.collide_mask(player,
-                                                                                   crushed_car.car) is not None):
+                if pygame.sprite.spritecollideany(player, invisible_horizontal_walls):
                     player.jumping = True
                     player.is_now_jumping = True
 
-            if event.key == pygame.K_s:
+            if event.key == pygame.K_s or event.key == pygame.K_LCTRL:
                 player.crouch = True
                 player.crouched = False
 
@@ -138,7 +134,7 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
             if event.key == pygame.K_a:
                 player.move_left = False
 
-            if event.key == pygame.K_s:
+            if event.key == pygame.K_s or event.key == pygame.K_LCTRL:
                 player.crouch = False
                 player.crouched = True
 

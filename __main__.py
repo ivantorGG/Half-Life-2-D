@@ -3,7 +3,7 @@ from chargers import HEVCharger, HealthCharger
 from food import FoodBox, FoodBottery, FoodBullets, FoodMedkitBig, FoodMedkitSmall
 from enemies import Crab
 from connecting_objects import Level, InvisibleWall
-from objects import CrushedCarChained, GameLevel
+from objects import Bridge, GameLevel
 import stats
 import controls
 from camera import Camera
@@ -250,7 +250,7 @@ def third_level(player_health, player_suit_health):
         screen.fill((0, 0, 0))
         level_sprites.update()
         level_sprites.draw(screen)
-        all_sprites.update(None, invisible_horizontal_walls, invisible_vertical_walls, box_walls)
+        all_sprites.update(invisible_horizontal_walls, invisible_vertical_walls, box_walls)
         all_sprites.draw(screen)
 
         if not player.died:
@@ -275,14 +275,16 @@ def third_level(player_health, player_suit_health):
 
 def main():
     pygame.mouse.set_visible(True)
-    pre_screen()
+    #pre_screen()
     pygame.mouse.set_visible(False)
-
+    music = pygame.mixer.Sound('sounds/main_music1.mp3')
+    music.play()
     player_health, player_suit_health = 30, 0
     try:
-        player_health, player_suit_health = first_level(player_health, player_suit_health)
-        player_health, player_suit_health = second_level(player_health, player_suit_health)
+        #player_health, player_suit_health = first_level(player_health, player_suit_health)
+        #player_health, player_suit_health = second_level(player_health, player_suit_health)
         player_health, player_suit_health = third_level(player_health, player_suit_health)
+        music.stop()
     except TypeError:
         return None
 

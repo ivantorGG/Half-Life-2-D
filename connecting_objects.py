@@ -1,5 +1,4 @@
 import pygame
-from objects import CrushedCarChained
 
 
 class Level(pygame.sprite.Sprite):

@@ -1,48 +1,28 @@
 import pygame
-
+from connecting_objects import InvisibleWall
 from player import Player
 
 
-class CrushedCarChained(pygame.sprite.Sprite):
-    def __init__(self, k_size, x, y, length, *groups):
+class Bridge(pygame.sprite.Sprite):
+    def __init__(self, k_size, x, y, name, wall_groups,  *groups):
         super().__init__(*groups)
 
-        self.image = pygame.image.load('images/objects/crushed_car.png')
+        self.image = pygame.image.load(name)
         self.image = pygame.transform.scale(self.image, (
-            round(self.image.get_width() * 2 * k_size[0]), round(self.image.get_height() * k_size[1])))
-        self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
-        self.mask = pygame.mask.from_surface(self.image)
-
-        self.go = False
-        self.animation_done = False
-        self.k_size = k_size
-        self.length = length * k_size[0]
-        self.car = None
+            round(self.image.get_width() / 3 * k_size[0]), round(self.image.get_height() / 3 * k_size[1])))
+        self.rect = self.image.get_rect(center=(x, y))
+        self.falling_speed = 10
+        horizontal_wall1 = InvisibleWall(k_size, self.rect.x, self.rect.y, self.rect.x + self.rect.width, self.rect.y, wall_groups[0], wall_groups[2])
+        horizontal_wall2 = InvisibleWall(k_size, self.rect.x, self.rect.y + self.rect.height, self.rect.x + self.rect.width, self.rect.y + self.rect.height, wall_groups[0], wall_groups[2])
+        vertical_wall1 = InvisibleWall(k_size, self.rect.x, self.rect.y, self.rect.x, self.rect.y + self.rect.height, wall_groups[1], wall_groups[2])
+        vertical_wall2 = InvisibleWall(k_size, self.rect.x + self.rect.width, self.rect.y, self.rect.x + self.rect.width, self.rect.y + self.rect.height, wall_groups[1], wall_groups[2])
+        self.walls = [horizontal_wall1, vertical_wall1, horizontal_wall2, vertical_wall2]
 
     def update(self, *args, **kwargs):
-        if self.go and self.length > 0:
-            self.length -= 10
-            self.rect.y += 10
-        if self.length <= 0 and self.go:
-            self.animation_done = True
-            self.go = False
-        if self.animation_done:
-            self.car = CrushedCar(self.k_size, self.rect.centerx,
-                                  self.rect.y + 573 * self.k_size[1], *self.groups())
-            self.animation_done = False
-            self.mask = None
-
-
-class CrushedCar(pygame.sprite.Sprite):
-    def __init__(self, k_size, x, y, *groups):
-        super().__init__(*groups)
-
-        self.image = pygame.image.load('images/objects/crushed_car2.png')
-        self.image = pygame.transform.scale(self.image, (
-            round(self.image.get_width() * 2 * k_size[0]), round(self.image.get_height() * k_size[1])))
-        self.rect = self.image.get_rect(
-            center=(x, y))
-        self.mask = pygame.mask.from_surface(self.image)
+        for wall in self.walls:
+            wall.rect.y += self.falling_speed
+        if not pygame.sprite.spritecollideany(self, args[0]):
+            self.rect.y += self.falling_speed
 
 
 class GameLevel(pygame.sprite.Sprite):
@@ -73,7 +53,6 @@ class GameLevel(pygame.sprite.Sprite):
 
 class Portal(pygame.sprite.Sprite):
     def __init__(self, k_size, x, y, is_first, color, obj_groups, *groups):
-        pass
         super().__init__(*groups)
 
         if is_first:
