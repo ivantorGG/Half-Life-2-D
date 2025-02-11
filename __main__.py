@@ -206,30 +206,87 @@ def third_level(player_health, player_suit_health):
         level = GameLevel(k_size, 'images/levels/3.png', (-3050, -600, 'purple'), (4850, -330, 'purple'), [all_sprites],
                           level_sprites)
 
-    InvisibleWall(k_size, -4000, -600, 7000, -600, level_sprites, box_walls, is_visible=walls_are_visible)
+    InvisibleWall(k_size, -4000, -1000, 7000, -1000, level_sprites, box_walls, is_visible=walls_are_visible)
 
-    InvisibleWall(k_size, -4200, -160, -2835, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -4200, -155, -2835, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -2730, -160, -2640, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -2730, -155, -2640, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -2540, -160, -2450, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -2540, -155, -2450, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -2355, -160, -1970, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -2355, -155, -2258, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -1875, -160, -1685, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -2228, -200, -2137, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -1590, -160, -1400, 0, level_sprites, invisible_horizontal_walls,
+
+    InvisibleWall(k_size, -1670, -400, -1380, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -1305, -160, -540, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -1990, -310, -1889, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -445, -160, -355, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -2127, -250, -2030, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -255, -160, -160, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -1825, -340, -1730, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -60, -160, 7000, 0, level_sprites, invisible_horizontal_walls,
+
+    InvisibleWall(k_size, -1160, -400, -1075, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
+
+    InvisibleWall(k_size, -980, -400, -788, 0, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+
+    InvisibleWall(k_size, -510, -270, -320, 0, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+
+    InvisibleWall(k_size, -60, -155, 400, 0, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+
+    InvisibleWall(k_size, 1285, -155, 8000, 0, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+
+
 
     InvisibleWall(k_size, -3155, -777, -3155, -160, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+
+    InvisibleWall(k_size, -2835, -150, -2835, 0, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -2730, -150, -2730, 0, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -2640, -150, -2640, 0, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -2540, -150, -2540, 0, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -2450, -150, -2450, 0, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -2355, -150, -2355, 0, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -2258, -150, -2258, 0, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+
+    InvisibleWall(k_size, -1670, -400, -1670, -300, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -1380, -400, -1380, -300, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+
+    InvisibleWall(k_size, -1160, -400, -1160, -300, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -1075, -400, -1075, -300, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+
+    InvisibleWall(k_size, -980, -400, -980, -300, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -788, -400, -788, -300, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+
+    InvisibleWall(k_size, -510, -260, -510, -150, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -320, -260, -320, -150, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -60, -150, -60, 0, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, 400, -150, 400, 0, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, 1285, -150, 1285, 0, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
 
     if not walls_are_visible:
