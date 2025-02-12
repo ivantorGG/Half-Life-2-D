@@ -3,26 +3,62 @@ from connecting_objects import InvisibleWall
 from player import Player
 
 
-class Bridge(pygame.sprite.Sprite):
-    def __init__(self, k_size, x, y, name, wall_groups,  *groups):
+class Obstacle(pygame.sprite.Sprite):
+    def __init__(self, k_size, x, y, name, wall_groups, *groups):
+        """Создаёт прямоугольное препятствие. Указывать:
+        k_size, x, y, путь к изображению, [горизонтальную группу стен, вертикальную группу стен, группу уровней]"""
         super().__init__(*groups)
 
         self.image = pygame.image.load(name)
         self.image = pygame.transform.scale(self.image, (
             round(self.image.get_width() / 3 * k_size[0]), round(self.image.get_height() / 3 * k_size[1])))
-        self.rect = self.image.get_rect(center=(x, y))
+        self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
         self.falling_speed = 10
-        horizontal_wall1 = InvisibleWall(k_size, self.rect.x, self.rect.y, self.rect.x + self.rect.width, self.rect.y, wall_groups[0], wall_groups[2])
-        horizontal_wall2 = InvisibleWall(k_size, self.rect.x, self.rect.y + self.rect.height, self.rect.x + self.rect.width, self.rect.y + self.rect.height, wall_groups[0], wall_groups[2])
-        vertical_wall1 = InvisibleWall(k_size, self.rect.x, self.rect.y, self.rect.x, self.rect.y + self.rect.height, wall_groups[1], wall_groups[2])
-        vertical_wall2 = InvisibleWall(k_size, self.rect.x + self.rect.width, self.rect.y, self.rect.x + self.rect.width, self.rect.y + self.rect.height, wall_groups[1], wall_groups[2])
+        self.stopped = False
+        self.walls_resized = False
+        self.wall_groups = wall_groups
+        self.k_size = k_size
+        horizontal_wall1 = InvisibleWall(k_size, self.rect.x - 1, self.rect.y - 1, self.rect.x + self.rect.width + 1,
+                                         self.rect.y - 1, wall_groups[0], wall_groups[2], color=(255, 255, 255, 0), do_move=False)
+        horizontal_wall2 = InvisibleWall(k_size, self.rect.x - 1, self.rect.y + self.rect.height + 1,
+                                         self.rect.x + self.rect.width + 1, self.rect.y + self.rect.height + 1,
+                                         wall_groups[0], wall_groups[2], color=(255, 255, 255, 0), do_move=False)
+        vertical_wall1 = InvisibleWall(k_size, self.rect.x - 1, self.rect.y - 1, self.rect.x - 1,
+                                       self.rect.y + self.rect.height + 1, wall_groups[1], wall_groups[2], color=(255, 255, 255, 0), do_move=False)
+        vertical_wall2 = InvisibleWall(k_size, self.rect.x + self.rect.width + 1, self.rect.y - 1,
+                                       self.rect.x + self.rect.width + 1, self.rect.y + self.rect.height + 1,
+                                       wall_groups[1], wall_groups[2], color=(255, 255, 255, 0), do_move=False)
         self.walls = [horizontal_wall1, vertical_wall1, horizontal_wall2, vertical_wall2]
 
     def update(self, *args, **kwargs):
-        for wall in self.walls:
-            wall.rect.y += self.falling_speed
+
         if not pygame.sprite.spritecollideany(self, args[0]):
             self.rect.y += self.falling_speed
+        else:
+            self.stopped = True
+            if not self.walls_resized:
+                for wall in self.walls:
+                    wall.kill()
+
+                horizontal_wall1 = InvisibleWall(self.k_size, self.rect.x, self.rect.y,
+                                                 self.rect.x + self.rect.width,
+                                                 self.rect.y, self.wall_groups[0], self.wall_groups[2], color=(0, 0, 0, 0), do_move=False)
+                horizontal_wall2 = InvisibleWall(self.k_size, self.rect.x, self.rect.y + self.rect.height,
+                                                 self.rect.x + self.rect.width,
+                                                 self.rect.y + self.rect.height, self.wall_groups[0],
+                                                 self.wall_groups[2], color=(0, 0, 0, 0), do_move=False)
+                vertical_wall1 = InvisibleWall(self.k_size, self.rect.x, self.rect.y + 20 * self.k_size[1], self.rect.x,
+                                               self.rect.y + self.rect.height, self.wall_groups[1],
+                                               self.wall_groups[2], color=(0, 0, 0, 0), do_move=False)
+                vertical_wall2 = InvisibleWall(self.k_size, self.rect.x + self.rect.width,
+                                               self.rect.y + 20 * self.k_size[1],
+                                               self.rect.x + self.rect.width, self.rect.y + self.rect.height,
+                                               self.wall_groups[1], self.wall_groups[2], color=(0, 0, 0, 0), do_move=False)
+                self.walls = [horizontal_wall1, vertical_wall1, horizontal_wall2, vertical_wall2]
+                self.walls_resized = True
+        if not self.stopped:
+            for wall in self.walls:
+                wall.rect.y += self.falling_speed
 
 
 class GameLevel(pygame.sprite.Sprite):
@@ -126,29 +162,3 @@ class Portal(pygame.sprite.Sprite):
                                                  Player) and not self.is_first:
             self.phase = 'ending'
             self.i = 1
-
-
-if __name__ == '__main__':
-    pygame.init()
-    pygame.mixer.init()
-    size = width, height = 850, 750
-    screen = pygame.display.set_mode(size)
-    k_size = (1, 1)
-
-    FPS = 60
-    running = True
-    cloak = pygame.time.Clock()
-
-    all_sprites = pygame.sprite.Group()
-    crushed_car = CrushedCarChained(k_size, 200, 200, all_sprites)
-
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
-        screen.fill((0, 0, 0))
-        all_sprites.update()
-        all_sprites.draw(screen)
-        cloak.tick(FPS)
-        pygame.display.flip()

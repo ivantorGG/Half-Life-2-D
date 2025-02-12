@@ -1,9 +1,9 @@
 from player import Player
 from chargers import HEVCharger, HealthCharger
 from food import FoodBox, FoodBottery, FoodBullets, FoodMedkitBig, FoodMedkitSmall
-from enemies import Crab
+from enemies import Crab, DirectCrab, TermenatorCrab, FlyingEnemy, DumbCrab, SummonerCrab
 from connecting_objects import Level, InvisibleWall
-from objects import Bridge, GameLevel
+from objects import Obstacle, GameLevel
 import stats
 import controls
 from camera import Camera
@@ -55,14 +55,11 @@ def first_level(player_health, player_suit_health):
     level_sprites = pygame.sprite.Group()
     invisible_horizontal_walls = pygame.sprite.Group()
     invisible_vertical_walls = pygame.sprite.Group()
-    box_walls = pygame.sprite.Group()
 
     walls_are_visible = True
     if walls_are_visible:
         level = GameLevel(k_size, 'images/levels/1.png', (-300, -200, 'purple'), (880, 0, 'purple'), [all_sprites],
                           level_sprites)
-
-    InvisibleWall(k_size, -854, -290, 1200, -290, level_sprites, box_walls, is_visible=walls_are_visible)
 
     InvisibleWall(k_size, -410, -180, -410, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
     InvisibleWall(k_size, 950, -180, 950, 200, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
@@ -98,7 +95,7 @@ def first_level(player_health, player_suit_health):
         screen.fill((0, 0, 0))
         level_sprites.update()
         level_sprites.draw(screen)
-        all_sprites.update(None, invisible_horizontal_walls, invisible_vertical_walls, box_walls)
+        all_sprites.update(invisible_horizontal_walls, invisible_vertical_walls)
         all_sprites.draw(screen)
 
         if not player.died:
@@ -126,14 +123,11 @@ def second_level(player_health, player_suit_health):
     level_sprites = pygame.sprite.Group()
     invisible_horizontal_walls = pygame.sprite.Group()
     invisible_vertical_walls = pygame.sprite.Group()
-    box_walls = pygame.sprite.Group()
 
     walls_are_visible = True
     if walls_are_visible:
         level = GameLevel(k_size, 'images/levels/2.png', (-650, -500, 'purple'), (550, -250, 'purple'), [all_sprites],
                           level_sprites)
-
-    InvisibleWall(k_size, -854, -600, 1200, -600, level_sprites, box_walls, is_visible=walls_are_visible)
 
     InvisibleWall(k_size, -750, -97, -355, 240, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
@@ -171,7 +165,7 @@ def second_level(player_health, player_suit_health):
         screen.fill((0, 0, 0))
         level_sprites.update()
         level_sprites.draw(screen)
-        all_sprites.update(None, invisible_horizontal_walls, invisible_vertical_walls, box_walls)
+        all_sprites.update(invisible_horizontal_walls, invisible_vertical_walls)
         all_sprites.draw(screen)
 
         if not player.died:
@@ -199,14 +193,11 @@ def third_level(player_health, player_suit_health):
     level_sprites = pygame.sprite.Group()
     invisible_horizontal_walls = pygame.sprite.Group()
     invisible_vertical_walls = pygame.sprite.Group()
-    box_walls = pygame.sprite.Group()
 
     walls_are_visible = True
     if walls_are_visible:
         level = GameLevel(k_size, 'images/levels/3.png', (-3050, -600, 'purple'), (4850, -330, 'purple'), [all_sprites],
                           level_sprites)
-
-    InvisibleWall(k_size, -4000, -1000, 7000, -1000, level_sprites, box_walls, is_visible=walls_are_visible)
 
     InvisibleWall(k_size, -4200, -155, -2835, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
@@ -219,7 +210,7 @@ def third_level(player_health, player_suit_health):
     InvisibleWall(k_size, -2228, -200, -2137, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
 
-    InvisibleWall(k_size, -1670, -400, -1380, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, -1662, -400, -1380, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
     InvisibleWall(k_size, -1990, -310, -1889, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
@@ -242,60 +233,94 @@ def third_level(player_health, player_suit_health):
 
     InvisibleWall(k_size, 1285, -155, 8000, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
-
-
-
-    InvisibleWall(k_size, -3155, -777, -3155, -160, level_sprites, invisible_vertical_walls,
+    # вертикальные
+    InvisibleWall(k_size, -3155, -777 + 20, -3155, -160 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
 
-    InvisibleWall(k_size, -2835, -150, -2835, 0, level_sprites, invisible_vertical_walls,
+    InvisibleWall(k_size, -2835, -150 + 20, -2835, 0 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -2730, -150, -2730, 0, level_sprites, invisible_vertical_walls,
+    InvisibleWall(k_size, -2730, -150 + 20, -2730, 0 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -2640, -150, -2640, 0, level_sprites, invisible_vertical_walls,
+    InvisibleWall(k_size, -2640, -150 + 20, -2640, 0 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -2540, -150, -2540, 0, level_sprites, invisible_vertical_walls,
+    InvisibleWall(k_size, -2540, -150 + 20, -2540, 0 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -2450, -150, -2450, 0, level_sprites, invisible_vertical_walls,
+    InvisibleWall(k_size, -2450, -150 + 20, -2450, 0 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -2355, -150, -2355, 0, level_sprites, invisible_vertical_walls,
+    InvisibleWall(k_size, -2355, -150 + 20, -2355, 0 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -2258, -150, -2258, 0, level_sprites, invisible_vertical_walls,
-                  is_visible=walls_are_visible)
-
-    InvisibleWall(k_size, -1670, -400, -1670, -300, level_sprites, invisible_vertical_walls,
-                  is_visible=walls_are_visible)
-    InvisibleWall(k_size, -1380, -400, -1380, -300, level_sprites, invisible_vertical_walls,
+    InvisibleWall(k_size, -2258, -150 + 20, -2258, 0 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
 
-    InvisibleWall(k_size, -1160, -400, -1160, -300, level_sprites, invisible_vertical_walls,
+    InvisibleWall(k_size, -1662, -400 + 20, -1662, -300 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -1075, -400, -1075, -300, level_sprites, invisible_vertical_walls,
-                  is_visible=walls_are_visible)
-
-    InvisibleWall(k_size, -980, -400, -980, -300, level_sprites, invisible_vertical_walls,
-                  is_visible=walls_are_visible)
-    InvisibleWall(k_size, -788, -400, -788, -300, level_sprites, invisible_vertical_walls,
+    InvisibleWall(k_size, -1376, -400 + 20, -1376, -300 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
 
-    InvisibleWall(k_size, -510, -260, -510, -150, level_sprites, invisible_vertical_walls,
+    InvisibleWall(k_size, -1160, -400 + 20, -1160, -300 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -320, -260, -320, -150, level_sprites, invisible_vertical_walls,
+    InvisibleWall(k_size, -1075, -400 + 20, -1075, -300 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, -60, -150, -60, 0, level_sprites, invisible_vertical_walls,
+
+    InvisibleWall(k_size, -980, -400 + 20, -980, -300 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, 400, -150, 400, 0, level_sprites, invisible_vertical_walls,
+    InvisibleWall(k_size, -788, -400 + 20, -788, -300 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, 1285, -150, 1285, 0, level_sprites, invisible_vertical_walls,
+
+    InvisibleWall(k_size, -510, -260 + 20, -510, -150 + 20, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -320, -260 + 20, -320, -150 + 20, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, -60, -150 + 20, -60, 0 + 20, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, 400, -150 + 20, 400, 0 + 20, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, 1285, -150 + 20, 1285, 0 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
 
     if not walls_are_visible:
         level = GameLevel(k_size, 'images/levels/3.png', (-3050, -600, 'purple'),
                           (4850, -330, 'green'), all_sprites, level_sprites)
 
-    player = Player(k_size, screen, -3050, -280, player_health, player_suit_health, all_sprites)
+    player = Player(k_size, screen, 2250, -280, player_health, player_suit_health, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    # direct_crab1 = DirectCrab(k_size, player, -1500, -320, -15, all_sprites)
+    # player.set_enemies(direct_crab1, crab1)
+    #FlyingEnemy(k_size, -2800, -350, 'Crab', player, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
+
+    create_obstacle1 = True
+    spawn_termenator1 = True
 
     while True:
         do_break = controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
@@ -307,8 +332,17 @@ def third_level(player_health, player_suit_health):
         screen.fill((0, 0, 0))
         level_sprites.update()
         level_sprites.draw(screen)
-        all_sprites.update(invisible_horizontal_walls, invisible_vertical_walls, box_walls)
+        all_sprites.update(invisible_horizontal_walls, invisible_vertical_walls)
         all_sprites.draw(screen)
+
+        if player.x > -3050 and spawn_termenator1:
+            #TermenatorCrab(k_size, player, -500, 250, 6, all_sprites)
+            spawn_termenator1 = False
+
+        if player.x > 0 and create_obstacle1:
+            Obstacle(k_size, 1340, -10, 'images/objects/bridge1.png',
+                     [invisible_horizontal_walls, invisible_vertical_walls, level_sprites], all_sprites)
+            create_obstacle1 = False
 
         if not player.died:
             stats.print_stats(screen, k_size, player)

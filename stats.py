@@ -58,11 +58,12 @@ def print_stats(screen, k_size, player):
     health_text_x, health_text_y = round(30 * k_size[0]), round((screen.get_height() - 55 * k_size[0]))
     num_health_text_x, num_health_text_y = round(105 * k_size[0]) if len(str(player.health)) == 3 else round(
         115 * k_size[0]), screen.get_height() - round(80 * k_size[0])
-
-    pygame.draw.rect(screen, (10, 10, 10, 128),
-                     (round(health_text_x - 15 * k_size[0]), round(num_health_text_y - 10 * k_size[0]),
-                      round(200 * k_size[0]), round(num_health_text.get_height() + 25 * k_size[0])),
-                     border_radius=20)
+    # прямоугольник
+    rect = pygame.Surface((round(200 * k_size[0]), round(num_health_text.get_height() + 25 * k_size[0])),
+                          pygame.SRCALPHA)
+    pygame.draw.rect(rect, (10, 10, 10, 198), (0, 0,
+            round(200 * k_size[0]), round(num_health_text.get_height() + 25 * k_size[0])), border_radius=20)
+    screen.blit(rect, (round(health_text_x - 15 * k_size[0]), round(num_health_text_y - 10 * k_size[0])))
 
     screen.blit(health_text, (health_text_x, health_text_y))
     screen.blit(num_health_text, (num_health_text_x, num_health_text_y))
@@ -80,10 +81,13 @@ def print_stats(screen, k_size, player):
     num_health_text_x, num_health_text_y = round(350 * k_size[0]) if len(str(player.suit_health)) == 3 else round(
         370 * k_size[0]), round(screen.get_height() - (80 * k_size[0]))
 
-    pygame.draw.rect(screen, (10, 10, 10, 128),
-                     (round(health_text_x - 15 * k_size[0]), round(num_health_text_y - 10 * k_size[0]),
-                      round(220 * k_size[0]), round(num_health_text.get_height() + 25 * k_size[0])),
-                     border_radius=20)
+    # прямоугольник
+    rect = pygame.Surface((round(220 * k_size[0]), round(num_health_text.get_height() + 25 * k_size[0])),
+                          pygame.SRCALPHA)
+    pygame.draw.rect(rect, (10, 10, 10, 198), (0, 0,
+                                               round(220 * k_size[0]),
+                                               round(num_health_text.get_height() + 25 * k_size[0])), border_radius=20)
+    screen.blit(rect, (round(health_text_x - 15 * k_size[0]), round(num_health_text_y - 10 * k_size[0])))
 
     screen.blit(health_text, (health_text_x, health_text_y))
     screen.blit(num_health_text, (num_health_text_x, num_health_text_y))
@@ -93,7 +97,6 @@ def print_stats(screen, k_size, player):
                       round(220 * k_size[0]), round(num_health_text.get_height() + 25 * k_size[0])), 2,
                      20)
 
-    # энергия
     # патроны
     health_text = normal_font.render('патроны', True, (244, 169, 0))
     num_health_text = hl2_font.render(str(player.bullets), True, (244, 169, 0))
@@ -104,11 +107,13 @@ def print_stats(screen, k_size, player):
     num_health_text_x, num_health_text_y = screen.get_width() - round(130 * k_size[0]) if len(
         str(player.bullets)) == 3 else screen.get_width() - round(
         115 * k_size[0]), round(screen.get_height() - (80 * k_size[0]))
-
-    pygame.draw.rect(screen, (10, 10, 10, 128),
-                     (round(health_text_x - 15 * k_size[0]), round(num_health_text_y - 10 * k_size[0]),
-                      round(220 * k_size[0]), round(num_health_text.get_height() + 25 * k_size[0])),
-                     border_radius=20)
+    # прямоугольник
+    rect = pygame.Surface((round(220 * k_size[0]), round(num_health_text.get_height() + 25 * k_size[0])),
+                          pygame.SRCALPHA)
+    pygame.draw.rect(rect, (10, 10, 10, 198), (0, 0,
+                                               round(220 * k_size[0]),
+                                               round(num_health_text.get_height() + 25 * k_size[0])), border_radius=20)
+    screen.blit(rect, (round(health_text_x - 15 * k_size[0]), round(num_health_text_y - 10 * k_size[0])))
 
     screen.blit(health_text, (health_text_x, health_text_y))
     screen.blit(num_health_text, (num_health_text_x, num_health_text_y))
