@@ -234,7 +234,7 @@ def third_level(player_health, player_suit_health):
     InvisibleWall(k_size, 1285, -155, 8000, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
     # вертикальные
-    InvisibleWall(k_size, -3155, -777 + 20, -3155, -160 + 20, level_sprites, invisible_vertical_walls,
+    InvisibleWall(k_size, -3650, -777 + 20, -3650, -160 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
 
     InvisibleWall(k_size, -2835, -150 + 20, -2835, 0 + 20, level_sprites, invisible_vertical_walls,
