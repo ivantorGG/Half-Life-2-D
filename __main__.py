@@ -282,7 +282,7 @@ def third_level(player_health, player_suit_health):
         level = GameLevel(k_size, 'images/levels/3.png', (-3050, -600, 'purple'),
                           (4850, -330, 'green'), all_sprites, level_sprites)
 
-    player = Player(k_size, screen, 2250, -280, player_health, player_suit_health, all_sprites)
+    player = Player(k_size, screen, -3050, -280, player_health, player_suit_health, all_sprites)
     DumbCrab(k_size, player, 2400, -700, all_sprites)
     DumbCrab(k_size, player, 2400, -700, all_sprites)
     DumbCrab(k_size, player, 2400, -700, all_sprites)
@@ -336,7 +336,7 @@ def third_level(player_health, player_suit_health):
         all_sprites.draw(screen)
 
         if player.x > -3050 and spawn_termenator1:
-            #TermenatorCrab(k_size, player, -500, 250, 6, all_sprites)
+            TermenatorCrab(k_size, player, -500, 250, 6, all_sprites)
             spawn_termenator1 = False
 
         if player.x > 0 and create_obstacle1:

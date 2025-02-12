@@ -23,9 +23,9 @@ class Obstacle(pygame.sprite.Sprite):
         horizontal_wall2 = InvisibleWall(k_size, self.rect.x - 1, self.rect.y + self.rect.height + 1,
                                          self.rect.x + self.rect.width + 1, self.rect.y + self.rect.height + 1,
                                          wall_groups[0], wall_groups[2], color=(255, 255, 255, 0), do_move=False)
-        vertical_wall1 = InvisibleWall(k_size, self.rect.x - 1, self.rect.y - 1, self.rect.x - 1,
+        vertical_wall1 = InvisibleWall(k_size, self.rect.x - 1, self.rect.y + 20 * k_size[1], self.rect.x - 1,
                                        self.rect.y + self.rect.height + 1, wall_groups[1], wall_groups[2], color=(255, 255, 255, 0), do_move=False)
-        vertical_wall2 = InvisibleWall(k_size, self.rect.x + self.rect.width + 1, self.rect.y - 1,
+        vertical_wall2 = InvisibleWall(k_size, self.rect.x + self.rect.width + 1, self.rect.y + 20 * k_size[1],
                                        self.rect.x + self.rect.width + 1, self.rect.y + self.rect.height + 1,
                                        wall_groups[1], wall_groups[2], color=(255, 255, 255, 0), do_move=False)
         self.walls = [horizontal_wall1, vertical_wall1, horizontal_wall2, vertical_wall2]

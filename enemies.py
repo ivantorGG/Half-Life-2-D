@@ -178,7 +178,7 @@ class DumbCrab(Crab):
         self.direction = choice(('left', 'right'))
         self.speed = -6 if self.direction == 'left' else 6
         self.length = randrange(150)
-        self.damage = 0
+        self.damage = 10
 
     def update(self, *args, **kwargs):
         if not pygame.sprite.spritecollideany(self, args[0]):
@@ -214,7 +214,7 @@ class DumbCrab(Crab):
             self.length = randrange(500)
             self.direction = choice(('left', 'right'))
 
-        if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player) and self.for_slower % 45 == 0:
+        if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player) and self.for_slower % 10 == 0:
             if self.obj.suit_health >= self.damage:
                 self.obj.suit_health -= self.damage
             elif self.obj.suit_health > 0:
@@ -240,7 +240,7 @@ class DumbCrab(Crab):
 class FlyingEnemy(pygame.sprite.Sprite):
     def __init__(self, k_size, x, y, enemy, obj, *groups, speed=None):
         super().__init__(*groups)
-        self.image = pygame.image.load('images/enemies/Crab/summoner_attack.png')
+        self.image = pygame.image.load('images/enemies/SummonerCrab/summoner_attack.png')
         self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
         self.enemy = enemy
         self.length_x = randrange(-250, 250, 10)
