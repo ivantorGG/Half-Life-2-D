@@ -232,7 +232,7 @@ def third_level(player_health, player_suit_health, bullets):
     InvisibleWall(k_size, -60, -155, 400, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
 
-    InvisibleWall(k_size, 1285, -155, 8000, 0, level_sprites, invisible_horizontal_walls,
+    InvisibleWall(k_size, 2490, -155, 2660, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
     # вертикальные
     InvisibleWall(k_size, -3650, -777 + 20, -3650, -160 + 20, level_sprites, invisible_vertical_walls,
@@ -278,6 +278,11 @@ def third_level(player_health, player_suit_health, bullets):
                   is_visible=walls_are_visible)
     InvisibleWall(k_size, 1285, -150 + 20, 1285, 0 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
+    InvisibleWall(k_size, 2490, -150 + 20, 2490, 0 + 20, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+    InvisibleWall(k_size, 2660, -150 + 20, 2660, 0 + 20, level_sprites, invisible_vertical_walls,
+                  is_visible=walls_are_visible)
+
 
     if not walls_are_visible:
         level = GameLevel(k_size, 'images/levels/3.png', (-3050, -600, 'purple'), (4850, -330, 'purple'), [all_sprites],
@@ -397,7 +402,7 @@ def third_level(player_health, player_suit_health, bullets):
 
 def main():
     pygame.mouse.set_visible(True)
-    #pre_screen()
+    pre_screen()
     pygame.mouse.set_visible(False)
     music = pygame.mixer.Sound('sounds/main_music1.mp3')
     music.play()
