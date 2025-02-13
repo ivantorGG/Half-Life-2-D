@@ -6,7 +6,7 @@ from weapons import GlockBullet
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, k_size, screen, x, y, health, suit_health, *groups):
+    def __init__(self, k_size, screen, x, y, health, suit_health, bullets, *groups):
         super().__init__(*groups)
 
         self.image = pygame.image.load('images/gordon/right/stand.png')
@@ -23,10 +23,10 @@ class Player(pygame.sprite.Sprite):
         self.jumping_speed = -60
         self.direction = 'right'
 
-        self.health = health
+        self.health = health * 999
         self.suit_health = suit_health
 
-        self.bullets = 50
+        self.bullets = bullets + 50
 
         self.shooting_count = 0
         self.phase = 0
@@ -246,4 +246,4 @@ class Player(pygame.sprite.Sprite):
                 GlockBullet(self.rect.centerx + 48, self.rect.centery - 54, 'right', self.enemies, *self.groups())
 
     def set_enemies(self, *enemies):
-        self.enemies = enemies
+        self.enemies += list(enemies)

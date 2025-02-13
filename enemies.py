@@ -1,4 +1,4 @@
-from random import randrange, choice, randint
+from random import randrange, choice
 import pygame
 
 from player import Player
@@ -25,6 +25,7 @@ class Crab(pygame.sprite.Sprite):
         self.damage = 40
         self.direction = None
         self.k_size = k_size
+        self.obj.set_enemies(self)
 
     def move_crab(self, plus_x, plus_y):
         self.rect.centerx += plus_x * self.k_size[0]
@@ -55,7 +56,8 @@ class Crab(pygame.sprite.Sprite):
                     self.phase += 1
                 self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
                 self.image = pygame.transform.scale(self.image, (
-                    round(self.image.get_width() * 2 * self.k_size[0]), round(self.image.get_height() * 2 * self.k_size[1])))
+                    round(self.image.get_width() * 2 * self.k_size[0]),
+                    round(self.image.get_height() * 2 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
 
             self.for_slower += 1
@@ -166,12 +168,6 @@ class TermenatorCrab(Crab):
         self.move_crab(self.speed, 0)
 
 
-class SummonerCrab(Crab):
-    def __init__(self, k_size, obj, x, y, *groups):
-        super().__init__(k_size, obj, x, y, *groups)
-        self.speed = 3
-
-
 class DumbCrab(Crab):
     def __init__(self, k_size, obj, x, y, *groups):
         super().__init__(k_size, obj, x, y, *groups)
@@ -206,7 +202,8 @@ class DumbCrab(Crab):
                     self.phase += 1
                 self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
                 self.image = pygame.transform.scale(self.image, (
-                    round(self.image.get_width() * 2 * self.k_size[0]), round(self.image.get_height() * 2 * self.k_size[1])))
+                    round(self.image.get_width() * 2 * self.k_size[0]),
+                    round(self.image.get_height() * 2 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
 
             self.for_slower += 1
@@ -233,14 +230,72 @@ class DumbCrab(Crab):
         self.length -= 5
         if self.length <= 0:
             self.length = randrange(150)
-            self.direction = choice(('left', 'right'))
             self.speed = -6 if self.direction == 'left' else 6
+            self.direction = choice(('left', 'right'))
+
+
+class SummonerCrab(DumbCrab):
+    def __init__(self, k_size, obj, x, y, *groups):
+        super().__init__(k_size, obj, x, y, *groups)
+        self.speed = -1 if self.direction == 'left' else 1
+
+    def update(self, *args, **kwargs):
+        if not pygame.sprite.spritecollideany(self, args[0]):
+            self.move_crab(0, 20)
+
+        if pygame.sprite.spritecollideany(self, args[0]):
+            self.move_crab(self.speed, 0)
+            if not pygame.sprite.spritecollideany(self, args[0]):
+                if self.direction == 'left':
+                    self.move_crab(0, -100)
+                    self.move_crab(-self.speed * 4, 0)
+                    self.direction = 'right'
+                    self.speed = 1
+                    self.length = 500
+                else:
+                    self.move_crab(0, -100)
+                    self.move_crab(-self.speed * 4, 0)
+                    self.direction = 'left'
+                    self.speed = -1
+                    self.length = 500
+
+            if self.for_slower % 5 == 0:
+                self.phase = (self.phase + 1) % 7
+                if not self.phase:
+                    self.phase += 1
+                self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
+                self.image = pygame.transform.scale(self.image, (
+                    round(self.image.get_width() * 2 * self.k_size[0]),
+                    round(self.image.get_height() * 2 * self.k_size[1])))
+                self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+
+            self.for_slower += 1
+        else:
+            self.length = randrange(500)
+            self.direction = choice(('left', 'right'))
+
+        self.check_health()
+        self.length -= 5
+        if self.length <= 0:
+            self.length = randrange(150)
+            self.speed = -1 if self.direction == 'left' else 1
+            self.direction = choice(('left', 'right'))
+            if choice((True, False, False, False, False)):
+                enemy = choice(('Crab', 'DirectCrab', 'DumbCrab'))
+                match enemy:
+                    case 'Crab':
+                        FlyingEnemy(self.k_size, self.rect.centerx, self.rect.centery, enemy, self.obj, *self.groups())
+                    case 'DirectCrab':
+                        speed = 20 if self.speed < 0 else -20
+                        FlyingEnemy(self.k_size, self.rect.centerx, self.rect.centery, enemy, self.obj, *self.groups(), speed=speed)
+                    case 'DumbCrab':
+                        FlyingEnemy(self.k_size, self.rect.centerx, self.rect.centery, enemy, self.obj, *self.groups())
 
 
 class FlyingEnemy(pygame.sprite.Sprite):
     def __init__(self, k_size, x, y, enemy, obj, *groups, speed=None):
         super().__init__(*groups)
-        self.image = pygame.image.load('images/enemies/SummonerCrab/summoner_attack.png')
+        self.image = pygame.image.load('images/enemies/SummonerCrab/attack.png')
         self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
         self.enemy = enemy
         self.length_x = randrange(-250, 250, 10)
@@ -264,9 +319,10 @@ class FlyingEnemy(pygame.sprite.Sprite):
             if self.length_x == 0 and self.length_y == 0:
                 match self.enemy:
                     case 'Crab':
-                        Crab(self.k_size, self.obj, self.rect.x, self.rect.y, *self.groups())
+                        enemy = Crab(self.k_size, self.obj, self.rect.x, self.rect.y, *self.groups())
                     case 'DirectCrab':
-                        DirectCrab(self.k_size, self.obj, self.rect.x, self.rect.y, self.enemy_speed, *self.groups())
+                        enemy = DirectCrab(self.k_size, self.obj, self.rect.x, self.rect.y, self.enemy_speed, *self.groups())
                     case 'DumbCrab':
-                        ...
+                        enemy = DumbCrab(self.k_size, self.obj, self.rect.x, self.rect.y, *self.groups())
+                self.obj.enemies.append(enemy)
                 self.kill()

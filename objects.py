@@ -75,15 +75,8 @@ class GameLevel(pygame.sprite.Sprite):
         self.completed = False
 
     def update(self, *args, **kwargs):
-        try:
-            if self.start_portal.is_done:
-                del self.start_portal
-        except AttributeError:
-            pass
-        try:
-            if self.end_portal.is_done:
-                del self.end_portal
-        except AttributeError:
+        if self.end_portal.is_done:
+            del self.end_portal
             self.completed = True
 
 
