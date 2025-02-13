@@ -283,7 +283,6 @@ def third_level(player_health, player_suit_health, bullets):
     InvisibleWall(k_size, 2660, -150 + 20, 2660, 0 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
 
-
     if not walls_are_visible:
         level = GameLevel(k_size, 'images/levels/3.png', (-3050, -600, 'purple'), (4850, -330, 'purple'), [all_sprites],
                           level_sprites)
@@ -338,7 +337,8 @@ def third_level(player_health, player_suit_health, bullets):
 
     while True:
         do_break = controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
-                                                     invisible_vertical_walls, HEV_charger=hev_c, health_charger=health_c)
+                                                     invisible_vertical_walls, HEV_charger=hev_c,
+                                                     health_charger=health_c)
 
         if do_break:
             return True
@@ -400,16 +400,65 @@ def third_level(player_health, player_suit_health, bullets):
         cloak.tick(FPS)
 
 
+def get_username():
+    pygame.init()
+    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    pygame.display.set_caption("Введите ник")
+    font = pygame.font.Font(None, 36)
+    clock = pygame.time.Clock()
+
+    user_text = ""
+    inputting = True
+
+    while inputting:
+        screen.fill((30, 30, 30))
+        text_surface = font.render("Введите имя своего героя и нажмите Enter:", True, (255, 255, 255))
+        screen.blit(text_surface, (50, 100))
+
+        user_surface = font.render(user_text, True, (255, 255, 255))
+        screen.blit(user_surface, (50, 150))
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return None
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    inputting = False
+                elif event.key == pygame.K_BACKSPACE:
+                    user_text = user_text[:-1]
+                else:
+                    user_text += event.unicode
+
+        clock.tick(30)
+
+    with open("username.txt", "w", encoding="utf-8") as file:
+        file.write(user_text)
+
+    return user_text
+
+
 def main():
+    pygame.init()
+
+    username = get_username()
+    if username is None:
+        return
+
     pygame.mouse.set_visible(True)
     pre_screen()
     pygame.mouse.set_visible(False)
+
     music = pygame.mixer.Sound('sounds/main_music1.mp3')
     music.play()
+
     player_health, player_suit_health, bullets = 30, 0, 0
+
     try:
-        #player_health, player_suit_health, bullets = first_level(player_health, player_suit_health, bullets)
-        #player_health, player_suit_health, bullets = second_level(player_health, player_suit_health, bullets)
+        # player_health, player_suit_health, bullets = first_level(player_health, player_suit_health, bullets)
+        # player_health, player_suit_health, bullets = second_level(player_health, player_suit_health, bullets)
         player_health, player_suit_health, bullets = third_level(player_health, player_suit_health, bullets)
         music.stop()
     except TypeError:
