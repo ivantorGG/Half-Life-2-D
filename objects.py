@@ -1,14 +1,17 @@
+import time
+
 import pygame
 from connecting_objects import InvisibleWall
 from player import Player
 
 
 class Obstacle(pygame.sprite.Sprite):
-    def __init__(self, k_size, x, y, name, wall_groups, *groups):
+    def __init__(self, k_size, x, y, name, wall_groups, obj, *groups):
         """Создаёт прямоугольное препятствие. Указывать:
         k_size, x, y, путь к изображению, [горизонтальную группу стен, вертикальную группу стен, группу уровней]"""
         super().__init__(*groups)
 
+        self.obj = obj
         self.image = pygame.image.load(name)
         self.image = pygame.transform.scale(self.image, (
             round(self.image.get_width() / 3 * k_size[0]), round(self.image.get_height() / 3 * k_size[1])))
@@ -31,7 +34,6 @@ class Obstacle(pygame.sprite.Sprite):
         self.walls = [horizontal_wall1, vertical_wall1, horizontal_wall2, vertical_wall2]
 
     def update(self, *args, **kwargs):
-
         if not pygame.sprite.spritecollideany(self, args[0]):
             self.rect.y += self.falling_speed
         else:
@@ -59,6 +61,8 @@ class Obstacle(pygame.sprite.Sprite):
         if not self.stopped:
             for wall in self.walls:
                 wall.rect.y += self.falling_speed
+        if abs(self.rect.x - self.obj.rect.x) > 2000:
+            self.kill()
 
 
 class GameLevel(pygame.sprite.Sprite):

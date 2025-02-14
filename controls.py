@@ -66,6 +66,12 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
                 if pygame.sprite.spritecollideany(player, invisible_horizontal_walls):
                     player.jumping = True
                     player.is_now_jumping = True
+                else:
+                    player.move_player(0, 20)
+                    if pygame.sprite.spritecollideany(player, invisible_horizontal_walls):
+                        player.jumping = True
+                        player.is_now_jumping = True
+                    player.move_player(0, -20)
 
             if event.key == pygame.K_s or event.key == pygame.K_LCTRL:
                 player.crouch = True

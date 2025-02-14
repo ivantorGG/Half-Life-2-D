@@ -103,7 +103,7 @@ def first_level(player_health, player_suit_health, bullets):
             stats.print_stats(screen, k_size, player)
 
         if player.go_again:
-            player_health, player_suit_health = first_level(player_health, player_suit_health, bullets)
+            player_health, player_suit_health, bullets = first_level(player_health, player_suit_health, bullets)
             return player_health, player_suit_health, bullets
         camera.update(player)
 
@@ -151,7 +151,7 @@ def second_level(player_health, player_suit_health, bullets):
         level = GameLevel(k_size, 'images/levels/2.png', (-650, -500, 'purple'), (550, -250, 'purple'), [all_sprites],
                           level_sprites)
 
-    player = Player(k_size, screen, -650, -300, player_health, player_suit_health, all_sprites)
+    player = Player(k_size, screen, -650, -300, player_health, player_suit_health, bullets, all_sprites)
     Crab(k_size, player, 100, -500, all_sprites)
     camera = Camera(width, height)
     camera.update(player)
@@ -234,6 +234,12 @@ def third_level(player_health, player_suit_health, bullets):
 
     InvisibleWall(k_size, 2490, -155, 2660, 0, level_sprites, invisible_horizontal_walls,
                   is_visible=walls_are_visible)
+
+    InvisibleWall(k_size, 4050, -150, 5180, -150, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
+
+    InvisibleWall(k_size, 5180, -560, 5180, -150, level_sprites, invisible_horizontal_walls,
+                  is_visible=walls_are_visible)
     # вертикальные
     InvisibleWall(k_size, -3650, -777 + 20, -3650, -160 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
@@ -276,8 +282,6 @@ def third_level(player_health, player_suit_health, bullets):
                   is_visible=walls_are_visible)
     InvisibleWall(k_size, 400, -150 + 20, 400, 0 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
-    InvisibleWall(k_size, 1285, -150 + 20, 1285, 0 + 20, level_sprites, invisible_vertical_walls,
-                  is_visible=walls_are_visible)
     InvisibleWall(k_size, 2490, -150 + 20, 2490, 0 + 20, level_sprites, invisible_vertical_walls,
                   is_visible=walls_are_visible)
     InvisibleWall(k_size, 2660, -150 + 20, 2660, 0 + 20, level_sprites, invisible_vertical_walls,
@@ -289,42 +293,13 @@ def third_level(player_health, player_suit_health, bullets):
 
     health_c = HealthCharger((k_size[0] * 0.8, k_size[1] * 0.8), -4170, -370, 30, all_sprites)
     hev_c = HEVCharger((k_size[0] * 0.8, k_size[1] * 0.8), -4370, -370, 20, all_sprites)
-    player = Player(k_size, screen, -3050, -280, player_health, player_suit_health, bullets, all_sprites)
+    player = Player(k_size, screen, -300, -680, player_health, player_suit_health, bullets, all_sprites)
     DirectCrab(k_size, player, -1500, -340, -20, all_sprites)
 
     FoodBox(k_size, -3200, -800, player, FoodBullets, invisible_horizontal_walls, all_sprites)
     FoodBox(k_size, -3200, -1100, player, FoodBullets, invisible_horizontal_walls, all_sprites)
     FoodBox(k_size, -3200, -1400, player, FoodBullets, invisible_horizontal_walls, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
-    DumbCrab(k_size, player, 2400, -700, all_sprites)
+    DumbCrab(k_size, player, 4000, -700, all_sprites)
 
     camera = Camera(width, height)
     camera.update(player)
@@ -350,7 +325,7 @@ def third_level(player_health, player_suit_health, bullets):
         all_sprites.draw(screen)
 
         if player.x > -3050 and spawn_termenator1:
-            TermenatorCrab(k_size, player, -500, 250, 6, all_sprites)
+            #TermenatorCrab(k_size, player, -500, 250, 6, all_sprites)
             for i in range(20):
                 DirectCrab(k_size, player, -1500 - 200 * i, -150, 20, all_sprites)
                 DirectCrab(k_size, player, 1200 + 200 * i, 750, -20, all_sprites)
@@ -358,11 +333,20 @@ def third_level(player_health, player_suit_health, bullets):
 
         if player.x > 0 and create_obstacle1:
             Obstacle(k_size, 1340, -10, 'images/objects/bridge1.png',
-                     [invisible_horizontal_walls, invisible_vertical_walls, level_sprites], all_sprites)
+                     [invisible_horizontal_walls, invisible_vertical_walls, level_sprites], player, all_sprites)
+            Obstacle(k_size, 1940, -300, 'images/objects/bridge1.png',
+                     [invisible_horizontal_walls, invisible_vertical_walls, level_sprites], player, all_sprites)
+            Obstacle(k_size, 2350, -600, 'images/objects/bridge1.png',
+                     [invisible_horizontal_walls, invisible_vertical_walls, level_sprites], player, all_sprites)
+            FoodBox(k_size, 3100, -800, player, FoodMedkitBig, invisible_horizontal_walls, all_sprites)
+            FoodBox(k_size, 3100, -1200, player, FoodMedkitBig, invisible_horizontal_walls, all_sprites)
+            Obstacle(k_size, 3550, -1100, 'images/objects/bridge1.png',
+                     [invisible_horizontal_walls, invisible_vertical_walls, level_sprites], player, all_sprites)
+            Obstacle(k_size, 4150, -1400, 'images/objects/bridge1.png',
+                     [invisible_horizontal_walls, invisible_vertical_walls, level_sprites], player, all_sprites)
             create_obstacle1 = False
 
         if player.x > -800 and spawn_direct_crab1:
-            print(1)
             spawn_direct_crab1 = False
             DirectCrab(k_size, player, 1500 + 400, 600, -20, all_sprites)
             DirectCrab(k_size, player, 1500 + 400, 400, -20, all_sprites)
@@ -378,7 +362,7 @@ def third_level(player_health, player_suit_health, bullets):
 
         if player.x > 1000 and spawn_summoner_crab1:
             spawn_summoner_crab1 = False
-            SummonerCrab(k_size, player, 4500, -600, all_sprites)
+            SummonerCrab(k_size, player, 4500, -900, all_sprites)
 
         if not player.died:
             stats.print_stats(screen, k_size, player)
@@ -396,13 +380,12 @@ def third_level(player_health, player_suit_health, bullets):
             camera.apply(sprite)
         for sprite in level_sprites:
             camera.apply(sprite)
+
         pygame.display.flip()
         cloak.tick(FPS)
 
 
 def get_username():
-    pygame.init()
-    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     pygame.display.set_caption("Введите ник")
     font = pygame.font.Font(None, 36)
     clock = pygame.time.Clock()
@@ -441,14 +424,12 @@ def get_username():
 
 
 def main():
-    pygame.init()
-
-    username = get_username()
-    if username is None:
-        return
+    #username = get_username()
+    #if username is None:
+    #    return
 
     pygame.mouse.set_visible(True)
-    pre_screen()
+    #pre_screen()
     pygame.mouse.set_visible(False)
 
     music = pygame.mixer.Sound('sounds/main_music1.mp3')
@@ -456,13 +437,11 @@ def main():
 
     player_health, player_suit_health, bullets = 30, 0, 0
 
-    try:
-        # player_health, player_suit_health, bullets = first_level(player_health, player_suit_health, bullets)
-        # player_health, player_suit_health, bullets = second_level(player_health, player_suit_health, bullets)
-        player_health, player_suit_health, bullets = third_level(player_health, player_suit_health, bullets)
-        music.stop()
-    except TypeError:
-        return None
+
+    # player_health, player_suit_health, bullets = first_level(player_health, player_suit_health, bullets)
+    # player_health, player_suit_health, bullets = second_level(player_health, player_suit_health, bullets)
+    player_health, player_suit_health, bullets = third_level(player_health, player_suit_health, bullets)
+    music.stop()
 
 
 if __name__ == '__main__':

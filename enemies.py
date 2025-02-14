@@ -133,6 +133,8 @@ class DirectCrab(Crab):
         self.for_slower += 1
         self.move_crab(self.speed, 0)
         self.check_health()
+        if abs(self.obj.rect.x - self.rect.x) > 3000:
+            self.kill()
 
 
 class TermenatorCrab(Crab):
