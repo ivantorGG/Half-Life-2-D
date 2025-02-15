@@ -61,7 +61,7 @@ class Obstacle(pygame.sprite.Sprite):
         if not self.stopped:
             for wall in self.walls:
                 wall.rect.y += self.falling_speed
-        if abs(self.rect.x - self.obj.rect.x) > 2000:
+        if abs(self.rect.x - self.obj.rect.x) > 2000 or abs(self.rect.y - self.obj.rect.y) > 2000:
             self.kill()
 
 

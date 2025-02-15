@@ -1,6 +1,7 @@
 from random import randrange, choice
 import pygame
 
+from chips import create_chips
 from player import Player
 
 
@@ -24,6 +25,7 @@ class Crab(pygame.sprite.Sprite):
         self.obj = obj
         self.damage = 40
         self.direction = None
+        self.killed = False
         self.k_size = k_size
         self.obj.set_enemies(self)
 
@@ -32,51 +34,57 @@ class Crab(pygame.sprite.Sprite):
         self.rect.centery += plus_y * self.k_size[0]
 
     def update(self, *args, **kwargs):
-        if not pygame.sprite.spritecollideany(self, args[0]):
-            self.move_crab(0, 20)
+        self.for_slower += 1
+        if not self.killed:
+            if not pygame.sprite.spritecollideany(self, args[0]):
+                self.move_crab(0, 20)
 
-        if pygame.sprite.spritecollideany(self, args[0]):
-            stop_animating = False
-            self.check_direction()
+            if pygame.sprite.spritecollideany(self, args[0]):
+                stop_animating = False
+                self.check_direction()
 
-            if self.obj.rect.centerx > self.rect.centerx:
-                self.move_crab(self.speed, 0)
-                if not pygame.sprite.spritecollideany(self, args[0]):
-                    self.move_crab(-self.speed, 0)
-                    stop_animating = True
-            else:
-                self.move_crab(-self.speed, 0)
-                if not pygame.sprite.spritecollideany(self, args[0]):
+                if self.obj.rect.centerx > self.rect.centerx:
                     self.move_crab(self.speed, 0)
-                    stop_animating = True
+                    if not pygame.sprite.spritecollideany(self, args[0]):
+                        self.move_crab(-self.speed, 0)
+                        stop_animating = True
+                else:
+                    self.move_crab(-self.speed, 0)
+                    if not pygame.sprite.spritecollideany(self, args[0]):
+                        self.move_crab(self.speed, 0)
+                        stop_animating = True
 
-            if self.for_slower % 5 == 0 and not stop_animating:
-                self.phase = (self.phase + 1) % 7
-                if not self.phase:
-                    self.phase += 1
-                self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
-                self.image = pygame.transform.scale(self.image, (
-                    round(self.image.get_width() * 2 * self.k_size[0]),
-                    round(self.image.get_height() * 2 * self.k_size[1])))
-                self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+                if self.for_slower % 5 == 0 and not stop_animating:
+                    self.phase = (self.phase + 1) % 7
+                    if not self.phase:
+                        self.phase += 1
+                    self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
+                    self.image = pygame.transform.scale(self.image, (
+                        round(self.image.get_width() * 2 * self.k_size[0]),
+                        round(self.image.get_height() * 2 * self.k_size[1])))
+                    self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
 
-            self.for_slower += 1
 
-        if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player) and self.for_slower % 45 == 0:
-            if self.obj.suit_health >= self.damage:
-                self.obj.suit_health -= self.damage
-            elif self.obj.suit_health > 0:
-                damage_to_player = self.damage - self.obj.suit_health
-                self.obj.suit_health = 0
-                self.obj.health -= damage_to_player
-            else:
-                self.obj.health -= self.damage
-                if self.obj.health < 0:
-                    self.obj.health = 0
+            if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player) and self.for_slower % 45 == 0:
+                if self.obj.suit_health >= self.damage:
+                    self.obj.suit_health -= self.damage
+                elif self.obj.suit_health > 0:
+                    damage_to_player = self.damage - self.obj.suit_health
+                    self.obj.suit_health = 0
+                    self.obj.health -= damage_to_player
+                else:
+                    self.obj.health -= self.damage
+                    if self.obj.health < 0:
+                        self.obj.health = 0
 
-            sound = pygame.mixer.Sound(f'sounds/crab_eats{randrange(1, 5)}.mp3')
-            sound.play()
-        self.check_health()
+                sound = pygame.mixer.Sound(f'sounds/crab_eats{randrange(1, 5)}.mp3')
+                sound.play()
+            self.check_health()
+            if abs(self.obj.rect.y - self.rect.y) > 2000:
+                create_chips(self.k_size, (self.rect.centerx, self.rect.centery), 'Crab', self.groups())
+                self.killed = True
+        else:
+            self.move_crab(0, 20)
 
     def check_direction(self):
         # if isinstance(pygame.sprite.spritecollideany(self.obj, *self.groups()), Crab):
@@ -90,7 +98,8 @@ class Crab(pygame.sprite.Sprite):
 
     def check_health(self):
         if self.health <= 0:
-            self.kill()
+            create_chips(self.k_size, (self.rect.centerx, self.rect.centery), 'Crab', self.groups())
+            self.killed = True
 
 
 class DirectCrab(Crab):
@@ -100,41 +109,46 @@ class DirectCrab(Crab):
         self.eating_count = 0
         self.speed = speed
         self.damage = 15
-        self.health = 10
+        self.health = 5
 
     def update(self, *args, **kwargs):
-        if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player) and self.for_slower % 3 == 0 and \
-                self.eating_count < 3:
-            self.eating_count += 1
-            if self.obj.suit_health >= self.damage:
-                self.obj.suit_health -= self.damage
-            elif self.obj.suit_health > 0:
-                damage_to_player = self.damage - self.obj.suit_health
-                self.obj.suit_health = 0
-                self.obj.health -= damage_to_player
-            else:
-                self.obj.health -= self.damage
-                if self.obj.health < 0:
-                    self.obj.health = 0
+        if not self.killed:
+            if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player) and self.for_slower % 3 == 0 and \
+                    self.eating_count < 3:
+                self.eating_count += 1
+                if self.obj.suit_health >= self.damage:
+                    self.obj.suit_health -= self.damage
+                elif self.obj.suit_health > 0:
+                    damage_to_player = self.damage - self.obj.suit_health
+                    self.obj.suit_health = 0
+                    self.obj.health -= damage_to_player
+                else:
+                    self.obj.health -= self.damage
+                    if self.obj.health < 0:
+                        self.obj.health = 0
 
-            sound = pygame.mixer.Sound(f'sounds/crab_eats{randrange(1, 5)}.mp3')
-            sound.play()
+                sound = pygame.mixer.Sound(f'sounds/crab_eats{randrange(1, 5)}.mp3')
+                sound.play()
 
-        if self.for_slower % 5 == 0:
-            self.phase = (self.phase + 1) % 7
-            if not self.phase:
-                self.phase += 1
-            self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
-            self.image = pygame.transform.scale(self.image, (
-                round(self.image.get_width() * 2 * self.k_size[0]),
-                round(self.image.get_height() * 2 * self.k_size[1])))
-            self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+            if self.for_slower % 5 == 0:
+                self.phase = (self.phase + 1) % 7
+                if not self.phase:
+                    self.phase += 1
+                self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
+                self.image = pygame.transform.scale(self.image, (
+                    round(self.image.get_width() * 2 * self.k_size[0]),
+                    round(self.image.get_height() * 2 * self.k_size[1])))
+                self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+
+            self.move_crab(self.speed, 0)
+            self.check_health()
+            if abs(self.obj.rect.x - self.rect.x) > 3000 or abs(self.obj.rect.y - self.rect.y) > 2000:
+                create_chips(self.k_size, (self.rect.centerx, self.rect.centery), 'Crab', self.groups())
+                self.killed = True
+        else:
+            self.move_crab(0, 20)
 
         self.for_slower += 1
-        self.move_crab(self.speed, 0)
-        self.check_health()
-        if abs(self.obj.rect.x - self.rect.x) > 3000:
-            self.kill()
 
 
 class TermenatorCrab(Crab):
@@ -155,14 +169,14 @@ class TermenatorCrab(Crab):
             sound = pygame.mixer.Sound(f'sounds/crab_eats5.mp3')
             sound.play()
 
-        if self.for_slower % 5 == 0:
+        if self.for_slower % 20 == 0:
             self.phase = (self.phase + 1) % 7
             if not self.phase:
                 self.phase += 1
             self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
             self.image = pygame.transform.scale(self.image, (
-                round(self.image.get_width() * 48 * self.k_size[0]),
-                round(self.image.get_height() * 48 * self.k_size[1])))
+                round(self.image.get_width() * 58 * self.k_size[0]),
+                round(self.image.get_height() * 58 * self.k_size[1])))
             self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
             self.mask = pygame.mask.from_surface(self.image)
 
@@ -179,61 +193,68 @@ class DumbCrab(Crab):
         self.damage = 10
 
     def update(self, *args, **kwargs):
-        if not pygame.sprite.spritecollideany(self, args[0]):
-            self.move_crab(0, 20)
+        self.for_slower += 1
+        if not self.killed:
+            if not pygame.sprite.spritecollideany(self, args[0]):
+                self.move_crab(0, 20)
 
-        if pygame.sprite.spritecollideany(self, args[0]):
-            self.move_crab(self.speed, 0)
-            if not pygame.sprite.spritecollideany(self, args[0]) and choice((True, False, False)):
-                if self.direction == 'left':
-                    self.move_crab(0, -100)
-                    self.move_crab(-self.speed * 4, 0)
-                    self.direction = 'right'
-                    self.speed = 6
-                    self.length = 300
-                else:
-                    self.move_crab(0, -100)
-                    self.move_crab(-self.speed * 4, 0)
-                    self.direction = 'left'
-                    self.speed = -6
-                    self.length = 300
+            if pygame.sprite.spritecollideany(self, args[0]):
+                self.move_crab(self.speed, 0)
+                if not pygame.sprite.spritecollideany(self, args[0]) and choice((True, False, False)):
+                    if self.direction == 'left':
+                        self.move_crab(0, -100)
+                        self.move_crab(-self.speed * 4, 0)
+                        self.direction = 'right'
+                        self.speed = 6
+                        self.length = 300
+                    else:
+                        self.move_crab(0, -100)
+                        self.move_crab(-self.speed * 4, 0)
+                        self.direction = 'left'
+                        self.speed = -6
+                        self.length = 300
 
-            if self.for_slower % 5 == 0:
-                self.phase = (self.phase + 1) % 7
-                if not self.phase:
-                    self.phase += 1
-                self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
-                self.image = pygame.transform.scale(self.image, (
-                    round(self.image.get_width() * 2 * self.k_size[0]),
-                    round(self.image.get_height() * 2 * self.k_size[1])))
-                self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+                if self.for_slower % 5 == 0:
+                    self.phase = (self.phase + 1) % 7
+                    if not self.phase:
+                        self.phase += 1
+                    self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
+                    self.image = pygame.transform.scale(self.image, (
+                        round(self.image.get_width() * 2 * self.k_size[0]),
+                        round(self.image.get_height() * 2 * self.k_size[1])))
+                    self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
 
-            self.for_slower += 1
-        else:
-            self.length = randrange(500)
-            self.direction = choice(('left', 'right'))
-
-        if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player) and self.for_slower % 10 == 0:
-            if self.obj.suit_health >= self.damage:
-                self.obj.suit_health -= self.damage
-            elif self.obj.suit_health > 0:
-                damage_to_player = self.damage - self.obj.suit_health
-                self.obj.suit_health = 0
-                self.obj.health -= damage_to_player
             else:
-                self.obj.health -= self.damage
-                if self.obj.health < 0:
-                    self.obj.health = 0
+                self.length = randrange(500)
+                self.direction = choice(('left', 'right'))
 
-            sound = pygame.mixer.Sound(f'sounds/crab_eats{randrange(1, 5)}.mp3')
-            sound.play()
+            if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player) and self.for_slower % 10 == 0:
+                if self.obj.suit_health >= self.damage:
+                    self.obj.suit_health -= self.damage
+                elif self.obj.suit_health > 0:
+                    damage_to_player = self.damage - self.obj.suit_health
+                    self.obj.suit_health = 0
+                    self.obj.health -= damage_to_player
+                else:
+                    self.obj.health -= self.damage
+                    if self.obj.health < 0:
+                        self.obj.health = 0
 
-        self.check_health()
-        self.length -= 5
-        if self.length <= 0:
-            self.length = randrange(150)
-            self.speed = -6 if self.direction == 'left' else 6
-            self.direction = choice(('left', 'right'))
+                sound = pygame.mixer.Sound(f'sounds/crab_eats{randrange(1, 5)}.mp3')
+                sound.play()
+
+            self.check_health()
+            self.length -= 5
+            if self.length <= 0:
+                self.length = randrange(150)
+                self.speed = -6 if self.direction == 'left' else 6
+                self.direction = choice(('left', 'right'))
+
+            if abs(self.obj.rect.y - self.rect.y) > 2000:
+                create_chips(self.k_size, (self.rect.centerx, self.rect.centery), 'Crab', self.groups())
+                self.killed = True
+        else:
+            self.move_crab(0, 20)
 
 
 class SummonerCrab(DumbCrab):
@@ -242,56 +263,58 @@ class SummonerCrab(DumbCrab):
         self.speed = -1 if self.direction == 'left' else 1
 
     def update(self, *args, **kwargs):
-        if not pygame.sprite.spritecollideany(self, args[0]):
-            self.move_crab(0, 20)
-
-        if pygame.sprite.spritecollideany(self, args[0]):
-            self.move_crab(self.speed, 0)
+        if not self.killed:
             if not pygame.sprite.spritecollideany(self, args[0]):
-                if self.direction == 'left':
-                    self.move_crab(0, -100)
-                    self.move_crab(-self.speed * 4, 0)
-                    self.direction = 'right'
-                    self.speed = 1
-                    self.length = 500
-                else:
-                    self.move_crab(0, -100)
-                    self.move_crab(-self.speed * 4, 0)
-                    self.direction = 'left'
-                    self.speed = -1
-                    self.length = 500
+                self.move_crab(0, 20)
 
-            if self.for_slower % 5 == 0:
-                self.phase = (self.phase + 1) % 7
-                if not self.phase:
-                    self.phase += 1
-                self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
-                self.image = pygame.transform.scale(self.image, (
-                    round(self.image.get_width() * 2 * self.k_size[0]),
-                    round(self.image.get_height() * 2 * self.k_size[1])))
-                self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+            if pygame.sprite.spritecollideany(self, args[0]):
+                self.move_crab(self.speed, 0)
+                if not pygame.sprite.spritecollideany(self, args[0]):
+                    if self.direction == 'left':
+                        self.move_crab(0, -100)
+                        self.move_crab(-self.speed * 4, 0)
+                        self.direction = 'right'
+                        self.speed = 1
+                        self.length = 500
+                    else:
+                        self.move_crab(0, -100)
+                        self.move_crab(-self.speed * 4, 0)
+                        self.direction = 'left'
+                        self.speed = -1
+                        self.length = 500
 
-            self.for_slower += 1
+                if self.for_slower % 5 == 0:
+                    self.phase = (self.phase + 1) % 7
+                    if not self.phase:
+                        self.phase += 1
+                    self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
+                    self.image = pygame.transform.scale(self.image, (
+                        round(self.image.get_width() * 2 * self.k_size[0]),
+                        round(self.image.get_height() * 2 * self.k_size[1])))
+                    self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
+
+            else:
+                self.length = randrange(500)
+                self.direction = choice(('left', 'right'))
+
+            self.check_health()
+            self.length -= 5
+            if self.length <= 0:
+                self.length = randrange(150)
+                self.speed = -1 if self.direction == 'left' else 1
+                self.direction = choice(('left', 'right'))
+                if choice((True, False, False, False, False)):
+                    enemy = choice(('Crab', 'DirectCrab', 'DumbCrab'))
+                    match enemy:
+                        case 'Crab':
+                            FlyingEnemy(self.k_size, self.rect.centerx, self.rect.centery, enemy, self.obj, *self.groups())
+                        case 'DirectCrab':
+                            speed = 20 if self.speed < 0 else -20
+                            FlyingEnemy(self.k_size, self.rect.centerx, self.rect.centery, enemy, self.obj, *self.groups(), speed=speed)
+                        case 'DumbCrab':
+                            FlyingEnemy(self.k_size, self.rect.centerx, self.rect.centery, enemy, self.obj, *self.groups())
         else:
-            self.length = randrange(500)
-            self.direction = choice(('left', 'right'))
-
-        self.check_health()
-        self.length -= 5
-        if self.length <= 0:
-            self.length = randrange(150)
-            self.speed = -1 if self.direction == 'left' else 1
-            self.direction = choice(('left', 'right'))
-            if choice((True, False, False, False, False)):
-                enemy = choice(('Crab', 'DirectCrab', 'DumbCrab'))
-                match enemy:
-                    case 'Crab':
-                        FlyingEnemy(self.k_size, self.rect.centerx, self.rect.centery, enemy, self.obj, *self.groups())
-                    case 'DirectCrab':
-                        speed = 20 if self.speed < 0 else -20
-                        FlyingEnemy(self.k_size, self.rect.centerx, self.rect.centery, enemy, self.obj, *self.groups(), speed=speed)
-                    case 'DumbCrab':
-                        FlyingEnemy(self.k_size, self.rect.centerx, self.rect.centery, enemy, self.obj, *self.groups())
+            self.move_crab(0, 20)
 
 
 class FlyingEnemy(pygame.sprite.Sprite):

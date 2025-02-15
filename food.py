@@ -1,4 +1,3 @@
-# TODO: add grenade to player's inventory
 import random
 
 import pygame
@@ -33,6 +32,8 @@ class FoodBottery(pygame.sprite.Sprite):
             self.kill()
         if not pygame.sprite.spritecollideany(self, self.walls):
             self.rect.y += 10 * self.k_size[0]
+        if abs(self.rect.x - self.obj.rect.x) > 3000 or abs(self.rect.y - self.obj.rect.y) > 2000:
+            self.kill()
 
 
 class FoodBullets(pygame.sprite.Sprite):
@@ -57,6 +58,8 @@ class FoodBullets(pygame.sprite.Sprite):
             self.kill()
         if not pygame.sprite.spritecollideany(self, self.walls):
             self.rect.y += 10 * self.k_size[0]
+        if abs(self.rect.x - self.obj.rect.x) > 3000 or abs(self.rect.y - self.obj.rect.y) > 2000:
+            self.kill()
 
 
 class FoodMedkitSmall(pygame.sprite.Sprite):
@@ -87,6 +90,8 @@ class FoodMedkitSmall(pygame.sprite.Sprite):
             self.kill()
         if not pygame.sprite.spritecollideany(self, self.walls):
             self.rect.y += 10 * self.k_size[0]
+        if abs(self.rect.x - self.obj.rect.x) > 3000 or abs(self.rect.y - self.obj.rect.y) > 2000:
+            self.kill()
 
 
 class FoodMedkitBig(pygame.sprite.Sprite):
@@ -117,6 +122,8 @@ class FoodMedkitBig(pygame.sprite.Sprite):
             self.kill()
         if not pygame.sprite.spritecollideany(self, self.walls):
             self.rect.y += 10 * self.k_size[0]
+        if abs(self.rect.x - self.obj.rect.x) > 3000 or abs(self.rect.y - self.obj.rect.y) > 2000:
+            self.kill()
 
 
 class FoodBox(pygame.sprite.Sprite):
@@ -152,6 +159,8 @@ class FoodBox(pygame.sprite.Sprite):
             self.rect.y += 10 * self.k_size[0]
         if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player) and not self.is_crushed:
             self.crush()
+        if abs(self.rect.x - self.obj.rect.x) > 3000 or abs(self.rect.y - self.obj.rect.y) > 2000:
+            self.kill()
 
 
 if __name__ == '__main__':

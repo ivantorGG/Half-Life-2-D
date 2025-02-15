@@ -61,6 +61,9 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
             if event.key == pygame.K_a:
                 player.move_left = True
 
+            # if event.key == pygame.K_q:
+            #     player.move_player(0, 100)
+
             if event.key == pygame.K_w or event.key == pygame.K_SPACE:
 
                 if pygame.sprite.spritecollideany(player, invisible_horizontal_walls):

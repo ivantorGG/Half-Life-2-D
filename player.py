@@ -23,9 +23,8 @@ class Player(pygame.sprite.Sprite):
         self.jumping_speed = -60
         self.direction = 'right'
 
-        self.health = health + 9999
+        self.health = health
         self.suit_health = suit_health
-
         self.bullets = bullets
 
         self.shooting_count = 0

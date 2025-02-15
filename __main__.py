@@ -1,3 +1,4 @@
+# TODO: Create final stats
 from player import Player
 from chargers import HEVCharger, HealthCharger
 from food import FoodBox, FoodBottery, FoodBullets, FoodMedkitBig, FoodMedkitSmall
@@ -293,13 +294,18 @@ def third_level(player_health, player_suit_health, bullets):
 
     health_c = HealthCharger((k_size[0] * 0.8, k_size[1] * 0.8), -4170, -370, 30, all_sprites)
     hev_c = HEVCharger((k_size[0] * 0.8, k_size[1] * 0.8), -4370, -370, 20, all_sprites)
-    player = Player(k_size, screen, -300, -680, player_health, player_suit_health, bullets, all_sprites)
+    player = Player(k_size, screen, -3050, -680, player_health, player_suit_health, bullets, all_sprites)
+
     DirectCrab(k_size, player, -1500, -340, -20, all_sprites)
+    DirectCrab(k_size, player, -1600, -340, -20, all_sprites)
+    DirectCrab(k_size, player, -1700, -340, -20, all_sprites)
+    DirectCrab(k_size, player, -1800, -340, -20, all_sprites)
+    DirectCrab(k_size, player, -1900, -340, -20, all_sprites)
+    DirectCrab(k_size, player, -2000, -340, -20, all_sprites)
 
     FoodBox(k_size, -3200, -800, player, FoodBullets, invisible_horizontal_walls, all_sprites)
     FoodBox(k_size, -3200, -1100, player, FoodBullets, invisible_horizontal_walls, all_sprites)
     FoodBox(k_size, -3200, -1400, player, FoodBullets, invisible_horizontal_walls, all_sprites)
-    DumbCrab(k_size, player, 4000, -700, all_sprites)
 
     camera = Camera(width, height)
     camera.update(player)
@@ -309,6 +315,7 @@ def third_level(player_health, player_suit_health, bullets):
     spawn_direct_crab1 = True
     spawn_direct_crab2 = True
     spawn_summoner_crab1 = True
+    create_obstacle2 = True
 
     while True:
         do_break = controls.first_level_check_events(k_size, player, level, all_sprites, invisible_horizontal_walls,
@@ -325,7 +332,7 @@ def third_level(player_health, player_suit_health, bullets):
         all_sprites.draw(screen)
 
         if player.x > -3050 and spawn_termenator1:
-            #TermenatorCrab(k_size, player, -500, 250, 6, all_sprites)
+            TermenatorCrab(k_size, player, -500, 250, 6, all_sprites)
             for i in range(20):
                 DirectCrab(k_size, player, -1500 - 200 * i, -150, 20, all_sprites)
                 DirectCrab(k_size, player, 1200 + 200 * i, 750, -20, all_sprites)
@@ -340,11 +347,44 @@ def third_level(player_health, player_suit_health, bullets):
                      [invisible_horizontal_walls, invisible_vertical_walls, level_sprites], player, all_sprites)
             FoodBox(k_size, 3100, -800, player, FoodMedkitBig, invisible_horizontal_walls, all_sprites)
             FoodBox(k_size, 3100, -1200, player, FoodMedkitBig, invisible_horizontal_walls, all_sprites)
-            Obstacle(k_size, 3550, -1100, 'images/objects/bridge1.png',
-                     [invisible_horizontal_walls, invisible_vertical_walls, level_sprites], player, all_sprites)
-            Obstacle(k_size, 4150, -1400, 'images/objects/bridge1.png',
-                     [invisible_horizontal_walls, invisible_vertical_walls, level_sprites], player, all_sprites)
             create_obstacle1 = False
+
+        if player.x > 2000 and create_obstacle2:
+            Obstacle(k_size, 1570, -600, 'images/objects/bridge1.png',
+                     [invisible_horizontal_walls, invisible_vertical_walls, level_sprites], player, all_sprites)
+            Obstacle(k_size, 2120, -700, 'images/objects/bridge1.png',
+                     [invisible_horizontal_walls, invisible_vertical_walls, level_sprites], player, all_sprites)
+            DumbCrab(k_size, player, 1520, -650, all_sprites)
+            DumbCrab(k_size, player, 1520, -650, all_sprites)
+            DumbCrab(k_size, player, 1520, -650, all_sprites)
+            DumbCrab(k_size, player, 1520, -650, all_sprites)
+            DumbCrab(k_size, player, 1520, -650, all_sprites)
+            DumbCrab(k_size, player, 1520, -650, all_sprites)
+            DumbCrab(k_size, player, 1520, -650, all_sprites)
+            DumbCrab(k_size, player, 1520, -650, all_sprites)
+            DumbCrab(k_size, player, 1520, -650, all_sprites)
+            DumbCrab(k_size, player, 1520, -650, all_sprites)
+            DumbCrab(k_size, player, 1520, -650, all_sprites)
+            DumbCrab(k_size, player, 1520, -650, all_sprites)
+            DumbCrab(k_size, player, 1520, -650, all_sprites)
+
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            DumbCrab(k_size, player, 2120, -800, all_sprites)
+            create_obstacle2 = False
 
         if player.x > -800 and spawn_direct_crab1:
             spawn_direct_crab1 = False
@@ -371,7 +411,7 @@ def third_level(player_health, player_suit_health, bullets):
             return player.health, player.suit_health, player.bullets
 
         if player.go_again:
-            player_health, player_suit_health = third_level(player_health, player_suit_health, bullets)
+            player_health, player_suit_health, bullets = third_level(player_health, player_suit_health, bullets)
             return player_health, player_suit_health, bullets
 
         camera.update(player)
@@ -387,7 +427,7 @@ def third_level(player_health, player_suit_health, bullets):
 
 def get_username():
     pygame.display.set_caption("Введите ник")
-    font = pygame.font.Font(None, 36)
+    font = pygame.font.Font('fonts/Roboto-Regular.ttf', 36)
     clock = pygame.time.Clock()
 
     user_text = ""
@@ -424,12 +464,12 @@ def get_username():
 
 
 def main():
-    #username = get_username()
-    #if username is None:
-    #    return
+    username = get_username()
+    if username is None:
+        return
 
     pygame.mouse.set_visible(True)
-    #pre_screen()
+    pre_screen()
     pygame.mouse.set_visible(False)
 
     music = pygame.mixer.Sound('sounds/main_music1.mp3')
@@ -437,9 +477,8 @@ def main():
 
     player_health, player_suit_health, bullets = 30, 0, 0
 
-
-    # player_health, player_suit_health, bullets = first_level(player_health, player_suit_health, bullets)
-    # player_health, player_suit_health, bullets = second_level(player_health, player_suit_health, bullets)
+    player_health, player_suit_health, bullets = first_level(player_health, player_suit_health, bullets)
+    player_health, player_suit_health, bullets = second_level(player_health, player_suit_health, bullets)
     player_health, player_suit_health, bullets = third_level(player_health, player_suit_health, bullets)
     music.stop()
 
