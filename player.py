@@ -45,6 +45,20 @@ class Player(pygame.sprite.Sprite):
         self.died = False
         self.go_again = False
         self.enemies = []
+        self.stats = {
+            'jumps': 0,
+            'bullets shot': 0,
+            'crabs killed': 0,
+            'damage took': 0,
+            'footsteps taken': 0,
+            'boxes crushed': 0,
+            'batteries ate': 0,
+            'medkits ate': 0,
+            'bullets ate': 0,
+            'HEVCharger used': 0,
+            'HealthCharger used': 0,
+            'time': 0
+        }
 
     def move_player(self, plus_x, plus_y):
         self.rect.centerx += plus_x * self.k_size[0]
@@ -87,16 +101,21 @@ class Player(pygame.sprite.Sprite):
                     self.is_now_jumping = True
                     sound = pygame.mixer.Sound(f'sounds/jump_{randrange(1, 4)}.mp3')
                     sound.play()
+                    self.stats['jumps'] += 1
 
             if self.move_left:
                 self.move_player(-self.speed, 0)
                 if pygame.sprite.spritecollideany(self, args[1]):
                     self.move_player(self.speed, 0)
+                else:
+                    self.stats['footsteps taken'] += 1
 
             if self.move_right:
                 self.move_player(self.speed, 0)
                 if pygame.sprite.spritecollideany(self, args[1]):
                     self.move_player(-self.speed, 0)
+                else:
+                    self.stats['footsteps taken'] += 1
 
             if (self.move_left or self.move_right) and not self.is_now_jumping and self.for_slower % 13 == 0:
                 sound = pygame.mixer.Sound(f'sounds/walk_{randrange(1, 3)}.mp3')
@@ -212,6 +231,7 @@ class Player(pygame.sprite.Sprite):
 
     def shoot(self):
         if self.bullets > 0:
+            self.stats['bullets shot'] += 1
             sound = pygame.mixer.Sound('sounds/shoot1.mp3')
             sound.play()
             self.shooting_count = 15

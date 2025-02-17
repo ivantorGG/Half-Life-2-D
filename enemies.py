@@ -64,7 +64,6 @@ class Crab(pygame.sprite.Sprite):
                         round(self.image.get_height() * 2 * self.k_size[1])))
                     self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
 
-
             if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player) and self.for_slower % 45 == 0:
                 if self.obj.suit_health >= self.damage:
                     self.obj.suit_health -= self.damage
@@ -77,19 +76,16 @@ class Crab(pygame.sprite.Sprite):
                     if self.obj.health < 0:
                         self.obj.health = 0
 
+                self.obj.stats['damage took'] += self.damage
                 sound = pygame.mixer.Sound(f'sounds/crab_eats{randrange(1, 5)}.mp3')
                 sound.play()
             self.check_health()
             if abs(self.obj.rect.y - self.rect.y) > 2000:
-                create_chips(self.k_size, (self.rect.centerx, self.rect.centery), 'Crab', self.groups())
                 self.killed = True
         else:
             self.move_crab(0, 20)
 
     def check_direction(self):
-        # if isinstance(pygame.sprite.spritecollideany(self.obj, *self.groups()), Crab):
-        #     self.direction = 'attack_left' if self.direction == 'left' else 'attack_right'
-
         if self.obj.rect.x > self.rect.x:
             self.direction = 'right'
 
@@ -100,6 +96,7 @@ class Crab(pygame.sprite.Sprite):
         if self.health <= 0:
             create_chips(self.k_size, (self.rect.centerx, self.rect.centery), 'Crab', self.groups())
             self.killed = True
+            self.obj.stats['crabs killed'] += 1
 
 
 class DirectCrab(Crab):
@@ -127,6 +124,7 @@ class DirectCrab(Crab):
                     if self.obj.health < 0:
                         self.obj.health = 0
 
+                self.obj.stats['damage took'] += self.damage
                 sound = pygame.mixer.Sound(f'sounds/crab_eats{randrange(1, 5)}.mp3')
                 sound.play()
 
@@ -143,7 +141,6 @@ class DirectCrab(Crab):
             self.move_crab(self.speed, 0)
             self.check_health()
             if abs(self.obj.rect.x - self.rect.x) > 3000 or abs(self.obj.rect.y - self.rect.y) > 2000:
-                create_chips(self.k_size, (self.rect.centerx, self.rect.centery), 'Crab', self.groups())
                 self.killed = True
         else:
             self.move_crab(0, 20)
@@ -240,6 +237,7 @@ class DumbCrab(Crab):
                     if self.obj.health < 0:
                         self.obj.health = 0
 
+                self.obj.stats['damage took'] += self.damage
                 sound = pygame.mixer.Sound(f'sounds/crab_eats{randrange(1, 5)}.mp3')
                 sound.play()
 
@@ -250,8 +248,7 @@ class DumbCrab(Crab):
                 self.speed = -6 if self.direction == 'left' else 6
                 self.direction = choice(('left', 'right'))
 
-            if abs(self.obj.rect.y - self.rect.y) > 2000:
-                create_chips(self.k_size, (self.rect.centerx, self.rect.centery), 'Crab', self.groups())
+            if abs(self.obj.rect.y - self.rect.y) > 2000 or abs(self.obj.rect.x - self.rect.x) > 2000:
                 self.killed = True
         else:
             self.move_crab(0, 20)

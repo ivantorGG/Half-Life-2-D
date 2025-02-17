@@ -157,3 +157,59 @@ def print_death_screen(screen, i, play_sound):
         death_sound = pygame.mixer.Sound('sounds/player_died-long.mp3')
         death_sound.play()
     screen.fill((i, 0, 0))
+
+
+def get_username(screen):
+    pygame.display.set_caption("Введите ник")
+    font = pygame.font.Font('fonts/Roboto-Regular.ttf', 36)
+    clock = pygame.time.Clock()
+
+    user_text = ""
+    inputting = True
+
+    while inputting:
+        screen.fill((30, 30, 30))
+        text_surface = font.render("Введите имя своего героя и нажмите Enter:", True, (255, 255, 255))
+        screen.blit(text_surface, (50, 100))
+
+        user_surface = font.render(user_text, True, (255, 255, 255))
+        screen.blit(user_surface, (50, 150))
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    inputting = False
+                elif event.key == pygame.K_BACKSPACE:
+                    user_text = user_text[:-1]
+                else:
+                    user_text += event.unicode
+
+        clock.tick(30)
+
+    with open("username.txt", "w", encoding="utf-8") as file:
+        file.write(user_text)
+
+    return user_text
+
+
+def sum_player_stats(*stats):
+    result = {}
+    for key in stats[0]:
+        result[key] = stats[0][key]
+        for stat in stats[1:]:
+            result[key] += stat[key]
+
+    record = 100
+    record += result['crabs killed'] * 10
+    record -= result['bullets shot']
+    record -= result['damage took']
+    record -= result['boxes crushed']
+    record -= result['batteries ate']
+    record -= result['medkits ate']
+    record -= result['bullets ate']
+    record -= result['HEVCharger used']
+    record -= result['HealthCharger used']
+
+    return result, record

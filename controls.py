@@ -69,11 +69,13 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
                 if pygame.sprite.spritecollideany(player, invisible_horizontal_walls):
                     player.jumping = True
                     player.is_now_jumping = True
+                    player.stats['jumps'] += 1
                 else:
                     player.move_player(0, 20)
                     if pygame.sprite.spritecollideany(player, invisible_horizontal_walls):
                         player.jumping = True
                         player.is_now_jumping = True
+                        player.stats['jumps'] += 1
                     player.move_player(0, -20)
 
             if event.key == pygame.K_s or event.key == pygame.K_LCTRL:
@@ -94,14 +96,14 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
                 if isinstance(pygame.sprite.spritecollideany(player, all_sprites), Level):
                     if level.switch():
                         no_action = False
-                        FoodBottery(k_size, game_level.rect.centerx + 210 * k_size[0], -200 * k_size[0], player,
+                        FoodBattery(k_size, game_level.rect.centerx + 210 * k_size[0], -200 * k_size[0], player,
                                     invisible_horizontal_walls, all_sprites, do_move=False)
-                        FoodBottery(k_size, game_level.rect.centerx + 210 * k_size[0], -600 * k_size[0], player,
+                        FoodBattery(k_size, game_level.rect.centerx + 210 * k_size[0], -600 * k_size[0], player,
                                     invisible_horizontal_walls, all_sprites, do_move=False)
                         FoodMedkitBig(k_size, game_level.rect.centerx + 210 * k_size[0], -800 * k_size[0], player,
                                       invisible_horizontal_walls, all_sprites, do_move=False)
                         FoodBox(k_size, game_level.rect.centerx + 210 * k_size[0], -1200 * k_size[0], player,
-                                FoodBottery, invisible_horizontal_walls, all_sprites, do_move=False)
+                                FoodBattery, invisible_horizontal_walls, all_sprites, do_move=False)
                         FoodMedkitSmall(k_size, game_level.rect.centerx + 210 * k_size[0], -400 * k_size[0], player,
                                         invisible_horizontal_walls, all_sprites, do_move=False)
 
@@ -134,7 +136,7 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
                 player.print_stats()
 
             if event.key == pygame.K_ESCAPE:
-                return True
+                return None, None, None
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_d:

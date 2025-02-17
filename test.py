@@ -1,14 +1,24 @@
-import os
-from PIL import Image
+a = {
+    '1': 2,
+    '2': 3
+}
+b = {
+    '1': 12,
+    '2': 13
+}
+c = {
+    '1': 22,
+    '2': 32
+}
 
-for direction in ('right', 'left'):
-    for i in range(1, 7):
-        image_path = f'images/enemies/Crab/{direction}/{i}.png'
-        folder_path = f'images/enemies/TermenatorCrab/{direction}/{i}.png'
 
-        img = Image.open(image_path)
-        # получаем ширину и высоту
-        width, height = img.size
-        new_image = img.resize((width * 48, height * 48))
-        file_path = os.path.join(folder_path)
-        new_image.save(file_path)
+def sum_player_stats(*stats):
+    result = {}
+    for key in stats[0]:
+        result[key] = stats[0][key]
+        for stat in stats[1:]:
+            result[key] += stat[key]
+    return result
+
+
+print(sum_player_stats(a, b, c))

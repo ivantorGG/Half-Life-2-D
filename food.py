@@ -5,7 +5,7 @@ from player import Player
 from chips import create_chips
 
 
-class FoodBottery(pygame.sprite.Sprite):
+class FoodBattery(pygame.sprite.Sprite):
     def __init__(self, k_size, x, y, obj, walls, *groups, do_move=True):
         super().__init__(*groups)
         self.sound = pygame.mixer.Sound('sounds/battery_pickup.mp3')
@@ -22,11 +22,13 @@ class FoodBottery(pygame.sprite.Sprite):
     def update(self, *args, **kwargs):
         if isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
                       Player) and self.obj.suit_health <= 90:
+            self.obj.stats['batteries ate'] += 1
             self.sound.play()
             self.obj.suit_health += 10
             self.kill()
         elif isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
                         Player) and self.obj.suit_health < 100:
+            self.obj.stats['batteries ate'] += 1
             self.sound.play()
             self.obj.suit_health = 100
             self.kill()
@@ -53,6 +55,7 @@ class FoodBullets(pygame.sprite.Sprite):
 
     def update(self, *args, **kwargs):
         if isinstance(pygame.sprite.spritecollideany(self, *self.groups()), Player):
+            self.obj.stats['bullets ate'] += 1
             self.sound.play()
             self.obj.bullets += 5
             self.kill()
@@ -80,11 +83,13 @@ class FoodMedkitSmall(pygame.sprite.Sprite):
     def update(self, *args, **kwargs):
         if isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
                       Player) and self.obj.health <= 85:
+            self.obj.stats['medkits ate'] += 1
             self.obj.health += 15
             self.sound.play()
             self.kill()
         elif isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
                         Player) and self.obj.health < 100:
+            self.obj.stats['medkits ate'] += 1
             self.obj.health = 100
             self.sound.play()
             self.kill()
@@ -112,11 +117,13 @@ class FoodMedkitBig(pygame.sprite.Sprite):
     def update(self, *args, **kwargs):
         if isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
                       Player) and self.obj.health <= 70:
+            self.obj.stats['medkits ate'] += 1
             self.obj.health += 30
             self.sound.play()
             self.kill()
         elif isinstance(pygame.sprite.spritecollideany(self, *self.groups()),
                         Player) and self.obj.health < 100:
+            self.obj.stats['medkits ate'] += 1
             self.obj.health = 100
             self.sound.play()
             self.kill()
@@ -145,6 +152,7 @@ class FoodBox(pygame.sprite.Sprite):
         self.k_size = k_size
 
     def crush(self):
+        self.obj.stats['boxes crushed'] += 1
         self.sound.play()
         img = random.choice(['images/food/crushed_box.png', 'images/food/crushed_box1.png'])
         self.image = pygame.transform.scale(pygame.image.load(img), (self.rect.width, self.rect.height))

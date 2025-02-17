@@ -1,7 +1,10 @@
 # TODO: Create final stats
+import time
+from random import choice
+
 from player import Player
 from chargers import HEVCharger, HealthCharger
-from food import FoodBox, FoodBottery, FoodBullets, FoodMedkitBig, FoodMedkitSmall
+from food import FoodBox, FoodBattery, FoodBullets, FoodMedkitBig, FoodMedkitSmall
 from enemies import Crab, DirectCrab, TermenatorCrab, FlyingEnemy, DumbCrab, SummonerCrab
 from connecting_objects import Level, InvisibleWall
 from objects import Obstacle, GameLevel
@@ -25,8 +28,8 @@ cloak = pygame.time.Clock()
 screen.fill((255, 255, 255))
 
 
-def login():
-    running = True
+class EscapeError(Exception):
+    pass
 
 
 def pre_screen():
@@ -92,7 +95,7 @@ def first_level(player_health, player_suit_health, bullets):
                                                      invisible_vertical_walls, level=control_level)
 
         if do_break:
-            return True
+            raise EscapeError('Нажата клавиша Esc')
 
         screen.fill((0, 0, 0))
         level_sprites.update()
@@ -104,12 +107,12 @@ def first_level(player_health, player_suit_health, bullets):
             stats.print_stats(screen, k_size, player)
 
         if player.go_again:
-            player_health, player_suit_health, bullets = first_level(player_health, player_suit_health, bullets)
-            return player_health, player_suit_health, bullets
+            player_health, player_suit_health, bullets, player_stats, time_end = first_level(player_health, player_suit_health, bullets)
+            return player_health, player_suit_health, bullets, player_stats, time_end
         camera.update(player)
 
         if level.completed:
-            return player.health, player.suit_health, player.bullets
+            return player.health, player.suit_health, player.bullets, player.stats, time.time()
 
         for sprite in all_sprites:
             camera.apply(sprite)
@@ -162,7 +165,7 @@ def second_level(player_health, player_suit_health, bullets):
                                                      invisible_vertical_walls)
 
         if do_break:
-            return True
+            raise EscapeError
 
         screen.fill((0, 0, 0))
         level_sprites.update()
@@ -174,11 +177,11 @@ def second_level(player_health, player_suit_health, bullets):
             stats.print_stats(screen, k_size, player)
 
         if level.completed:
-            return player.health, player.suit_health, player.bullets
+            return player.health, player.suit_health, player.bullets, player.stats, time.time()
 
         if player.go_again:
-            player_health, player_suit_health = second_level(player_health, player_suit_health, bullets)
-            return player_health, player_suit_health, bullets
+            player_health, player_suit_health, bullets, player_stats, time_end = second_level(player_health, player_suit_health, bullets)
+            return player_health, player_suit_health, bullets, player_stats, time_end
 
         camera.update(player)
 
@@ -196,9 +199,9 @@ def third_level(player_health, player_suit_health, bullets):
     invisible_horizontal_walls = pygame.sprite.Group()
     invisible_vertical_walls = pygame.sprite.Group()
 
-    walls_are_visible = True
+    walls_are_visible = False
     if walls_are_visible:
-        level = GameLevel(k_size, 'images/levels/3.png', (-3050, -600, 'purple'), (4850, -330, 'purple'), [all_sprites],
+        level = GameLevel(k_size, 'images/levels/3.png', (-3050, -600, 'purple'), (4850, -330, 'green'), [all_sprites],
                           level_sprites)
 
     InvisibleWall(k_size, -4200, -155, -2835, 0, level_sprites, invisible_horizontal_walls,
@@ -289,7 +292,7 @@ def third_level(player_health, player_suit_health, bullets):
                   is_visible=walls_are_visible)
 
     if not walls_are_visible:
-        level = GameLevel(k_size, 'images/levels/3.png', (-3050, -600, 'purple'), (4850, -330, 'purple'), [all_sprites],
+        level = GameLevel(k_size, 'images/levels/3.png', (-3050, -600, 'purple'), (4850, -330, 'green'), [all_sprites],
                           level_sprites)
 
     health_c = HealthCharger((k_size[0] * 0.8, k_size[1] * 0.8), -4170, -370, 30, all_sprites)
@@ -323,7 +326,7 @@ def third_level(player_health, player_suit_health, bullets):
                                                      health_charger=health_c)
 
         if do_break:
-            return True
+            raise EscapeError
 
         screen.fill((0, 0, 0))
         level_sprites.update()
@@ -332,7 +335,7 @@ def third_level(player_health, player_suit_health, bullets):
         all_sprites.draw(screen)
 
         if player.x > -3050 and spawn_termenator1:
-            TermenatorCrab(k_size, player, -500, 250, 6, all_sprites)
+            TermenatorCrab(k_size, player, -500, 250, 10, all_sprites)
             for i in range(20):
                 DirectCrab(k_size, player, -1500 - 200 * i, -150, 20, all_sprites)
                 DirectCrab(k_size, player, 1200 + 200 * i, 750, -20, all_sprites)
@@ -403,16 +406,18 @@ def third_level(player_health, player_suit_health, bullets):
         if player.x > 1000 and spawn_summoner_crab1:
             spawn_summoner_crab1 = False
             SummonerCrab(k_size, player, 4500, -900, all_sprites)
+            SummonerCrab(k_size, player, 4300, -900, all_sprites)
+            SummonerCrab(k_size, player, 4100, -900, all_sprites)
 
         if not player.died:
             stats.print_stats(screen, k_size, player)
 
         if level.completed:
-            return player.health, player.suit_health, player.bullets
+            return player.health, player.suit_health, player.bullets, player.stats, time.time()
 
         if player.go_again:
-            player_health, player_suit_health, bullets = third_level(player_health, player_suit_health, bullets)
-            return player_health, player_suit_health, bullets
+            player_health, player_suit_health, bullets, player_stats, time_end = third_level(player_health, player_suit_health, bullets)
+            return player_health, player_suit_health, bullets, player_stats, time_end
 
         camera.update(player)
 
@@ -425,62 +430,42 @@ def third_level(player_health, player_suit_health, bullets):
         cloak.tick(FPS)
 
 
-def get_username():
-    pygame.display.set_caption("Введите ник")
-    font = pygame.font.Font('fonts/Roboto-Regular.ttf', 36)
-    clock = pygame.time.Clock()
-
-    user_text = ""
-    inputting = True
-
-    while inputting:
-        screen.fill((30, 30, 30))
-        text_surface = font.render("Введите имя своего героя и нажмите Enter:", True, (255, 255, 255))
-        screen.blit(text_surface, (50, 100))
-
-        user_surface = font.render(user_text, True, (255, 255, 255))
-        screen.blit(user_surface, (50, 150))
-
-        pygame.display.flip()
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                return None
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
-                    inputting = False
-                elif event.key == pygame.K_BACKSPACE:
-                    user_text = user_text[:-1]
-                else:
-                    user_text += event.unicode
-
-        clock.tick(30)
-
-    with open("username.txt", "w", encoding="utf-8") as file:
-        file.write(user_text)
-
-    return user_text
-
-
 def main():
-    username = get_username()
+    username = stats.get_username(screen)
     if username is None:
         return
 
+    music = pygame.mixer.Sound('sounds/pre_music1.mp3')
+    music.play()
     pygame.mouse.set_visible(True)
     pre_screen()
     pygame.mouse.set_visible(False)
+    music.stop()
 
-    music = pygame.mixer.Sound('sounds/main_music1.mp3')
+    music = pygame.mixer.Sound(choice(('sounds/main_music1.mp3', 'sounds/main_music2.mp3')))
     music.play()
 
     player_health, player_suit_health, bullets = 30, 0, 0
 
-    player_health, player_suit_health, bullets = first_level(player_health, player_suit_health, bullets)
-    player_health, player_suit_health, bullets = second_level(player_health, player_suit_health, bullets)
-    player_health, player_suit_health, bullets = third_level(player_health, player_suit_health, bullets)
-    music.stop()
+    try:
+        time_start = time.time()
+        player_health, player_suit_health, bullets, stats1, time_end = first_level(player_health, player_suit_health, bullets)
+        stats1['time'] += time_end - time_start
+
+        time_start = time.time()
+        player_health, player_suit_health, bullets, stats2, time_end = second_level(player_health, player_suit_health, bullets)
+        stats2['time'] += time_end - time_start
+
+        time_start = time.time()
+        player_health, player_suit_health, bullets, stats3, time_end = third_level(player_health, player_suit_health, bullets)
+        stats3['time'] += time_end - time_start
+
+        final_stats, record = stats.sum_player_stats(stats1, stats2, stats3)
+        print(final_stats)
+    except EscapeError:
+        return
+    finally:
+        music.stop()
 
 
 if __name__ == '__main__':
