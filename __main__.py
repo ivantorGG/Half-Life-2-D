@@ -444,7 +444,7 @@ def create_database():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS game_records (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE,  -- Делаем username уникальным
+            username TEXT UNIQUE, 
             record INTEGER,
             final_stats TEXT,
             timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
