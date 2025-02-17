@@ -441,7 +441,7 @@ def create_database():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS game_records (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT,
+            username TEXT UNIQUE,
             record INTEGER,
             final_stats TEXT,
             timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -454,10 +454,19 @@ def create_database():
 def save_stats(username, record, final_stats):
     conn = sqlite3.connect("game_stats.db")
     cursor = conn.cursor()
-    cursor.execute('''INSERT INTO game_records (username, record, final_stats)
-        VALUES (?, ?, ?)
-    ''', (username, record, str(final_stats)))
-    conn.commit()
+    cursor.execute("SELECT record FROM game_records WHERE username = ?", (username,))
+    existing_record = cursor.fetchone()
+    if existing_record is None or record > existing_record[0]:
+        cursor.execute('''
+            INSERT INTO game_records (username, record, final_stats)
+            VALUES (?, ?, ?)
+            ON CONFLICT(username) DO UPDATE SET
+            record = excluded.record,
+            final_stats = excluded.final_stats,
+            timestamp = CURRENT_TIMESTAMP
+        ''', (username, record, str(final_stats)))
+        conn.commit()
+
     conn.close()
 
 
