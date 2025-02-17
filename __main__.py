@@ -1,19 +1,18 @@
 # TODO: Create final stats
 import time
+import stats
+import controls
+import pygame
+import sqlite3
 from random import choice
-
 from player import Player
 from chargers import HEVCharger, HealthCharger
 from food import FoodBox, FoodBattery, FoodBullets, FoodMedkitBig, FoodMedkitSmall
 from enemies import Crab, DirectCrab, TermenatorCrab, FlyingEnemy, DumbCrab, SummonerCrab
 from connecting_objects import Level, InvisibleWall
 from objects import Obstacle, GameLevel
-import stats
-import controls
 from camera import Camera
-
 from screeninfo import get_monitors
-import pygame
 
 pygame.init()
 pygame.mixer.init()
@@ -107,7 +106,9 @@ def first_level(player_health, player_suit_health, bullets):
             stats.print_stats(screen, k_size, player)
 
         if player.go_again:
-            player_health, player_suit_health, bullets, player_stats, time_end = first_level(player_health, player_suit_health, bullets)
+            player_health, player_suit_health, bullets, player_stats, time_end = first_level(player_health,
+                                                                                             player_suit_health,
+                                                                                             bullets)
             return player_health, player_suit_health, bullets, player_stats, time_end
         camera.update(player)
 
@@ -180,7 +181,9 @@ def second_level(player_health, player_suit_health, bullets):
             return player.health, player.suit_health, player.bullets, player.stats, time.time()
 
         if player.go_again:
-            player_health, player_suit_health, bullets, player_stats, time_end = second_level(player_health, player_suit_health, bullets)
+            player_health, player_suit_health, bullets, player_stats, time_end = second_level(player_health,
+                                                                                              player_suit_health,
+                                                                                              bullets)
             return player_health, player_suit_health, bullets, player_stats, time_end
 
         camera.update(player)
@@ -416,7 +419,9 @@ def third_level(player_health, player_suit_health, bullets):
             return player.health, player.suit_health, player.bullets, player.stats, time.time()
 
         if player.go_again:
-            player_health, player_suit_health, bullets, player_stats, time_end = third_level(player_health, player_suit_health, bullets)
+            player_health, player_suit_health, bullets, player_stats, time_end = third_level(player_health,
+                                                                                             player_suit_health,
+                                                                                             bullets)
             return player_health, player_suit_health, bullets, player_stats, time_end
 
         camera.update(player)
@@ -430,11 +435,37 @@ def third_level(player_health, player_suit_health, bullets):
         cloak.tick(FPS)
 
 
+def create_database():
+    conn = sqlite3.connect("game_stats.db")
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS game_records (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT,
+            record INTEGER,
+            final_stats TEXT,
+            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+
+def save_stats(username, record, final_stats):
+    conn = sqlite3.connect("game_stats.db")
+    cursor = conn.cursor()
+    cursor.execute('''INSERT INTO game_records (username, record, final_stats)
+        VALUES (?, ?, ?)
+    ''', (username, record, str(final_stats)))
+    conn.commit()
+    conn.close()
+
+
 def main():
     username = stats.get_username(screen)
     if username is None:
         return
-
+    create_database()
     music = pygame.mixer.Sound('sounds/pre_music1.mp3')
     music.play()
     pygame.mouse.set_visible(True)
@@ -449,19 +480,24 @@ def main():
 
     try:
         time_start = time.time()
-        player_health, player_suit_health, bullets, stats1, time_end = first_level(player_health, player_suit_health, bullets)
+        player_health, player_suit_health, bullets, stats1, time_end = first_level(player_health, player_suit_health,
+                                                                                   bullets)
         stats1['time'] += time_end - time_start
 
         time_start = time.time()
-        player_health, player_suit_health, bullets, stats2, time_end = second_level(player_health, player_suit_health, bullets)
+        player_health, player_suit_health, bullets, stats2, time_end = second_level(player_health, player_suit_health,
+                                                                                    bullets)
         stats2['time'] += time_end - time_start
 
         time_start = time.time()
-        player_health, player_suit_health, bullets, stats3, time_end = third_level(player_health, player_suit_health, bullets)
+        player_health, player_suit_health, bullets, stats3, time_end = third_level(player_health, player_suit_health,
+                                                                                   bullets)
         stats3['time'] += time_end - time_start
 
         final_stats, record = stats.sum_player_stats(stats1, stats2, stats3)
+        save_stats(username, record, final_stats)
         print(final_stats)
+
     except EscapeError:
         return
     finally:
