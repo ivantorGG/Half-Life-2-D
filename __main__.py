@@ -12,6 +12,7 @@ from enemies import Crab, DirectCrab, TermenatorCrab, FlyingEnemy, DumbCrab, Sum
 from connecting_objects import Level, InvisibleWall
 from objects import Obstacle, GameLevel
 from camera import Camera
+from datetime import datetime, timedelta
 from screeninfo import get_monitors
 
 pygame.init()
@@ -438,6 +439,10 @@ def third_level(player_health, player_suit_health, bullets):
 import sqlite3
 
 
+def get_moscow_time():
+    return (datetime.utcnow() + timedelta(hours=3)).strftime("%Y-%m-%d %H:%M:%S")
+
+
 def create_database():
     conn = sqlite3.connect("game_stats.db")
     cursor = conn.cursor()
@@ -459,18 +464,17 @@ def save_stats(username, record, final_stats):
     cursor = conn.cursor()
     cursor.execute("SELECT record FROM game_records WHERE username = ?", (username,))
     existing_record = cursor.fetchone()
-
     if existing_record is None:
         cursor.execute('''
-            INSERT INTO game_records (username, record, final_stats)
-            VALUES (?, ?, ?)
-        ''', (username, record, str(final_stats)))
+            INSERT INTO game_records (username, record, final_stats, timestamp)
+            VALUES (?, ?, ?, ?)
+        ''', (username, record, str(final_stats), get_moscow_time()))
     elif record > existing_record[0]:
         cursor.execute('''
             UPDATE game_records
-            SET record = ?, final_stats = ?, timestamp = CURRENT_TIMESTAMP
+            SET record = ?, final_stats = ?, timestamp = ?
             WHERE username = ?
-        ''', (record, str(final_stats), username))
+        ''', (record, str(final_stats), get_moscow_time(), username))
 
     conn.commit()
     conn.close()
