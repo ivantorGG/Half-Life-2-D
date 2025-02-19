@@ -4,20 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a8ab812-1a3b-4791-a23a-3f55eb22f27e" name="Changes" comment="rip12">
+    <list default="true" id="4a8ab812-1a3b-4791-a23a-3f55eb22f27e" name="Changes" comment="rip22">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Half-Life2D.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/__main__.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__main__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/chargers.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/chargers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/chips.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/chips.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/connecting_objects.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/connecting_objects.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/controls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/controls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/enemies.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/enemies.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/food.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/food.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/objects.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/objects.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/stats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/username.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Game/username.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__main__.exe" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/__main__.spec" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/__main__/Analysis-00.toc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/__main__/EXE-00.toc" beforeDir="false" />
@@ -152,14 +142,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1735325818839</updated>
-    </task>
-    <task id="LOCAL-00016" summary="added sound to box">
-      <option name="closed" value="true" />
-      <created>1736791681425</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1736791681425</updated>
     </task>
     <task id="LOCAL-00017" summary="optimized files">
       <option name="closed" value="true" />
@@ -545,7 +527,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739963696855</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="rip22">
+      <option name="closed" value="true" />
+      <created>1739973034977</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1739973034978</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -560,7 +550,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="no player can die when he wants to fly" />
     <MESSAGE value="changed names of objs" />
     <MESSAGE value="now we have 1 level" />
     <MESSAGE value="I swear, there is no chess" />
@@ -585,6 +574,7 @@
     <MESSAGE value="now wwe have good fps on level 3 and crabs now die normally, level3 is done I think, optimizations," />
     <MESSAGE value="rip" />
     <MESSAGE value="rip12" />
-    <option name="LAST_COMMIT_MESSAGE" value="rip12" />
+    <MESSAGE value="rip22" />
+    <option name="LAST_COMMIT_MESSAGE" value="rip22" />
   </component>
 </project>
