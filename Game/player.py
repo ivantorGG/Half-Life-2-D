@@ -1,15 +1,15 @@
 from random import randrange
 
 import pygame
-import stats
-from weapons import GlockBullet
+import Game.stats
+from Game.weapons import GlockBullet
 
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, k_size, screen, x, y, health, suit_health, bullets, *groups):
         super().__init__(*groups)
 
-        self.image = pygame.image.load('images/gordon/right/stand.png')
+        self.image = pygame.image.load('Game/images/gordon/right/stand.png')
         self.image = pygame.transform.scale(self.image, (round(83 * k_size[0]), round(208 * k_size[1])))
         self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
         self.mask = pygame.mask.from_surface(self.image)
@@ -102,7 +102,7 @@ class Player(pygame.sprite.Sprite):
                     self, args[1]):
                 if self.is_now_jumping is False:
                     self.is_now_jumping = True
-                    sound = pygame.mixer.Sound(f'sounds/jump_{randrange(1, 4)}.mp3')
+                    sound = pygame.mixer.Sound(f'Game/sounds/jump_{randrange(1, 4)}.mp3')
                     sound.play()
                     self.stats['jumps'] += 1
 
@@ -121,7 +121,7 @@ class Player(pygame.sprite.Sprite):
                     self.stats['footsteps taken'] += 1
 
             if (self.move_left or self.move_right) and not self.is_now_jumping and self.for_slower % 13 == 0:
-                sound = pygame.mixer.Sound(f'sounds/walk_{randrange(1, 3)}.mp3')
+                sound = pygame.mixer.Sound(f'Game/sounds/walk_{randrange(1, 3)}.mp3')
                 sound.play()
 
             if (self.move_right or self.move_left) and \
@@ -131,19 +131,19 @@ class Player(pygame.sprite.Sprite):
                     if not self.phase:
                         self.phase += 2
                     self.image = pygame.transform.scale(
-                        pygame.image.load(f'images/gordon/{self.direction}/{self.phase}.png'),
+                        pygame.image.load(f'Game/images/gordon/{self.direction}/{self.phase}.png'),
                         (round(83 * self.k_size[0]), round(208 * self.k_size[1])))
                     self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
 
             elif self.direction != 'Jump-right' and self.direction != 'Jump-left' and not self.crouch and not self.crouched:
                 self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
+                    pygame.image.load(f'Game/images/gordon/{self.direction}/stand.png'),
                     (round(83 * self.k_size[0]), round(208 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
 
             elif (
                     self.direction == 'Jump-right' or self.direction == 'Jump-left') and self.is_now_jumping and not self.crouch:
-                self.image = pygame.transform.scale(pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
+                self.image = pygame.transform.scale(pygame.image.load(f'Game/images/gordon/{self.direction}/stand.png'),
                                                     (round(352 / 2.6 * self.k_size[0]),
                                                      round(500 / 2.6 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
@@ -155,14 +155,14 @@ class Player(pygame.sprite.Sprite):
                     self.jumping_speed = -60
                     self.is_now_jumping = False
                     self.direction = 'left' if self.direction == 'Jump-left' else 'right'
-                    self.image = pygame.transform.scale(pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
+                    self.image = pygame.transform.scale(pygame.image.load(f'Game/images/gordon/{self.direction}/stand.png'),
                                                         (round(83 * self.k_size[0]),
                                                          round(208 * self.k_size[1])))
                     self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
 
             if self.crouch and self.for_slower % 5 == 0:
                 self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/{self.direction}/stand.png'),
+                    pygame.image.load(f'Game/images/gordon/{self.direction}/stand.png'),
                     (round(105 * self.k_size[0]), round(142 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
 
@@ -178,7 +178,7 @@ class Player(pygame.sprite.Sprite):
                     self.phase += 2
                 if self.for_slower % 5 == 0:
                     self.image = pygame.transform.scale(
-                        pygame.image.load(f'images/gordon/{self.direction}/{self.phase}.png'),
+                        pygame.image.load(f'Game/images/gordon/{self.direction}/{self.phase}.png'),
                         (round(105 * self.k_size[0]), round(142 * self.k_size[1])))
                     self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
         else:
@@ -221,7 +221,7 @@ class Player(pygame.sprite.Sprite):
     def is_alive(self):
         if self.health <= 0:
             self.i += 1
-            stats.print_death_screen(self.screen, self.i, self.i == 1)
+            Game.stats.print_death_screen(self.screen, self.i, self.i == 1)
             self.image = pygame.Surface((0, 0))
             self.rect = pygame.Rect(0, 0, 0, 0)
             self.died = True
@@ -235,34 +235,34 @@ class Player(pygame.sprite.Sprite):
     def shoot(self):
         if self.bullets > 0:
             self.stats['bullets shot'] += 1
-            sound = pygame.mixer.Sound('sounds/shoot1.mp3')
+            sound = pygame.mixer.Sound('Game/sounds/shoot1.mp3')
             sound.play()
             self.shooting_count = 15
             self.bullets -= 1
             if self.direction == 'left' or self.direction == 'Jump-left':
                 self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/attack_gun/left.png'),
+                    pygame.image.load(f'Game/images/gordon/attack_gun/left.png'),
                     (round(205 * self.k_size[0]), round(217 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
                 GlockBullet(self.rect.centerx - 80, self.rect.centery - 76, 'left', self.enemies, *self.groups())
 
             elif self.direction == 'right' or self.direction == 'Jump-right':
                 self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/attack_gun/right.png'),
+                    pygame.image.load(f'Game/images/gordon/attack_gun/right.png'),
                     (round(161 * 1.1 * self.k_size[0]), round(193 * 1.1 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
                 GlockBullet(self.rect.centerx + 64, self.rect.centery - 84, 'right', self.enemies, *self.groups())
 
             elif self.direction == 'crouch_left':
                 self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/attack_gun/crouch_left.png'),
+                    pygame.image.load(f'Game/images/gordon/attack_gun/crouch_left.png'),
                     (round(167 * self.k_size[0]), round(150 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
                 GlockBullet(self.rect.centerx - 54, self.rect.centery - 54, 'left', self.enemies, *self.groups())
 
             elif self.direction == 'crouch_right':
                 self.image = pygame.transform.scale(
-                    pygame.image.load(f'images/gordon/attack_gun/crouch_right.png'),
+                    pygame.image.load(f'Game/images/gordon/attack_gun/crouch_right.png'),
                     (round(167 * self.k_size[0]), round(148 * self.k_size[1])))
                 self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
                 GlockBullet(self.rect.centerx + 48, self.rect.centery - 54, 'right', self.enemies, *self.groups())

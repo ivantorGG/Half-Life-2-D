@@ -1,10 +1,9 @@
-import pygame
 import sys
 
-from chargers import HEVChargerBox, HealthChargerBox
-from connecting_objects import Level
-from enemies import Crab
-from food import *
+from Game.chargers import HEVChargerBox, HealthChargerBox
+from Game.connecting_objects import Level
+from Game.enemies import Crab
+from Game.food import *
 
 
 def pre_screen_check_events(image, first_motion, last_place, width, height, btn_x1, btn_y1, btn_x2, btn_y2, btn2_x1,
@@ -46,7 +45,7 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
                              invisible_vertical_walls,
                              HEV_charger=None, health_charger=None, level=None):
     """Проверка событий pygame"""
-    E_sound = pygame.mixer.Sound('sounds/E_button-pressed.mp3')
+    E_sound = pygame.mixer.Sound('Game/sounds/E_button-pressed.mp3')
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()

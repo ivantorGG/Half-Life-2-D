@@ -1,8 +1,6 @@
-import time
-
 import pygame
-from connecting_objects import InvisibleWall
-from player import Player
+from Game.connecting_objects import InvisibleWall
+from Game.player import Player
 
 
 class Obstacle(pygame.sprite.Sprite):
@@ -105,18 +103,18 @@ class Portal(pygame.sprite.Sprite):
         self.counting_max = 3
         self.for_slower = 0
 
-        self.image = pygame.image.load(f'images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
+        self.image = pygame.image.load(f'Game/images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
         self.image = pygame.transform.scale(self.image, (
             round(self.image.get_width() * 6 * self.k_size[0]), round(self.image.get_height() * 6 * self.k_size[1])))
         self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
-        start_snd = pygame.mixer.Sound('sounds/teleport_entering.mp3')
+        start_snd = pygame.mixer.Sound('Game/sounds/teleport_entering.mp3')
         start_snd.play()
 
     def update(self, *args, **kwargs):
         self.for_slower += 1
         if self.for_slower % 2 == 0:
             if self.phase == 'starting':
-                self.image = pygame.image.load(f'images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
+                self.image = pygame.image.load(f'Game/images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
                 self.image = pygame.transform.scale(self.image, (
                     round(self.image.get_width() * 6 * self.k_size[0]),
                     round(self.image.get_height() * 6 * self.k_size[1])))
@@ -127,7 +125,7 @@ class Portal(pygame.sprite.Sprite):
                     self.phase = 'waiting'
 
             if self.phase == 'waiting':
-                self.image = pygame.image.load(f'images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
+                self.image = pygame.image.load(f'Game/images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
                 self.image = pygame.transform.scale(self.image, (
                     round(self.image.get_width() * 6 * self.k_size[0]),
                     round(self.image.get_height() * 6 * self.k_size[1])))
@@ -143,7 +141,7 @@ class Portal(pygame.sprite.Sprite):
                     self.phase = 'ending'
 
             if self.phase == 'ending':
-                self.image = pygame.image.load(f'images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
+                self.image = pygame.image.load(f'Game/images/levels/portal/{self.color}/{self.phase}/{self.i}.png')
                 self.image = pygame.transform.scale(self.image, (
                     round(self.image.get_width() * 6 * self.k_size[0]),
                     round(self.image.get_height() * 6 * self.k_size[1])))
@@ -152,7 +150,7 @@ class Portal(pygame.sprite.Sprite):
                 if self.i == 6:
                     self.i = 1
                     self.is_done = True
-                    close_snd = pygame.mixer.Sound('sounds/teleport_closing.mp3')
+                    close_snd = pygame.mixer.Sound('Game/sounds/teleport_closing.mp3')
                     close_snd.play()
                     self.kill()
         if self.phase != 'ending' and isinstance(pygame.sprite.spritecollideany(self, self.obj_groups),

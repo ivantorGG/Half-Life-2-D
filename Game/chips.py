@@ -45,20 +45,20 @@ def create_chips(k_size, position, type_of_object, *groups):
     if type_of_object == 'FoodBox':
         for _ in range(particle_count):
             Particle(k_size, position, random.choice(numbers), random.choice(numbers),
-                     ['images/food/box_chip1.png',
-                      'images/food/box_chip2.png',
-                      'images/food/box_chip1.png',
-                      'images/food/box_chip4.png',
-                      'images/food/box_chip5.png',
+                     ['Game/images/food/box_chip1.png',
+                      'Game/images/food/box_chip2.png',
+                      'Game/images/food/box_chip1.png',
+                      'Game/images/food/box_chip4.png',
+                      'Game/images/food/box_chip5.png',
                       ], *groups)
     if type_of_object == 'Crab':
         for _ in range(particle_count):
             Particle((k_size[0] * 2, k_size[1]), position, random.choice(numbers), random.choice(numbers),
-                     ['images/food/crab_chip1.png',
-                      'images/food/crab_chip2.png',
-                      'images/food/crab_chip1.png',
-                      'images/food/crab_chip4.png',
-                      'images/food/crab_chip5.png',
+                     ['Game/images/food/crab_chip1.png',
+                      'Game/images/food/crab_chip2.png',
+                      'Game/images/food/crab_chip1.png',
+                      'Game/images/food/crab_chip4.png',
+                      'Game/images/food/crab_chip5.png',
                       ], *groups)
 
 

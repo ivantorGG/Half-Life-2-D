@@ -1,15 +1,15 @@
 import random
 
 import pygame
-from player import Player
-from chips import create_chips
+from Game.player import Player
+from Game.chips import create_chips
 
 
 class FoodBattery(pygame.sprite.Sprite):
     def __init__(self, k_size, x, y, obj, walls, *groups, do_move=True):
         super().__init__(*groups)
-        self.sound = pygame.mixer.Sound('sounds/battery_pickup.mp3')
-        self.image = pygame.image.load('images/food/bottery.png')
+        self.sound = pygame.mixer.Sound('Game/sounds/battery_pickup.mp3')
+        self.image = pygame.image.load('Game/images/food/bottery.png')
         self.image = pygame.transform.scale(self.image, (20 * k_size[0], 44 * k_size[1]))
         if do_move:
             self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
@@ -42,8 +42,8 @@ class FoodBullets(pygame.sprite.Sprite):
     def __init__(self, k_size, x, y, obj, walls, *groups, do_move=True):
         super().__init__(*groups)
 
-        self.sound = pygame.mixer.Sound('sounds/ammo_pickup.mp3')
-        self.image = pygame.image.load('images/food/grenade.png')
+        self.sound = pygame.mixer.Sound('Game/sounds/ammo_pickup.mp3')
+        self.image = pygame.image.load('Game/images/food/grenade.png')
         self.image = pygame.transform.scale(self.image, (round(23 * k_size[0]), round(57 * k_size[1])))
         if do_move:
             self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
@@ -69,8 +69,8 @@ class FoodMedkitSmall(pygame.sprite.Sprite):
     def __init__(self, k_size, x, y, obj, walls, *groups, do_move=True):
         super().__init__(*groups)
 
-        self.sound = pygame.mixer.Sound('sounds/smallmedkit1.mp3')
-        self.image = pygame.image.load('images/food/medkit-small.png')
+        self.sound = pygame.mixer.Sound('Game/sounds/smallmedkit1.mp3')
+        self.image = pygame.image.load('Game/images/food/medkit-small.png')
         self.image = pygame.transform.scale(self.image, (44 * k_size[0], 56 * k_size[1]))
         if do_move:
             self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
@@ -103,8 +103,8 @@ class FoodMedkitBig(pygame.sprite.Sprite):
     def __init__(self, k_size, x, y, obj, walls, *groups, do_move=True):
         super().__init__(*groups)
 
-        self.sound = pygame.mixer.Sound('sounds/smallmedkit1.mp3')
-        self.image = pygame.image.load('images/food/medkit_big.png')
+        self.sound = pygame.mixer.Sound('Game/sounds/smallmedkit1.mp3')
+        self.image = pygame.image.load('Game/images/food/medkit_big.png')
         self.image = pygame.transform.scale(self.image, (38 * k_size[0], 35 * k_size[1]))
         if do_move:
             self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
@@ -137,8 +137,8 @@ class FoodBox(pygame.sprite.Sprite):
     def __init__(self, k_size, x, y, obj, food, walls, *groups, do_move=True):
         super().__init__(*groups)
 
-        self.sound = pygame.mixer.Sound('sounds/lucky_box_crushing.mp3')
-        self.image = pygame.image.load('images/food/box.png')
+        self.sound = pygame.mixer.Sound('Game/sounds/lucky_box_crushing.mp3')
+        self.image = pygame.image.load('Game/images/food/box.png')
         self.image = pygame.transform.scale(self.image, (round(111 * k_size[0]), round(84 * k_size[1])))
         if do_move:
             self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
@@ -154,7 +154,7 @@ class FoodBox(pygame.sprite.Sprite):
     def crush(self):
         self.obj.stats['boxes crushed'] += 1
         self.sound.play()
-        img = random.choice(['images/food/crushed_box.png', 'images/food/crushed_box1.png'])
+        img = random.choice(['Game/images/food/crushed_box.png', 'Game/images/food/crushed_box1.png'])
         self.image = pygame.transform.scale(pygame.image.load(img), (self.rect.width, self.rect.height))
         self.rect = self.image.get_rect(center=(self.rect.centerx, self.rect.centery))
         self.food(self.k_size, round((self.rect.centerx - 4) / self.k_size[0]),

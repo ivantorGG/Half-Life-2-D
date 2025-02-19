@@ -1,6 +1,5 @@
 # !!! MAIN CLASSES: HEVCharger, HealthCharger !!!
 
-from player import Player
 import pygame
 
 
@@ -9,7 +8,7 @@ class HEVChargerBox(pygame.sprite.Sprite):
         """При инициализации указывать координаты и группы спрайтов"""
         super().__init__(*groups)
 
-        self.image = pygame.image.load('images/hev_charger/charger.png')
+        self.image = pygame.image.load('Game/images/hev_charger/charger.png')
         self.image = pygame.transform.scale(self.image, (round(117 * k_size[0]), round(245 * k_size[1])))
         self.rect = self.image.get_rect(center=(round(x * k_size[0]), round(y * k_size[1])))
 
@@ -21,10 +20,10 @@ class HEVChargerAnimationBlock(pygame.sprite.Sprite):
 
         self.charger = charger
 
-        self.sound = pygame.mixer.Sound('sounds/hev_charger.mp3')  # звук
-        self.err_sound = pygame.mixer.Sound('sounds/hev_charger-error.mp3')
+        self.sound = pygame.mixer.Sound('Game/sounds/hev_charger.mp3')  # звук
+        self.err_sound = pygame.mixer.Sound('Game/sounds/hev_charger-error.mp3')
 
-        self.image = pygame.image.load('images/hev_charger/for_animation.png')
+        self.image = pygame.image.load('Game/images/hev_charger/for_animation.png')
         self.image = pygame.transform.scale(self.image, (round(13 * k_size[0]), round(14 * k_size[1])))
 
         self.go = False  # проигрывать анимацию?
@@ -77,7 +76,7 @@ class HealthChargerBox(pygame.sprite.Sprite):
     def __init__(self, k_size, x, y, *groups):
         super().__init__(*groups)
 
-        self.image = pygame.image.load('images/health_charger/charger.png')
+        self.image = pygame.image.load('Game/images/health_charger/charger.png')
         self.image = pygame.transform.scale(self.image, (round(416 // 3 * k_size[0]), round(687 // 3 * k_size[1])))
         self.rect = self.image.get_rect(center=(round(x * k_size[0]), round(y * k_size[1])))
 
@@ -88,8 +87,8 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
 
         self.charge_points = charge_points
 
-        self.sound = pygame.mixer.Sound('sounds/health_charger.mp3')
-        self.err_sound = pygame.mixer.Sound('sounds/health_charger-error.mp3')
+        self.sound = pygame.mixer.Sound('Game/sounds/health_charger.mp3')
+        self.err_sound = pygame.mixer.Sound('Game/sounds/health_charger-error.mp3')
 
         self.charger = charger
         self.go = False
@@ -97,13 +96,13 @@ class HealthChargerAnimationBlock(pygame.sprite.Sprite):
         self.animation_i = 0
         self.for_slover = 0
         self.images = [
-            'images/health_charger/for_animation.png',
-            'images/health_charger/for_animation1.png',
-            'images/health_charger/for_animation (1).png',
-            'images/health_charger/for_animation (2).png',
-            'images/health_charger/for_animation (3).png',
-            'images/health_charger/for_animation (4).png',
-            'images/health_charger/for_animation (5).png',
+            'Game/images/health_charger/for_animation.png',
+            'Game/images/health_charger/for_animation1.png',
+            'Game/images/health_charger/for_animation (1).png',
+            'Game/images/health_charger/for_animation (2).png',
+            'Game/images/health_charger/for_animation (3).png',
+            'Game/images/health_charger/for_animation (4).png',
+            'Game/images/health_charger/for_animation (5).png',
         ]
 
         self.image = pygame.image.load(self.images[self.animation_i])

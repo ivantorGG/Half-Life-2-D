@@ -21,9 +21,9 @@ def print_pre_screen(screen, width, height):
         def __init__(self, *groups):
             super().__init__(*groups)
             img = pygame.image.load(random.choice(
-                ['images/pre_screen/on_minimum.png',
-                 'images/pre_screen/wake_up.png', 'images/pre_screen/no_chess.jpg',
-                 "images/pre_screen/maxresdefault.jpg", "images/pre_screen/abeba.jpg"]))
+                ['Game/images/pre_screen/on_minimum.png',
+                 'Game/images/pre_screen/wake_up.png', 'Game/images/pre_screen/no_chess.jpg',
+                 "Game/images/pre_screen/maxresdefault.jpg", "Game/images/pre_screen/abeba.jpg"]))
             self.image = img
             self.image = pygame.transform.scale(self.image, (width * 1.2, height * 1.2))
             self.rect = self.image.get_rect()
@@ -35,8 +35,8 @@ def print_pre_screen(screen, width, height):
     all_sprites.draw(screen)
     all_sprites.update()
 
-    hl2_font = pygame.font.Font('fonts/halflife2.ttf', round(40 * (width / 1600)))
-    normal_font = pygame.font.Font('fonts/Roboto-Regular.ttf', round(40 * (width / 1600)))
+    hl2_font = pygame.font.Font('Game/fonts/halflife2.ttf', round(40 * (width / 1600)))
+    normal_font = pygame.font.Font('Game/fonts/Roboto-Regular.ttf', round(40 * (width / 1600)))
 
     text = hl2_font.render("HALF - LIFE'", True, (205, 205, 200))
     text2 = normal_font.render("ВЫХОД", True, (205, 205, 200))
@@ -48,8 +48,8 @@ def print_pre_screen(screen, width, height):
 
 
 def print_stats(screen, k_size, player):
-    hl2_font = pygame.font.Font('fonts/halflife2.ttf', round(50 * k_size[0]))
-    normal_font = pygame.font.Font('fonts/Roboto-Regular.ttf', round(25 * k_size[0]))
+    hl2_font = pygame.font.Font('Game/fonts/halflife2.ttf', round(50 * k_size[0]))
+    normal_font = pygame.font.Font('Game/fonts/Roboto-Regular.ttf', round(25 * k_size[0]))
 
     # здоровье
     health_text = normal_font.render('жизнь', True, (244, 169, 0))
@@ -155,14 +155,14 @@ def print_stats(screen, k_size, player):
 
 def print_death_screen(screen, i, play_sound):
     if play_sound:
-        death_sound = pygame.mixer.Sound('sounds/player_died-long.mp3')
+        death_sound = pygame.mixer.Sound('Game/sounds/player_died-long.mp3')
         death_sound.play()
     screen.fill((i, 0, 0))
 
 
 def get_username(screen):
     pygame.display.set_caption("Введите ник")
-    font = pygame.font.Font('fonts/Roboto-Regular.ttf', 36)
+    font = pygame.font.Font('Game/fonts/Roboto-Regular.ttf', 36)
     clock = pygame.time.Clock()
 
     user_text = ""
@@ -189,7 +189,7 @@ def get_username(screen):
 
         clock.tick(30)
 
-    with open("username.txt", "w", encoding="utf-8") as file:
+    with open("Game/username.txt", "w", encoding="utf-8") as file:
         file.write(user_text)
 
     return user_text
@@ -222,8 +222,8 @@ def sum_player_stats(*stats):
 
 def show_credits(screen, k_size, width, height, minus_y):
     screen.fill((0, 0, 0))
-    hl2_font = pygame.font.Font('fonts/halflife2.ttf', round(60 * k_size[0]))
-    normal_font = pygame.font.Font('fonts/Roboto-Medium.ttf', round(40 * k_size[0]))
+    hl2_font = pygame.font.Font('Game/fonts/halflife2.ttf', round(60 * k_size[0]))
+    normal_font = pygame.font.Font('Game/fonts/Roboto-Medium.ttf', round(40 * k_size[0]))
 
     # игра
     text_y = 900 - minus_y
@@ -232,7 +232,7 @@ def show_credits(screen, k_size, width, height, minus_y):
 
     # лого 1
     hl2_text1 = normal_font.render("R U V A L V", True, (205, 205, 200))
-    normal_font = pygame.font.Font('fonts/Roboto-Bold.ttf', round(29 * k_size[0]))
+    normal_font = pygame.font.Font('Game/fonts/Roboto-Bold.ttf', round(29 * k_size[0]))
     hl2_text2 = normal_font.render("E", True, (205, 205, 200))
     text_x = width // 2 - (hl2_text1.get_width() // 2 + 10 + hl2_text2.get_width() // 2)
     text_y = 1100 - minus_y
@@ -244,13 +244,13 @@ def show_credits(screen, k_size, width, height, minus_y):
                                                text_w + 18, text_h + 18), 3)
 
     # твои титры тут
-    normal_font = pygame.font.Font('fonts/Roboto-Regular.ttf', round(29 * k_size[0]))
+    normal_font = pygame.font.Font('Game/fonts/Roboto-Regular.ttf', round(29 * k_size[0]))
     ...
 
     # лого 2 - подвинь его потом вниз
-    normal_font = pygame.font.Font('fonts/Roboto-Medium.ttf', round(40 * k_size[0]))
+    normal_font = pygame.font.Font('Game/fonts/Roboto-Medium.ttf', round(40 * k_size[0]))
     hl2_text1 = normal_font.render("R U V A L V", True, (205, 205, 200))
-    normal_font = pygame.font.Font('fonts/Roboto-Bold.ttf', round(29 * k_size[0]))
+    normal_font = pygame.font.Font('Game/fonts/Roboto-Bold.ttf', round(29 * k_size[0]))
     hl2_text2 = normal_font.render("E", True, (205, 205, 200))
     text_x = width // 2 - (hl2_text1.get_width() // 2 + 10 + hl2_text2.get_width() // 2)
     text_y = 3600 - minus_y

@@ -4,210 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a8ab812-1a3b-4791-a23a-3f55eb22f27e" name="Changes" comment="rip">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Half-Life-2-D.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__main__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/camera.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chargers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chips.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/connecting_objects.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/enemies.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Roboto-Black.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Roboto-BlackItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Roboto-Bold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Roboto-BoldItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Roboto-Italic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Roboto-Light.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Roboto-LightItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Roboto-Medium.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Roboto-MediumItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Roboto-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Roboto-Thin.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Roboto-ThinItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/halflife2.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/food.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/help/abb.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/help/font_letters.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/Crab/left/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/Crab/left/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/Crab/left/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/Crab/left/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/Crab/left/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/Crab/left/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/Crab/right/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/Crab/right/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/Crab/right/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/Crab/right/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/Crab/right/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/Crab/right/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/SummonerCrab/attack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/bottery.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/box.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/box_chip1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/box_chip2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/box_chip3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/box_chip4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/box_chip5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/crab_chip1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/crab_chip2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/crab_chip3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/crab_chip4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/crab_chip5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/crushed_box.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/crushed_box1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/grenade.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/medkit-small.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/food/medkit_big.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/Jump-Left/stand.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/Jump-Right/stand.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/attack_gun/crouch_left.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/attack_gun/crouch_right.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/attack_gun/left.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/attack_gun/right.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_left/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_left/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_left/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_left/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_left/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_left/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_left/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_left/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_left/9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_left/stand.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_right/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_right/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_right/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_right/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_right/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_right/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_right/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_right/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_right/9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/crouch_right/stand.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/left/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/left/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/left/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/left/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/left/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/left/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/left/stand.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/right/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/right/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/right/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/right/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/right/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/right/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/gordon/right/stand.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/health_charger/charger.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/health_charger/for_animation (1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/health_charger/for_animation (2).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/health_charger/for_animation (3).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/health_charger/for_animation (4).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/health_charger/for_animation (5).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/health_charger/for_animation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/health_charger/for_animation1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/hev_charger/charger.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/hev_charger/for_animation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/ending/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/ending/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/ending/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/ending/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/ending/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/starting/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/starting/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/starting/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/starting/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/starting/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/starting/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/starting/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/starting/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/waiting/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/waiting/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/waiting/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/waiting/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/waiting/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/waiting/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/waiting/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/green/waiting/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/ending/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/ending/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/ending/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/ending/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/ending/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/starting/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/starting/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/starting/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/starting/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/starting/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/starting/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/starting/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/starting/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/waiting/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/waiting/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/waiting/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/waiting/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/waiting/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/waiting/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/waiting/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/levels/portal/purple/waiting/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/objects/bridge1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/objects/level1-off.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/objects/level1-on.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/pre_screen/abeba.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/pre_screen/heavy_tf2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/pre_screen/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/pre_screen/maxresdefault.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/pre_screen/no_chess.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/pre_screen/on_minimum.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/pre_screen/wake_up.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/objects.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/E_button-pressed.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/ammo_pickup.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/battery_pickup.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/can't_do_action.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/crab_eats1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/crab_eats2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/crab_eats3.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/crab_eats4.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/crab_eats5.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/electric_button.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/flashlight1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/got_damage-warning.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/health_charger-error.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/health_charger.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/hev_charger-error.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/hev_charger.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/jump_1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/jump_2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/jump_3.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/level1-on.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/lucky_box_crushing.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/main_music1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/main_music2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/player_died-long.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/pre_music1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/shoot1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/slot2_gun-shot.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/smallmedkit1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/teleport_closing.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/teleport_entering.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/uncle_dane.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/walk_1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/walk_2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stats.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/username.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/weapons.py" beforeDir="false" />
+    <list default="true" id="4a8ab812-1a3b-4791-a23a-3f55eb22f27e" name="Changes" comment="rip12">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Half-Life2D.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/__main__.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__main__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/chargers.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/chargers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/chips.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/chips.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/connecting_objects.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/connecting_objects.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/controls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/controls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/enemies.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/enemies.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/food.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/food.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/objects.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/objects.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/stats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__main__.spec" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/Analysis-00.toc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/EXE-00.toc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/PKG-00.toc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/PYZ-00.pyz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/PYZ-00.toc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/__main__.pkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/base_library.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/warn-__main__.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/xref-__main__.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,6 +70,7 @@
     "Python.chips.executor": "Run",
     "Python.connecting-objects.executor": "Run",
     "Python.connecting_objects.executor": "Run",
+    "Python.controls.executor": "Run",
     "Python.enemies.executor": "Run",
     "Python.food.executor": "Run",
     "Python.main.executor": "Run",
@@ -264,7 +85,7 @@
     "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Nout/PycharmProjects/Half-Life-2-D/Game/__main__.py",
+    "last_opened_file_path": "C:/Users/Nout/PycharmProjects/Half-Life-2-D/__main__.py",
     "settings.editor.selected.configurable": "editor.preferences.completion"
   }
 }]]></component>
@@ -277,11 +98,11 @@
       <recent name="C:\Users\Nout\PycharmProjects\Half-Life-2-D\images\enemies\TermenatorCrab\left" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Nout\PycharmProjects\Half-Life-2-D" />
       <recent name="C:\Users\Nout\PycharmProjects\Half-Life-2-D\Game" />
       <recent name="C:\Users\Nout\PycharmProjects\Half-Life-2-D\images\enemies\SummonerCrab" />
       <recent name="C:\Users\Nout\PycharmProjects\Half-Life-2-D\images\gordon\attack_gun" />
       <recent name="C:\Users\Nout\PycharmProjects\Half-Life-2-D\images\levels\portal\purple\waiting" />
-      <recent name="C:\Users\Nout\PycharmProjects\Half-Life-2-D\images\levels\portal\purple\starting" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -290,6 +111,31 @@
       <command value="controls.py" />
       <command value="__main__" />
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="__main__" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Half-Life-2-D" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/__main__.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -306,14 +152,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1735325818839</updated>
-    </task>
-    <task id="LOCAL-00015" summary="added box with food and updated functions of food">
-      <option name="closed" value="true" />
-      <created>1736791609017</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1736791609017</updated>
     </task>
     <task id="LOCAL-00016" summary="added sound to box">
       <option name="closed" value="true" />
@@ -699,7 +537,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739787804992</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="rip12">
+      <option name="closed" value="true" />
+      <created>1739963696854</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1739963696855</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -714,7 +560,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="optimized code in wrong direction lol" />
     <MESSAGE value="no player can die when he wants to fly" />
     <MESSAGE value="changed names of objs" />
     <MESSAGE value="now we have 1 level" />
@@ -739,6 +584,7 @@
     <MESSAGE value="some changes" />
     <MESSAGE value="now wwe have good fps on level 3 and crabs now die normally, level3 is done I think, optimizations," />
     <MESSAGE value="rip" />
-    <option name="LAST_COMMIT_MESSAGE" value="rip" />
+    <MESSAGE value="rip12" />
+    <option name="LAST_COMMIT_MESSAGE" value="rip12" />
   </component>
 </project>

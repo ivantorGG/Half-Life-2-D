@@ -5,19 +5,19 @@ class Level(pygame.sprite.Sprite):
     def __init__(self, k_size, obj, x, y, *groups):
         super().__init__(*groups)
 
-        self.image = pygame.image.load('images/objects/level1-off.png')
+        self.image = pygame.image.load('Game/images/objects/level1-off.png')
         self.image = pygame.transform.scale(self.image, (round(37 * 2 * k_size[0]), round(29 * 2 * k_size[1])))
         self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
 
         self.state = 'off'
         self.obj = obj
         self.k_size = k_size
-        self.sound = pygame.mixer.Sound('sounds/level1-on.mp3')
+        self.sound = pygame.mixer.Sound('Game/sounds/level1-on.mp3')
 
     def switch(self):
         if self.state == 'off':
             self.sound.play()
-            self.image = pygame.image.load('images/objects/level1-on.png')
+            self.image = pygame.image.load('Game/images/objects/level1-on.png')
             self.image = pygame.transform.scale(self.image,
                                                 (round(32 * 2 * self.k_size[0]), round(26 * 2 * self.k_size[1])))
             self.rect = self.image.get_rect(center=(self.rect.centerx + 18 * self.k_size[0], self.rect.centery))

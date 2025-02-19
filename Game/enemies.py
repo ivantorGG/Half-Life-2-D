@@ -1,15 +1,15 @@
 from random import randrange, choice
 import pygame
 
-from chips import create_chips
-from player import Player
+from Game.chips import create_chips
+from Game.player import Player
 
 
 class Crab(pygame.sprite.Sprite):
     def __init__(self, k_size, obj, x, y, *groups, do_move=True):
         super().__init__(*groups)
 
-        self.image = pygame.image.load('images/enemies/Crab/right/1.png')
+        self.image = pygame.image.load('Game/images/enemies/Crab/right/1.png')
         self.image = pygame.transform.scale(self.image, (
             round(self.image.get_height() * 2 * k_size[0]), round(self.image.get_width() * 2 * k_size[1])))
         if do_move:
@@ -58,7 +58,7 @@ class Crab(pygame.sprite.Sprite):
                     self.phase = (self.phase + 1) % 7
                     if not self.phase:
                         self.phase += 1
-                    self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
+                    self.image = pygame.image.load(f'Game/images/enemies/Crab/{self.direction}/{self.phase}.png')
                     self.image = pygame.transform.scale(self.image, (
                         round(self.image.get_width() * 2 * self.k_size[0]),
                         round(self.image.get_height() * 2 * self.k_size[1])))
@@ -77,7 +77,7 @@ class Crab(pygame.sprite.Sprite):
                         self.obj.health = 0
 
                 self.obj.stats['damage took'] += self.damage
-                sound = pygame.mixer.Sound(f'sounds/crab_eats{randrange(1, 5)}.mp3')
+                sound = pygame.mixer.Sound(f'Game/sounds/crab_eats{randrange(1, 5)}.mp3')
                 sound.play()
             self.check_health()
             if abs(self.obj.rect.y - self.rect.y) > 2000:
@@ -125,14 +125,14 @@ class DirectCrab(Crab):
                         self.obj.health = 0
 
                 self.obj.stats['damage took'] += self.damage
-                sound = pygame.mixer.Sound(f'sounds/crab_eats{randrange(1, 5)}.mp3')
+                sound = pygame.mixer.Sound(f'Game/sounds/crab_eats{randrange(1, 5)}.mp3')
                 sound.play()
 
             if self.for_slower % 5 == 0:
                 self.phase = (self.phase + 1) % 7
                 if not self.phase:
                     self.phase += 1
-                self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
+                self.image = pygame.image.load(f'Game/images/enemies/Crab/{self.direction}/{self.phase}.png')
                 self.image = pygame.transform.scale(self.image, (
                     round(self.image.get_width() * 2 * self.k_size[0]),
                     round(self.image.get_height() * 2 * self.k_size[1])))
@@ -151,7 +151,7 @@ class DirectCrab(Crab):
 class TermenatorCrab(Crab):
     def __init__(self, k_size, obj, x, y, speed, *groups):
         super().__init__(k_size, obj, x, y, *groups)
-        self.image = pygame.image.load('images/enemies/Crab/right/1.png')
+        self.image = pygame.image.load('Game/images/enemies/Crab/right/1.png')
         self.image = pygame.transform.scale(self.image, (
             round(self.image.get_height() * 48 * k_size[0]), round(self.image.get_width() * 48 * k_size[1])))
         self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
@@ -163,14 +163,14 @@ class TermenatorCrab(Crab):
         if pygame.sprite.collide_mask(self, self.obj):
             self.obj.suit_health = 0
             self.obj.health = 0
-            sound = pygame.mixer.Sound(f'sounds/crab_eats5.mp3')
+            sound = pygame.mixer.Sound(f'Game/sounds/crab_eats5.mp3')
             sound.play()
 
         if self.for_slower % 20 == 0:
             self.phase = (self.phase + 1) % 7
             if not self.phase:
                 self.phase += 1
-            self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
+            self.image = pygame.image.load(f'Game/images/enemies/Crab/{self.direction}/{self.phase}.png')
             self.image = pygame.transform.scale(self.image, (
                 round(self.image.get_width() * 58 * self.k_size[0]),
                 round(self.image.get_height() * 58 * self.k_size[1])))
@@ -215,7 +215,7 @@ class DumbCrab(Crab):
                     self.phase = (self.phase + 1) % 7
                     if not self.phase:
                         self.phase += 1
-                    self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
+                    self.image = pygame.image.load(f'Game/images/enemies/Crab/{self.direction}/{self.phase}.png')
                     self.image = pygame.transform.scale(self.image, (
                         round(self.image.get_width() * 2 * self.k_size[0]),
                         round(self.image.get_height() * 2 * self.k_size[1])))
@@ -238,7 +238,7 @@ class DumbCrab(Crab):
                         self.obj.health = 0
 
                 self.obj.stats['damage took'] += self.damage
-                sound = pygame.mixer.Sound(f'sounds/crab_eats{randrange(1, 5)}.mp3')
+                sound = pygame.mixer.Sound(f'Game/sounds/crab_eats{randrange(1, 5)}.mp3')
                 sound.play()
 
             self.check_health()
@@ -284,7 +284,7 @@ class SummonerCrab(DumbCrab):
                     self.phase = (self.phase + 1) % 7
                     if not self.phase:
                         self.phase += 1
-                    self.image = pygame.image.load(f'images/enemies/Crab/{self.direction}/{self.phase}.png')
+                    self.image = pygame.image.load(f'Game/images/enemies/Crab/{self.direction}/{self.phase}.png')
                     self.image = pygame.transform.scale(self.image, (
                         round(self.image.get_width() * 2 * self.k_size[0]),
                         round(self.image.get_height() * 2 * self.k_size[1])))
@@ -317,7 +317,7 @@ class SummonerCrab(DumbCrab):
 class FlyingEnemy(pygame.sprite.Sprite):
     def __init__(self, k_size, x, y, enemy, obj, *groups, speed=None):
         super().__init__(*groups)
-        self.image = pygame.image.load('images/enemies/SummonerCrab/attack.png')
+        self.image = pygame.image.load('Game/images/enemies/SummonerCrab/attack.png')
         self.rect = self.image.get_rect(center=(x * k_size[0], y * k_size[1]))
         self.enemy = enemy
         self.length_x = randrange(-250, 250, 10)
