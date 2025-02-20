@@ -245,9 +245,26 @@ def show_credits(screen, k_size, width, height, minus_y):
 
     # твои титры тут
     normal_font = pygame.font.Font('Game/fonts/Roboto-Regular.ttf', round(29 * k_size[0]))
-    ...
+    credits = [
+        "Программист: Иван Сергеевич",
+        "Дебаггер: Иван Сергеевич",
+        "Дизайнер: Прохоров Иван",
+        "Сценарист: Прохоров Иван",
+        "Конструктор игры : Прохоров Иван",
+        "",
+        "",
+        "",
+        "",
+        "Спасибо за прохождение :) !"
+    ]
 
-    # лого 2 - подвинь его потом вниз
+    text_y = 1500 - minus_y
+    for line in credits:
+        credit_text = normal_font.render(line, True, (205, 205, 200))
+        screen.blit(credit_text, (width // 2 - credit_text.get_width() // 2, text_y))
+        text_y += 60
+
+        # лого 2 - подвинь его потом вниз
     normal_font = pygame.font.Font('Game/fonts/Roboto-Medium.ttf', round(40 * k_size[0]))
     hl2_text1 = normal_font.render("R U V A L V", True, (205, 205, 200))
     normal_font = pygame.font.Font('Game/fonts/Roboto-Bold.ttf', round(29 * k_size[0]))
