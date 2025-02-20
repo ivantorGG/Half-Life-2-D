@@ -160,7 +160,8 @@ def second_level(player_health, player_suit_health, bullets):
 
     walls_are_visible = False
     if walls_are_visible:
-        level = GameLevel(k_size, 'Game/images/levels/2.png', (-650, -500, 'purple'), (550, -250, 'purple'), [all_sprites],
+        level = GameLevel(k_size, 'Game/images/levels/2.png', (-650, -500, 'purple'), (550, -250, 'purple'),
+                          [all_sprites],
                           level_sprites)
 
     InvisibleWall(k_size, -750, -97, -355, 240, level_sprites, invisible_horizontal_walls,
@@ -181,7 +182,8 @@ def second_level(player_health, player_suit_health, bullets):
     InvisibleWall(k_size, 380, -96, 380, -6, level_sprites, invisible_vertical_walls, is_visible=walls_are_visible)
 
     if not walls_are_visible:
-        level = GameLevel(k_size, 'Game/images/levels/2.png', (-650, -500, 'purple'), (550, -250, 'purple'), [all_sprites],
+        level = GameLevel(k_size, 'Game/images/levels/2.png', (-650, -500, 'purple'), (550, -250, 'purple'),
+                          [all_sprites],
                           level_sprites)
 
     player = Player(k_size, screen, -650, -300, player_health, player_suit_health, bullets, all_sprites)
@@ -232,7 +234,8 @@ def third_level(player_health, player_suit_health, bullets):
 
     walls_are_visible = False
     if walls_are_visible:
-        level = GameLevel(k_size, 'Game/images/levels/3.png', (-3050, -600, 'purple'), (4850, -330, 'green'), [all_sprites],
+        level = GameLevel(k_size, 'Game/images/levels/3.png', (-3050, -600, 'purple'), (4850, -600, 'green'),
+                          [all_sprites],
                           level_sprites)
 
     InvisibleWall(k_size, -4200, -155, -2835, 0, level_sprites, invisible_horizontal_walls,
@@ -323,7 +326,8 @@ def third_level(player_health, player_suit_health, bullets):
                   is_visible=walls_are_visible)
 
     if not walls_are_visible:
-        level = GameLevel(k_size, 'Game/images/levels/3.png', (-3050, -600, 'purple'), (4850, -330, 'green'), [all_sprites],
+        level = GameLevel(k_size, 'Game/images/levels/3.png', (-3050, -600, 'purple'), (4850, -600, 'green'),
+                          [all_sprites],
                           level_sprites)
 
     health_c = HealthCharger((k_size[0] * 0.8, k_size[1] * 0.8), -4170, -370, 30, all_sprites)
@@ -503,6 +507,23 @@ def save_stats(username, record):
     conn.close()
 
 
+def get_top_players():
+    conn = sqlite3.connect("Game/game_stats.db")
+    cursor = conn.cursor()
+
+    cursor.execute('''
+        SELECT username, record 
+        FROM game_records 
+        ORDER BY record DESC 
+        LIMIT 3
+    ''')
+
+    top_players = cursor.fetchall()
+    conn.close()
+
+    return top_players
+
+
 def main():
     username = stats.get_username(screen)
     if username is None:
@@ -519,7 +540,7 @@ def main():
     music = pygame.mixer.Sound(choice(('Game/sounds/main_music1.mp3', 'Game/sounds/main_music2.mp3')))
     music.play()
 
-    player_health, player_suit_health, bullets = 30, 0, 0
+    player_health, player_suit_health, bullets = 100000, 0, 0
 
     try:
         time_start = time.time()

@@ -1,5 +1,6 @@
 import random
 import pygame
+import __main__
 
 
 def print_pre_screen(screen, width, height):
@@ -225,7 +226,6 @@ def show_credits(screen, k_size, width, minus_y, final_stats, record):
     hl2_font = pygame.font.Font('Game/fonts/halflife2.ttf', round(60 * k_size[0]))
     normal_font = pygame.font.Font('Game/fonts/Roboto-Medium.ttf', round(40 * k_size[0]))
 
-    # игра
     text_y = 900 - minus_y
     hl2_text = hl2_font.render("HALF - LIFE'", True, (205, 205, 200))
     screen.blit(hl2_text, (width // 2 - hl2_text.get_width() // 2, text_y))
@@ -243,24 +243,25 @@ def show_credits(screen, k_size, width, minus_y, final_stats, record):
     pygame.draw.rect(screen, (205, 205, 200), (text_x - 8, text_y - 8,
                                                text_w + 18, text_h + 18), 3)
 
-    # твои титры тут
+    # титры
+    top_3 = __main__.get_top_players()
     normal_font = pygame.font.Font('Game/fonts/Roboto-Regular.ttf', round(29 * k_size[0]))
-    credits = [
-        "Программист : Иван ",
-        "Дебаггер : Иван ",
-        "Дизайнер : Иван",
-        "Сценарист: Иван",
-        "Конструктор игры : Иван",
-        "Вор картинок : Иван",
-        "В других исполнительных ролях:",
-        "Иван",
-        "Иван",
-        "Иван",
-        "Иван",
-        "Иван",
-        "Иван",
-        "Иван",
-        "Спасибо за прохождение :) !"
+    credits = ["Программист : Иван ",
+               "Дебаггер : Иван ",
+               "Дизайнер : Иван",
+               "Сценарист: Иван",
+               "Конструктор игры : Иван",
+               "Вор картинок : Иван",
+               f"Ваш рекорд : {record}",
+               "Некоторые данные после прохождения игры :",
+               ]
+
+    credits.append("Топ 3 лучших игрока :")
+    for i, (username, score) in enumerate(top_3, 1):
+        credits.append(f"{i}. {username} - {score} очков")
+    stats_lines = [f"{key}: {value}" for key, value in final_stats.items()]
+    credits += stats_lines + [
+        "Спасибо за прохождение :) !",
         "Просто повезло -_-"
     ]
 
@@ -270,7 +271,7 @@ def show_credits(screen, k_size, width, minus_y, final_stats, record):
         screen.blit(credit_text, (width // 2 - credit_text.get_width() // 2, text_y))
         text_y += 60
 
-    # лого 2 - подвинь его потом вниз
+    # лого 2
     normal_font = pygame.font.Font('Game/fonts/Roboto-Medium.ttf', round(40 * k_size[0]))
     hl2_text1 = normal_font.render("R U V A L V", True, (205, 205, 200))
     normal_font = pygame.font.Font('Game/fonts/Roboto-Bold.ttf', round(29 * k_size[0]))
@@ -283,4 +284,3 @@ def show_credits(screen, k_size, width, minus_y, final_stats, record):
     screen.blit(hl2_text2, (text_x + hl2_text1.get_width() + 10, text_y + 2))
     pygame.draw.rect(screen, (205, 205, 200), (text_x - 8, text_y - 8,
                                                text_w + 18, text_h + 18), 3)
-    
