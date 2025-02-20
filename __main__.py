@@ -55,7 +55,7 @@ def pre_screen():
             running = True
 
 
-def final_show():
+def final_show(final_stats, record):
     running = True
     counter = 0
     minus_y = 0
@@ -73,7 +73,7 @@ def final_show():
         if for_slower % 2 == 0:
             minus_y += 1
 
-        stats.show_credits(screen, k_size, width, height, minus_y)
+        stats.show_credits(screen, k_size, width, minus_y, final_stats, record)
         pygame.display.flip()
         cloak.tick(FPS)
 
@@ -542,7 +542,7 @@ def main():
         music.stop()
         music = pygame.mixer.Sound('Game/sounds/uncle_dane.mp3')
         music.play()
-        final_show()
+        final_show(final_stats, record)
     except EscapeError:
         return
     finally:

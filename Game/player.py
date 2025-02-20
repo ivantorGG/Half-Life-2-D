@@ -45,6 +45,7 @@ class Player(pygame.sprite.Sprite):
         self.died = False
         self.go_again = False
         self.enemies = []
+
         self.stats = {
             'jumps': 0,
             'bullets shot': 0,

@@ -4,20 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a8ab812-1a3b-4791-a23a-3f55eb22f27e" name="Changes" comment="rip22">
+    <list default="true" id="4a8ab812-1a3b-4791-a23a-3f55eb22f27e" name="Changes" comment="rip23">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/username.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Game/username.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__main__.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__main__.spec" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/Analysis-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/EXE-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/PKG-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/PYZ-00.pyz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/PYZ-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/__main__.pkg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/base_library.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/warn-__main__.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/xref-__main__.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/stats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__main__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,33 +42,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Half-Life2D.executor": "Run",
-    "Python.__main__.executor": "Run",
-    "Python.chargers.executor": "Run",
-    "Python.chips.executor": "Run",
-    "Python.connecting-objects.executor": "Run",
-    "Python.connecting_objects.executor": "Run",
-    "Python.controls.executor": "Run",
-    "Python.enemies.executor": "Run",
-    "Python.food.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.objects.executor": "Run",
-    "Python.player.executor": "Run",
-    "Python.randоm.executor": "Run",
-    "Python.run.executor": "Run",
-    "Python.stats.executor": "Run",
-    "Python.test.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Nout/PycharmProjects/Half-Life-2-D/__main__.py",
-    "settings.editor.selected.configurable": "editor.preferences.completion"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Half-Life2D.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__main__.executor&quot;: &quot;Run&quot;,
+    &quot;Python.chargers.executor&quot;: &quot;Run&quot;,
+    &quot;Python.chips.executor&quot;: &quot;Run&quot;,
+    &quot;Python.connecting-objects.executor&quot;: &quot;Run&quot;,
+    &quot;Python.connecting_objects.executor&quot;: &quot;Run&quot;,
+    &quot;Python.controls.executor&quot;: &quot;Run&quot;,
+    &quot;Python.enemies.executor&quot;: &quot;Run&quot;,
+    &quot;Python.food.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.objects.executor&quot;: &quot;Run&quot;,
+    &quot;Python.player.executor&quot;: &quot;Run&quot;,
+    &quot;Python.randоm.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run.executor&quot;: &quot;Run&quot;,
+    &quot;Python.stats.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.yandex_testing_lesson.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Nout/PycharmProjects/Half-Life-2-D/__main__.py&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Nout\PycharmProjects\Half-Life-2-D\sounds" />
@@ -142,14 +133,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1735325818839</updated>
-    </task>
-    <task id="LOCAL-00017" summary="optimized files">
-      <option name="closed" value="true" />
-      <created>1736833907912</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1736833907912</updated>
     </task>
     <task id="LOCAL-00018" summary="first freeman animations">
       <option name="closed" value="true" />
@@ -535,7 +518,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739973034978</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="rip23">
+      <option name="closed" value="true" />
+      <created>1739974365481</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1739974365481</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -550,7 +541,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="changed names of objs" />
     <MESSAGE value="now we have 1 level" />
     <MESSAGE value="I swear, there is no chess" />
     <MESSAGE value="updated level" />
@@ -575,6 +565,7 @@
     <MESSAGE value="rip" />
     <MESSAGE value="rip12" />
     <MESSAGE value="rip22" />
-    <option name="LAST_COMMIT_MESSAGE" value="rip22" />
+    <MESSAGE value="rip23" />
+    <option name="LAST_COMMIT_MESSAGE" value="rip23" />
   </component>
 </project>
