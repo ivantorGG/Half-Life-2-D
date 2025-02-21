@@ -106,28 +106,6 @@ def first_level_check_events(k_size, player, game_level, all_sprites, invisible_
                         FoodMedkitSmall(k_size, game_level.rect.centerx + 210 * k_size[0], -400 * k_size[0], player,
                                         invisible_horizontal_walls, all_sprites, do_move=False)
 
-                        Crab(k_size, player, game_level.rect.centerx + 310 * k_size[0], -12500 * k_size[0], all_sprites,
-                             do_move=False)
-                        Crab(k_size, player, game_level.rect.centerx + 210 * k_size[0], -12500 * k_size[0], all_sprites,
-                             do_move=False)
-                        Crab(k_size, player, game_level.rect.centerx + 110 * k_size[0], -12500 * k_size[0], all_sprites,
-                             do_move=False)
-                        Crab(k_size, player, game_level.rect.centerx + 10 * k_size[0], -12500 * k_size[0], all_sprites,
-                             do_move=False)
-                        Crab(k_size, player, game_level.rect.centerx + -110 * k_size[0], -12500 * k_size[0],
-                             all_sprites, do_move=False)
-                        Crab(k_size, player, game_level.rect.centerx + -210 * k_size[0], -12500 * k_size[0],
-                             all_sprites, do_move=False)
-                        Crab(k_size, player, game_level.rect.centerx + -310 * k_size[0], -12500 * k_size[0],
-                             all_sprites, do_move=False)
-                        Crab(k_size, player, game_level.rect.centerx + -310 * k_size[0], -10500 * k_size[0],
-                             all_sprites, do_move=False)
-                        Crab(k_size, player, game_level.rect.centerx + -410 * k_size[0], -13500 * k_size[0],
-                             all_sprites, do_move=False)
-                        Crab(k_size, player, game_level.rect.centerx + -110 * k_size[0], -13500 * k_size[0],
-                             all_sprites, do_move=False)
-                        Crab(k_size, player, game_level.rect.centerx + -510 * k_size[0], -13500 * k_size[0],
-                             all_sprites, do_move=False)
                 if no_action:
                     E_sound.play()
 

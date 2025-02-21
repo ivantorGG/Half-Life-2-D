@@ -4,10 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a8ab812-1a3b-4791-a23a-3f55eb22f27e" name="Changes" comment="rip23">
+    <list default="true" id="4a8ab812-1a3b-4791-a23a-3f55eb22f27e" name="Changes" comment="rip24">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/controls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/controls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/stats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__main__.__main__.lnk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__main__.exe" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__main__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__main__.spec" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/Analysis-00.toc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/EXE-00.toc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/PKG-00.toc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/PYZ-00.pyz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/PYZ-00.toc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/__main__.pkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/base_library.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/warn-__main__.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/__main__/xref-__main__.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,14 +146,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1735325818839</updated>
-    </task>
-    <task id="LOCAL-00018" summary="first freeman animations">
-      <option name="closed" value="true" />
-      <created>1736880890492</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1736880890492</updated>
     </task>
     <task id="LOCAL-00019" summary="first freeman animations fixed and a bit optimizes">
       <option name="closed" value="true" />
@@ -526,7 +531,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739974365481</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="rip24">
+      <option name="closed" value="true" />
+      <created>1740071299694</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1740071299695</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -541,7 +554,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="now we have 1 level" />
     <MESSAGE value="I swear, there is no chess" />
     <MESSAGE value="updated level" />
     <MESSAGE value="adding portals" />
@@ -566,6 +578,7 @@
     <MESSAGE value="rip12" />
     <MESSAGE value="rip22" />
     <MESSAGE value="rip23" />
-    <option name="LAST_COMMIT_MESSAGE" value="rip23" />
+    <MESSAGE value="rip24" />
+    <option name="LAST_COMMIT_MESSAGE" value="rip24" />
   </component>
 </project>

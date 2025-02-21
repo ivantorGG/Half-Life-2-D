@@ -1,10 +1,8 @@
-# TODO: Create final stats
 import sys
 import time
 import Game.stats as stats
 import Game.controls as controls
 import pygame
-import sqlite3
 from random import choice
 from Game.player import Player
 from Game.chargers import HEVCharger, HealthCharger
@@ -13,7 +11,6 @@ from Game.enemies import Crab, DirectCrab, TermenatorCrab, FlyingEnemy, DumbCrab
 from Game.connecting_objects import Level, InvisibleWall
 from Game.objects import Obstacle, GameLevel
 from Game.camera import Camera
-from datetime import datetime, timedelta
 from screeninfo import get_monitors
 
 pygame.init()
@@ -56,6 +53,7 @@ def pre_screen():
 
 
 def final_show(final_stats, record):
+    start_time = time.time()
     running = True
     counter = 0
     minus_y = 0
@@ -72,6 +70,8 @@ def final_show(final_stats, record):
         for_slower += 1
         if for_slower % 2 == 0:
             minus_y += 1
+        if time.time() - start_time > 87:
+            running = False
 
         stats.show_credits(screen, k_size, width, minus_y, final_stats, record)
         pygame.display.flip()
@@ -467,69 +467,12 @@ def third_level(player_health, player_suit_health, bullets):
         cloak.tick(FPS)
 
 
-def get_moscow_time():
-    return (datetime.utcnow() + timedelta(hours=3)).strftime("%Y-%m-%d %H:%M:%S")
-
-
-def create_database():
-    conn = sqlite3.connect("Game/game_stats.db")
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS game_records (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE, 
-            record INTEGER,
-            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
-        )
-    ''')
-    conn.commit()
-    conn.close()
-
-
-def save_stats(username, record):
-    conn = sqlite3.connect("Game/game_stats.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT record FROM game_records WHERE username = ?", (username,))
-    existing_record = cursor.fetchone()
-    if existing_record is None:
-        cursor.execute('''
-            INSERT INTO game_records (username, record, timestamp)
-            VALUES (?, ?, ?)
-        ''', (username, record, get_moscow_time()))
-    elif record > existing_record[0]:
-        cursor.execute('''
-            UPDATE game_records
-            SET record = ?, timestamp = ?
-            WHERE username = ?
-        ''', (record, get_moscow_time(), username))
-
-    conn.commit()
-    conn.close()
-
-
-def get_top_players():
-    conn = sqlite3.connect("Game/game_stats.db")
-    cursor = conn.cursor()
-
-    cursor.execute('''
-        SELECT username, record 
-        FROM game_records 
-        ORDER BY record DESC 
-        LIMIT 3
-    ''')
-
-    top_players = cursor.fetchall()
-    conn.close()
-
-    return top_players
-
-
 def main():
     username = stats.get_username(screen)
     if username is None:
         return
 
-    create_database()
+    stats.create_database()
     music = pygame.mixer.Sound('Game/sounds/pre_music1.mp3')
     music.play()
     pygame.mouse.set_visible(True)
@@ -540,7 +483,7 @@ def main():
     music = pygame.mixer.Sound(choice(('Game/sounds/main_music1.mp3', 'Game/sounds/main_music2.mp3')))
     music.play()
 
-    player_health, player_suit_health, bullets = 100000, 0, 0
+    player_health, player_suit_health, bullets = 30, 0, 0
 
     try:
         time_start = time.time()
@@ -559,7 +502,7 @@ def main():
         stats3['time'] += round(time_end - time_start, 2)
 
         final_stats, record = stats.sum_player_stats(stats1, stats2, stats3)
-        save_stats(username, record)
+        stats.save_stats(username, record)
         music.stop()
         music = pygame.mixer.Sound('Game/sounds/uncle_dane.mp3')
         music.play()

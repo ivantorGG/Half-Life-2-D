@@ -1,0 +1,13 @@
+Index: Game/username.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>к
+===================================================================
+diff --git a/Game/username.txt b/Game/username.txt
+--- a/Game/username.txt	
++++ b/Game/username.txt	
+@@ -1,1 +1,1 @@
+-к
+\ No newline at end of file
++q
+\ No newline at end of file

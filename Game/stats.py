@@ -1,6 +1,7 @@
 import random
+import sqlite3
+from datetime import datetime, timedelta
 import pygame
-import __main__
 
 
 def print_pre_screen(screen, width, height):
@@ -244,32 +245,36 @@ def show_credits(screen, k_size, width, minus_y, final_stats, record):
                                                text_w + 18, text_h + 18), 3)
 
     # титры
-    top_3 = __main__.get_top_players()
+    top_3 = get_top_players()
     normal_font = pygame.font.Font('Game/fonts/Roboto-Regular.ttf', round(29 * k_size[0]))
-    credits = ["Программист : Иван ",
-               "Дебаггер : Иван ",
-               "Дизайнер : Иван",
-               "Сценарист: Иван",
-               "Конструктор игры : Иван",
-               "Вор картинок : Иван",
-               f"Ваш рекорд : {record}",
-               "Некоторые данные после прохождения игры :",
-               ]
+    credits = [
+        "Программист : Иван ",
+        "Дебаггер : Иван ",
+        "Дизайнер : Иван",
+        "Сценарист: Иван",
+        "Конструктор игры : Иван",
+        "Вор картинок : Иван",
+        "В других исполнительных ролях:",
+        "Иван;",
+        "Иван;",
+        "Иван",
+        f"Твой рекорд: {record}",
+        "Топ 3 лучших игрока :"
+    ]
 
-    credits.append("Топ 3 лучших игрока :")
     for i, (username, score) in enumerate(top_3, 1):
         credits.append(f"{i}. {username} - {score} очков")
     stats_lines = [f"{key}: {value}" for key, value in final_stats.items()]
-    credits += stats_lines + [
+    credits += [
         "Спасибо за прохождение :) !",
         "Просто повезло -_-"
-    ]
+    ] + stats_lines
 
-    text_y = 1500 - minus_y
+    text_y = 1300 * k_size[0] - minus_y * k_size[0]
     for line in credits:
         credit_text = normal_font.render(line, True, (205, 205, 200))
         screen.blit(credit_text, (width // 2 - credit_text.get_width() // 2, text_y))
-        text_y += 60
+        text_y += 52 * k_size[0]
 
     # лого 2
     normal_font = pygame.font.Font('Game/fonts/Roboto-Medium.ttf', round(40 * k_size[0]))
@@ -277,10 +282,67 @@ def show_credits(screen, k_size, width, minus_y, final_stats, record):
     normal_font = pygame.font.Font('Game/fonts/Roboto-Bold.ttf', round(29 * k_size[0]))
     hl2_text2 = normal_font.render("E", True, (205, 205, 200))
     text_x = width // 2 - (hl2_text1.get_width() // 2 + 10 + hl2_text2.get_width() // 2)
-    text_y = 3600 - minus_y
+    text_y = 3050 * k_size[0] - minus_y * k_size[0]
     text_w = hl2_text1.get_width() + 10 + hl2_text2.get_width()
     text_h = hl2_text1.get_height()
     screen.blit(hl2_text1, (text_x, text_y))
     screen.blit(hl2_text2, (text_x + hl2_text1.get_width() + 10, text_y + 2))
     pygame.draw.rect(screen, (205, 205, 200), (text_x - 8, text_y - 8,
                                                text_w + 18, text_h + 18), 3)
+
+
+def get_top_players():
+    conn = sqlite3.connect("Game/game_stats.db")
+    cursor = conn.cursor()
+
+    cursor.execute('''
+        SELECT username, record 
+        FROM game_records 
+        ORDER BY record DESC 
+        LIMIT 3
+    ''')
+
+    top_players = cursor.fetchall()
+    conn.close()
+
+    return top_players
+
+
+def save_stats(username, record):
+    conn = sqlite3.connect("Game/game_stats.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT record FROM game_records WHERE username = ?", (username,))
+    existing_record = cursor.fetchone()
+    if existing_record is None:
+        cursor.execute('''
+            INSERT INTO game_records (username, record, timestamp)
+            VALUES (?, ?, ?)
+        ''', (username, record, get_moscow_time()))
+    elif record > existing_record[0]:
+        cursor.execute('''
+            UPDATE game_records
+            SET record = ?, timestamp = ?
+            WHERE username = ?
+        ''', (record, get_moscow_time(), username))
+
+    conn.commit()
+    conn.close()
+
+
+def create_database():
+    conn = sqlite3.connect("Game/game_stats.db")
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS game_records (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE, 
+            record INTEGER,
+            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+
+def get_moscow_time():
+    return (datetime.utcnow() + timedelta(hours=3)).strftime("%Y-%m-%d %H:%M:%S")
