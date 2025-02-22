@@ -4,23 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a8ab812-1a3b-4791-a23a-3f55eb22f27e" name="Changes" comment="rip24">
+    <list default="true" id="4a8ab812-1a3b-4791-a23a-3f55eb22f27e" name="Changes" comment="rip299">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/controls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/controls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/sounds/pre_music1.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/Game/sounds/pre_music1.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game/stats.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__main__.__main__.lnk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__main__.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/username.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Game/username.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__main__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__main__.spec" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/Analysis-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/EXE-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/PKG-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/PYZ-00.pyz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/PYZ-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/__main__.pkg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/base_library.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/warn-__main__.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/__main__/xref-__main__.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,41 +44,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.Half-Life2D.executor&quot;: &quot;Run&quot;,
-    &quot;Python.__main__.executor&quot;: &quot;Run&quot;,
-    &quot;Python.chargers.executor&quot;: &quot;Run&quot;,
-    &quot;Python.chips.executor&quot;: &quot;Run&quot;,
-    &quot;Python.connecting-objects.executor&quot;: &quot;Run&quot;,
-    &quot;Python.connecting_objects.executor&quot;: &quot;Run&quot;,
-    &quot;Python.controls.executor&quot;: &quot;Run&quot;,
-    &quot;Python.enemies.executor&quot;: &quot;Run&quot;,
-    &quot;Python.food.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.objects.executor&quot;: &quot;Run&quot;,
-    &quot;Python.player.executor&quot;: &quot;Run&quot;,
-    &quot;Python.randоm.executor&quot;: &quot;Run&quot;,
-    &quot;Python.run.executor&quot;: &quot;Run&quot;,
-    &quot;Python.stats.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.yandex_testing_lesson.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Nout/PycharmProjects/Half-Life-2-D/__main__.py&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.Half-Life2D.executor": "Run",
+    "Python.__main__.executor": "Run",
+    "Python.chargers.executor": "Run",
+    "Python.chips.executor": "Run",
+    "Python.connecting-objects.executor": "Run",
+    "Python.connecting_objects.executor": "Run",
+    "Python.controls.executor": "Run",
+    "Python.enemies.executor": "Run",
+    "Python.food.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.objects.executor": "Run",
+    "Python.player.executor": "Run",
+    "Python.randоm.executor": "Run",
+    "Python.run.executor": "Run",
+    "Python.stats.executor": "Run",
+    "Python.test.executor": "Run",
+    "Python.yandex_testing_lesson.executor": "Run",
+    "Python.ы.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Nout/PycharmProjects/Half-Life-2-D/Game/sounds",
+    "settings.editor.selected.configurable": "editor.preferences.completion"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Nout\PycharmProjects\Half-Life-2-D\Game\sounds" />
       <recent name="C:\Users\Nout\PycharmProjects\Half-Life-2-D\sounds" />
       <recent name="C:\Users\Nout\PycharmProjects\Half-Life-2-D\images\levels\portal\green\ending" />
       <recent name="C:\Users\Nout\PycharmProjects\Half-Life-2-D\images\enemies\SummonerCrab" />
       <recent name="C:\Users\Nout\PycharmProjects\Half-Life-2-D\images\enemies\TermenatorCrab\right" />
-      <recent name="C:\Users\Nout\PycharmProjects\Half-Life-2-D\images\enemies\TermenatorCrab\left" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Nout\PycharmProjects\Half-Life-2-D" />
@@ -146,14 +136,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1735325818839</updated>
-    </task>
-    <task id="LOCAL-00019" summary="first freeman animations fixed and a bit optimizes">
-      <option name="closed" value="true" />
-      <created>1737034508141</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1737034508141</updated>
     </task>
     <task id="LOCAL-00020" summary="system changes">
       <option name="closed" value="true" />
@@ -539,7 +521,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740071299695</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="rip299">
+      <option name="closed" value="true" />
+      <created>1740131698711</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1740131698711</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -554,7 +544,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="I swear, there is no chess" />
     <MESSAGE value="updated level" />
     <MESSAGE value="adding portals" />
     <MESSAGE value="too much commits" />
@@ -579,6 +568,23 @@
     <MESSAGE value="rip22" />
     <MESSAGE value="rip23" />
     <MESSAGE value="rip24" />
-    <option name="LAST_COMMIT_MESSAGE" value="rip24" />
+    <MESSAGE value="rip299" />
+    <option name="LAST_COMMIT_MESSAGE" value="rip299" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/__main__.py</url>
+          <line>45</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/__main__.py</url>
+          <line>44</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

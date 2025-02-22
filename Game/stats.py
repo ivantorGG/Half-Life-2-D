@@ -22,15 +22,18 @@ def print_pre_screen(screen, width, height):
     class PreImage(pygame.sprite.Sprite):
         def __init__(self, *groups):
             super().__init__(*groups)
-            img = pygame.image.load(random.choice(
-                ['Game/images/pre_screen/on_minimum.png',
+            path = random.choice(
+                ['Game/images/pre_screen/on_minimum.png', 'Game/images/pre_screen/icon.png',
                  'Game/images/pre_screen/wake_up.png', 'Game/images/pre_screen/no_chess.jpg',
-                 "Game/images/pre_screen/maxresdefault.jpg", "Game/images/pre_screen/abeba.jpg"]))
+                 "Game/images/pre_screen/maxresdefault.jpg", "Game/images/pre_screen/abeba.jpg",
+                 'Game/images/pre_screen/heavy_tf2.jpg'])
+            img = pygame.image.load(path)
             self.image = img
             self.image = pygame.transform.scale(self.image, (width * 1.2, height * 1.2))
             self.rect = self.image.get_rect()
             self.rect.x = -(width * 1.2 - width) // 2
             self.rect.y = -(height * 1.2 - height) // 2
+            self.path = path
 
     all_sprites = pygame.sprite.Group()
     pre_image = PreImage(all_sprites)
@@ -46,7 +49,7 @@ def print_pre_screen(screen, width, height):
     btn_x1, btn_y1, btn_x2, btn_y2 = draw_btn1()
     btn2_x1, btn2_y1, btn2_x2, btn2_y2 = draw_btn2()
 
-    return pre_image, all_sprites, draw_btn1, draw_btn2, btn_x1, btn_y1, btn_x2, btn_y2, btn2_x1, btn2_y1, btn2_x2, btn2_y2
+    return pre_image, pre_image.path, all_sprites, draw_btn1, draw_btn2, btn_x1, btn_y1, btn_x2, btn_y2, btn2_x1, btn2_y1, btn2_x2, btn2_y2
 
 
 def print_stats(screen, k_size, player):

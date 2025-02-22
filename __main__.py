@@ -34,8 +34,21 @@ def pre_screen():
     running = True
     first_motion = True
     last_place = None
-    image, all_sprites, draw_btn, draw_btn2, btn_x1, btn_y1, btn_x2, btn_y2, btn2_x1, btn2_y1, btn2_x2, btn2_y2 = stats.print_pre_screen(
+    image, img_path, all_sprites, draw_btn, draw_btn2, btn_x1, btn_y1, btn_x2, btn_y2, btn2_x1, btn2_y1, btn2_x2, btn2_y2 = stats.print_pre_screen(
         screen, width, height)
+    pygame.mouse.set_visible(True)
+    img_sound_paths = {
+        'Game/images/pre_screen/on_minimum.png': 'Game/sounds/pre_music1.mp3',
+        'Game/images/pre_screen/icon.png': 'Game/sounds/pre_music5.mp3',
+        'Game/images/pre_screen/wake_up.png': 'Game/sounds/pre_music2.mp3',
+        'Game/images/pre_screen/no_chess.jpg': 'Game/sounds/pre_music3.mp3',
+        "Game/images/pre_screen/maxresdefault.jpg": 'Game/sounds/pre_music6.mp3',
+        "Game/images/pre_screen/abeba.jpg": 'Game/sounds/pre_music7.mp3',
+        'Game/images/pre_screen/heavy_tf2.jpg': 'Game/sounds/pre_music4.mp3'
+    }
+    path = img_sound_paths[img_path]
+    music = pygame.mixer.Sound(path)
+    music.play(-1)
     while running:
         image, first_motion, last_place, running = controls.pre_screen_check_events(image, first_motion, last_place,
                                                                                     width, height, btn_x1, btn_y1,
@@ -50,6 +63,9 @@ def pre_screen():
         draw_btn2()
         if running is None:
             running = True
+
+    pygame.mouse.set_visible(False)
+    music.stop()
 
 
 def final_show(final_stats, record):
@@ -473,15 +489,10 @@ def main():
         return
 
     stats.create_database()
-    music = pygame.mixer.Sound('Game/sounds/pre_music1.mp3')
-    music.play()
-    pygame.mouse.set_visible(True)
     pre_screen()
-    pygame.mouse.set_visible(False)
-    music.stop()
 
     music = pygame.mixer.Sound(choice(('Game/sounds/main_music1.mp3', 'Game/sounds/main_music2.mp3')))
-    music.play()
+    music.play(-1)
 
     player_health, player_suit_health, bullets = 30, 0, 0
 
